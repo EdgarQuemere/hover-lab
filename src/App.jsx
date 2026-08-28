@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { CaretDown } from '@phosphor-icons/react';
 import Header from './components/Header';
 import ControlsBar from './components/ControlsBar';
 import HoverCard from './components/HoverCard';
@@ -8,6 +9,8 @@ import { HOVER_EFFECTS } from './data/hoverEffects';
 import { getTranslation, getTranslatedEffect } from './data/translations';
 import './styles/hovers.css';
 import './App.css';
+
+const CARDS_PER_PAGE = 24;
 
 const DEFAULT_CONFIG = {
   buttonText: 'Filters',
@@ -133,6 +136,13 @@ export default function App() {
     return () => clearInterval(interval);
   }, [filteredEffects, activeModalEffect, activeStudioEffect, autoPlayMode]);
 
+  const [visibleCount, setVisibleCount] = useState(CARDS_PER_PAGE);
+
+  // Reset pagination when search or category filter changes
+  useEffect(() => {
+    setVisibleCount(CARDS_PER_PAGE);
+  }, [searchQuery, config.filterCategory]);
+
   const handleUserHoverStart = (id) => {
     userHoveredRef.current.add(id);
     setAutoHoveredIds((prev) => {
@@ -160,6 +170,12 @@ export default function App() {
       const parsedId = parseInt(rawId, 10);
       if (isNaN(parsedId)) return;
 
+      const targetIndex = filteredEffects.findIndex((e) => e.id === parsedId);
+      if (targetIndex >= 0) {
+        const requiredLimit = Math.ceil((targetIndex + 1) / CARDS_PER_PAGE) * CARDS_PER_PAGE;
+        setVisibleCount((prev) => Math.max(prev, requiredLimit));
+      }
+
       setTimeout(() => {
         const el = document.getElementById(`effect-${parsedId}`);
         if (el) {
@@ -173,9 +189,12 @@ export default function App() {
     handleHashCheck();
     window.addEventListener('hashchange', handleHashCheck);
     return () => window.removeEventListener('hashchange', handleHashCheck);
-  }, []);
+  }, [filteredEffects]);
 
   const [overrideModalConfig, setOverrideModalConfig] = useState(null);
+
+  const visibleEffects = filteredEffects.slice(0, visibleCount);
+  const hasMore = visibleCount < filteredEffects.length;
 
   return (
     <div className="app-container font-satoshi">
@@ -195,25 +214,43 @@ export default function App() {
 
       <main className="main-content">
         {filteredEffects.length > 0 ? (
-          <div className="specimen-grid">
-            {filteredEffects.map((effect) => (
-              <HoverCard
-                key={effect.id}
-                effect={effect}
-                config={config}
-                onOpenCode={(eff) => {
-                  setActiveModalEffect(eff);
-                  setOverrideModalConfig(null);
-                }}
-                onOpenStudio={(eff) => setActiveStudioEffect(eff)}
-                t={t}
-                isAutoHovered={autoHoveredIds.has(effect.id)}
-                isTargeted={targetedEffectId === effect.id}
-                onUserHoverStart={handleUserHoverStart}
-                onUserHoverEnd={handleUserHoverEnd}
-              />
-            ))}
-          </div>
+          <>
+            <div className="specimen-grid">
+              {visibleEffects.map((effect) => (
+                <HoverCard
+                  key={effect.id}
+                  effect={effect}
+                  config={config}
+                  onOpenCode={(eff) => {
+                    setActiveModalEffect(eff);
+                    setOverrideModalConfig(null);
+                  }}
+                  onOpenStudio={(eff) => setActiveStudioEffect(eff)}
+                  t={t}
+                  isAutoHovered={autoHoveredIds.has(effect.id)}
+                  isTargeted={targetedEffectId === effect.id}
+                  onUserHoverStart={handleUserHoverStart}
+                  onUserHoverEnd={handleUserHoverEnd}
+                />
+              ))}
+            </div>
+
+            {hasMore && (
+              <div className="load-more-section">
+                <p className="load-more-info">
+                  {t('showing_x_of_y', { count: visibleEffects.length, total: filteredEffects.length })}
+                </p>
+                <button
+                  type="button"
+                  className="load-more-btn"
+                  onClick={() => setVisibleCount((prev) => prev + CARDS_PER_PAGE)}
+                >
+                  <span>{t('load_more')}</span>
+                  <CaretDown size={16} weight="bold" />
+                </button>
+              </div>
+            )}
+          </>
         ) : (
           <div className="empty-search-state">
             <p className="empty-search-title">{t('no_results_title', { query: searchQuery })}</p>
