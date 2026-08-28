@@ -1,0 +1,80 @@
+/* 03. Balayage Laser (Laser Flash) */
+.btn-hover-shimmer {
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+              background-color 0.4s ease,
+              box-shadow 0.4s ease,
+              border-color 0.4s ease !important;
+}
+
+.btn-hover-shimmer::before {
+  content: '';
+  position: absolute;
+  top: -60%;
+  left: -80%;
+  width: 260%;
+  height: 220%;
+  background: linear-gradient(
+    115deg,
+    transparent 20%,
+    rgba(24, 24, 27, 0.03) 38%,
+    rgba(24, 24, 27, 0.25) 48%,
+    rgba(255, 255, 255, 0.9) 50%,
+    rgba(24, 24, 27, 0.25) 52%,
+    rgba(24, 24, 27, 0.03) 62%,
+    transparent 80%
+  );
+  transform: translateX(-120%) rotate(25deg);
+  transition: transform 1.4s cubic-bezier(0.19, 1, 0.22, 1);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.canvas-dark .btn-hover-shimmer::before {
+  background: linear-gradient(
+    115deg,
+    transparent 20%,
+    rgba(255, 255, 255, 0.05) 38%,
+    rgba(255, 255, 255, 0.45) 48%,
+    rgba(255, 255, 255, 0.95) 50%,
+    rgba(255, 255, 255, 0.45) 52%,
+    rgba(255, 255, 255, 0.05) 62%,
+    transparent 80%
+  );
+}
+
+.btn-hover-shimmer:hover::before,
+.btn-hover-shimmer.is-auto-hovered::before {
+  transform: translateX(120%) rotate(25deg);
+}
+
+.btn-hover-shimmer:hover,
+.btn-hover-shimmer.is-auto-hovered {
+  transform: translateY(-2px) scale(1.015);
+  background-color: rgba(24, 24, 27, 0.05);
+  box-shadow: 0 6px 20px rgba(24, 24, 27, 0.08);
+}
+
+.canvas-dark .btn-hover-shimmer:hover,
+.canvas-dark .btn-hover-shimmer.is-auto-hovered {
+  background-color: rgba(255, 255, 255, 0.08);
+  box-shadow: 0 6px 25px rgba(255, 255, 255, 0.14);
+}
+
+.btn-hover-shimmer:active {
+  transform: translateY(0) scale(0.97);
+  box-shadow: 0 2px 8px rgba(24, 24, 27, 0.04);
+}
+
+.btn-hover-shimmer .btn-icon,
+.btn-hover-shimmer span {
+  position: relative;
+  z-index: 2;
+  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.btn-hover-shimmer:hover .btn-icon,
+.btn-hover-shimmer.is-auto-hovered .btn-icon {
+  transform: translateX(3px) scale(1.1);
+}

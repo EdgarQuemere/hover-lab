@@ -1,0 +1,31 @@
+/* 07. Expansion Radiale (Ripple Mask) */
+.btn-hover-ripple {
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.btn-hover-ripple::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  background-color: var(--btn-color, #18181b);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  transition: width 0.45s ease-out, height 0.45s ease-out;
+  z-index: -1;
+}
+
+.btn-hover-ripple:hover::before,
+.btn-hover-ripple.is-auto-hovered::before {
+  width: 340px;
+  height: 340px;
+}
+
+.btn-hover-ripple:hover,
+.btn-hover-ripple.is-auto-hovered {
+  color: var(--btn-bg, #ffffff) !important;
+}

@@ -1,0 +1,32 @@
+/* 20. Vagues en Cascades Staggered (Staggered Liquid Columns) */
+.btn-hover-stagger-liquid {
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+  transition: color 0.5s ease, border-color 0.5s ease;
+}
+
+.btn-hover-stagger-liquid .btn-stagger-drop {
+  position: absolute;
+  top: 0;
+  width: 25.5%;
+  height: 100%;
+  background-color: var(--btn-color, #18181b);
+  transform: translateY(150%);
+  border-radius: 50%;
+  left: calc((var(--delay) - 1) * 25%);
+  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.5s ease;
+  transition-delay: calc((var(--delay) - 1) * 0.08s);
+  z-index: -1;
+  pointer-events: none;
+}
+
+.btn-hover-stagger-liquid:hover .btn-stagger-drop,
+.btn-hover-stagger-liquid.is-auto-hovered .btn-stagger-drop {
+  transform: translateY(0) scale(2.2);
+}
+
+.btn-hover-stagger-liquid:hover,
+.btn-hover-stagger-liquid.is-auto-hovered {
+  color: var(--btn-bg, #ffffff) !important;
+}

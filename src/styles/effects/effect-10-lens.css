@@ -1,0 +1,32 @@
+/* 10. Loupe Contrastée (Lens Focus Invert) */
+.btn-hover-lens {
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.btn-hover-lens::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100%;
+  height: 100%;
+  background-color: var(--btn-color, #18181b);
+  border-radius: inherit;
+  transform: translate(-50%, -50%) scale(0);
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  z-index: -1;
+}
+
+.btn-hover-lens:hover::before,
+.btn-hover-lens.is-auto-hovered::before {
+  transform: translate(-50%, -50%) scale(1);
+}
+
+.btn-hover-lens:hover,
+.btn-hover-lens.is-auto-hovered {
+  color: var(--btn-bg, #ffffff) !important;
+  transform: scale(1.03);
+}

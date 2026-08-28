@@ -1,0 +1,31 @@
+/* 02. Glissement Icône (Icon Push) */
+.btn-hover-icon-push {
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s ease, background-color 0.25s ease;
+}
+
+.btn-hover-icon-push .btn-icon {
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.btn-hover-icon-push:hover,
+.btn-hover-icon-push.is-auto-hovered {
+  transform: translateY(-3px);
+  background-color: rgba(24, 24, 27, 0.04);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+}
+
+.canvas-dark .btn-hover-icon-push:hover,
+.canvas-dark .btn-hover-icon-push.is-auto-hovered {
+  background-color: rgba(255, 255, 255, 0.08);
+  box-shadow: 0 8px 24px rgba(255, 255, 255, 0.12);
+}
+
+.btn-hover-icon-push:hover .btn-icon-right,
+.btn-hover-icon-push.is-auto-hovered .btn-icon-right {
+  transform: translateX(6px);
+}
+
+.btn-hover-icon-push:hover .btn-icon-left,
+.btn-hover-icon-push.is-auto-hovered .btn-icon-left {
+  transform: translateX(-6px);
+}

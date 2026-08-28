@@ -1,0 +1,84 @@
+/* 19. Permutation Icône & Texte (Picto & Text Swap) */
+.btn-hover-icon-swap-morph {
+  position: relative;
+  overflow: hidden;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  z-index: 1;
+  --swap-text-x: -25px;
+  --swap-icon-x: 56px;
+  transition: transform 0.25s ease,
+              background-color 0.3s ease,
+              color 0.3s ease;
+}
+
+.btn-size-sm.btn-hover-icon-swap-morph {
+  --swap-text-x: -21px;
+  --swap-icon-x: 48px;
+}
+
+.btn-size-lg.btn-hover-icon-swap-morph {
+  --swap-text-x: -29px;
+  --swap-icon-x: 66px;
+}
+
+.btn-hover-icon-swap-morph::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0);
+  width: 100%;
+  height: 100%;
+  min-width: 260px;
+  min-height: 260px;
+  background-color: var(--btn-color, #18181b);
+  border-radius: 50%;
+  opacity: 0;
+  transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1), opacity 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+  z-index: -1;
+}
+
+.btn-hover-icon-swap-morph:hover::before,
+.btn-hover-icon-swap-morph.is-auto-hovered::before {
+  transform: translate(-50%, -50%) scale(1);
+  opacity: 1;
+}
+
+.btn-hover-icon-swap-morph .btn-content-wrap,
+.btn-hover-icon-swap-morph .btn-icon-swap-left {
+  position: relative;
+  z-index: 1;
+  transition: transform 0.55s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.btn-hover-icon-swap-morph:hover .btn-content-wrap,
+.btn-hover-icon-swap-morph.is-auto-hovered .btn-content-wrap {
+  transform: translateX(var(--swap-text-x));
+}
+
+.btn-hover-icon-swap-morph:hover .btn-icon-swap-left,
+.btn-hover-icon-swap-morph.is-auto-hovered .btn-icon-swap-left {
+  transform: translateX(var(--swap-icon-x));
+}
+
+.btn-hover-icon-swap-morph:hover,
+.btn-hover-icon-swap-morph.is-auto-hovered {
+  color: var(--btn-bg, #ffffff) !important;
+  border-color: var(--btn-color, #18181b) !important;
+}
+
+.canvas-dark .btn-hover-icon-swap-morph:hover,
+.canvas-dark .btn-hover-icon-swap-morph.is-auto-hovered {
+  color: #18181b !important;
+}
+
+.canvas-dark .btn-hover-icon-swap-morph::before {
+  background-color: #ffffff;
+}
+
+.btn-hover-icon-swap-morph:active {
+  transform: scale(0.96);
+}

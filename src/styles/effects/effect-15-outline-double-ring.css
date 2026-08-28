@@ -1,0 +1,29 @@
+/* 15. Double Anneau Concentrique (Concentric Inner Ring Collapse) */
+.btn-hover-outline-double-ring {
+  position: relative;
+  z-index: 1;
+  transition: transform 0.25s ease;
+}
+
+.btn-hover-outline-double-ring::before {
+  content: '';
+  position: absolute;
+  inset: 4px;
+  border: 1px solid var(--btn-color, #18181b);
+  border-radius: inherit;
+  opacity: 0;
+  transform: scale(1.12);
+  transition: opacity 0.3s ease, transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  pointer-events: none;
+}
+
+.btn-hover-outline-double-ring:hover::before,
+.btn-hover-outline-double-ring.is-auto-hovered::before {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.btn-hover-outline-double-ring:hover,
+.btn-hover-outline-double-ring.is-auto-hovered {
+  transform: scale(1.02);
+}

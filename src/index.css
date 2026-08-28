@@ -1,0 +1,155 @@
+/* Fontshare Satoshi Font + Google Fonts */
+@import url('https://api.fontshare.com/v2/css?f[]=satoshi@900,700,500,400,300&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@400;500;600;700&display=swap');
+
+:root {
+  /* Minimalist Off-White / Cream Studio Palette */
+  --bg-primary: #F4F3EF;
+  --bg-surface: #EFECE6;
+  --bg-surface-hover: #E7E3DB;
+  --bg-panel: #FAF9F5;
+  --border-subtle: #D8D5CC;
+  --border-strong: #18181B;
+  --border-active: #000000;
+  
+  --text-main: #18181B;
+  --text-muted: #616166;
+  --text-faint: #919196;
+
+  --accent-black: #18181B;
+  --accent-white: #FFFFFF;
+
+  --font-satoshi: 'Satoshi', system-ui, -apple-system, sans-serif;
+  --font-inter: 'Inter', system-ui, sans-serif;
+  --font-space: 'Space Grotesk', sans-serif;
+  --font-instrument: 'Instrument Sans', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+
+  --current-font: var(--font-satoshi);
+}
+
+/* Dark Theme Support */
+body.theme-dark {
+  --bg-primary: #0A0A0C;
+  --bg-surface: #121215;
+  --bg-surface-hover: #1A1A1E;
+  --bg-panel: #141417;
+  --border-subtle: #242428;
+  --border-strong: #E4E4E7;
+  --border-active: #FFFFFF;
+
+  --text-main: #F4F4F5;
+  --text-muted: #A1A1AA;
+  --text-faint: #52525B;
+
+  --accent-black: #FFFFFF;
+  --accent-white: #0A0A0C;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: var(--bg-primary);
+  color: var(--text-main);
+  font-family: var(--current-font);
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Font Family Classes */
+.font-satoshi { font-family: var(--font-satoshi) !important; }
+.font-inter { font-family: var(--font-inter) !important; }
+.font-space { font-family: var(--font-space) !important; }
+.font-instrument { font-family: var(--font-instrument) !important; }
+.font-mono { font-family: var(--font-mono) !important; }
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+  border: none;
+  outline: none;
+  background: none;
+  user-select: none;
+}
+
+input, select {
+  font-family: inherit;
+  outline: none;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg-primary);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--border-subtle);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--text-muted);
+}
+
+/* App Container */
+.app-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* Base Specimen Button Styles - BASE STATE OUTLINE (Matching reference photo) */
+.specimen-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  white-space: nowrap;
+  cursor: pointer;
+  background-color: transparent;
+  color: var(--btn-color, #18181b);
+  border: 1.5px solid var(--btn-color, #18181b);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Sizes */
+.btn-size-sm {
+  padding: 8px 20px;
+  font-size: 0.8125rem;
+}
+.btn-size-md {
+  padding: 12px 28px;
+  font-size: 0.9375rem;
+}
+.btn-size-lg {
+  padding: 16px 36px;
+  font-size: 1.0625rem;
+}
+
+/* CANVAS BACKGROUND MODES */
+.canvas-dark {
+  background-color: #0E0E10;
+  color: #F4F4F5;
+  border-bottom: 1px solid #1F1F23;
+  --btn-color: #FFFFFF;
+  --btn-bg: #0E0E10;
+}
+
+.canvas-light {
+  background-color: #EFECE6;
+  color: #18181B;
+  border-bottom: 1px solid #E2DFD6;
+  --btn-color: #18181B;
+  --btn-bg: #EFECE6;
+}

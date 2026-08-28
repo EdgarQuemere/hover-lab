@@ -1,0 +1,41 @@
+/* 08. Soulignement Intégré (Inner Underline) */
+.btn-hover-underline {
+  position: relative;
+  overflow: hidden;
+  transition: background-color 0.3s ease, transform 0.25s ease;
+}
+
+.btn-hover-underline::after {
+  content: '';
+  position: absolute;
+  bottom: 5px;
+  left: 50%;
+  width: 0;
+  height: 2px;
+  background-color: var(--btn-color, #18181b);
+  transform: translateX(-50%);
+  transition: width 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  border-radius: 2px;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.btn-hover-underline:hover::after,
+.btn-hover-underline.is-auto-hovered::after {
+  width: calc(100% - 24px);
+}
+
+.btn-hover-underline:hover,
+.btn-hover-underline.is-auto-hovered {
+  transform: translateY(-2px);
+  background-color: rgba(24, 24, 27, 0.04);
+}
+
+.canvas-dark .btn-hover-underline::after {
+  background-color: #ffffff;
+}
+
+.canvas-dark .btn-hover-underline:hover,
+.canvas-dark .btn-hover-underline.is-auto-hovered {
+  background-color: rgba(255, 255, 255, 0.08);
+}

@@ -1,0 +1,18 @@
+/* 04. Bloc 3D Pressé (Extruded Press) */
+.btn-hover-3d-press {
+  position: relative;
+  box-shadow: 4px 4px 0px var(--btn-color, #18181b);
+  transition: transform 0.15s ease, box-shadow 0.15s ease, background-color 0.15s ease;
+}
+
+.btn-hover-3d-press:hover,
+.btn-hover-3d-press.is-auto-hovered {
+  transform: translate(2px, 2px);
+  box-shadow: 2px 2px 0px var(--btn-color, #18181b);
+  background-color: rgba(24, 24, 27, 0.03);
+}
+
+.btn-hover-3d-press:active {
+  transform: translate(4px, 4px);
+  box-shadow: 0px 0px 0px var(--btn-color, #18181b);
+}

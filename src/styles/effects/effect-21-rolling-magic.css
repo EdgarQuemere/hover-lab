@@ -1,0 +1,91 @@
+/* 21. Typographie Rolling & Picto Magique (Rolling Text & 360° Magic Picto) */
+.btn-hover-rolling-magic {
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.25s ease,
+              background-color 0.3s ease,
+              border-color 0.3s ease,
+              box-shadow 0.35s ease;
+}
+
+.btn-hover-rolling-magic:hover,
+.btn-hover-rolling-magic.is-auto-hovered {
+  transform: translateY(-2px);
+  background-color: rgba(24, 24, 27, 0.05);
+  box-shadow: 0 4px 20px rgba(24, 24, 27, 0.08);
+}
+
+.canvas-dark .btn-hover-rolling-magic:hover,
+.canvas-dark .btn-hover-rolling-magic.is-auto-hovered {
+  background-color: rgba(255, 255, 255, 0.08);
+  box-shadow: 0 4px 25px rgba(255, 255, 255, 0.12);
+}
+
+/* Magic Icon Transformation (Révolution 360° + Glow Aura) */
+.btn-hover-rolling-magic .btn-icon {
+  position: relative;
+  z-index: 2;
+  transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1), filter 0.4s ease;
+}
+
+.btn-hover-rolling-magic:hover .btn-icon,
+.btn-hover-rolling-magic.is-auto-hovered .btn-icon {
+  transform: translateX(4px) rotate(360deg) scale(1.25);
+  filter: drop-shadow(0 0 8px var(--btn-color, #18181b));
+}
+
+.canvas-dark .btn-hover-rolling-magic:hover .btn-icon,
+.canvas-dark .btn-hover-rolling-magic.is-auto-hovered .btn-icon {
+  filter: drop-shadow(0 0 10px #ffffff);
+}
+
+/* Rolling Text Kinetic Typography */
+.btn-rolling-text {
+  position: relative;
+  display: inline-block;
+  overflow: hidden;
+  line-height: 1.2;
+  vertical-align: middle;
+}
+
+.btn-rolling-line {
+  display: inline-flex;
+  white-space: pre;
+}
+
+.btn-rolling-line.duplicate {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+}
+
+.btn-rolling-char {
+  display: inline-block;
+  transition: transform 0.45s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.3s ease;
+  transition-delay: calc(var(--char-i) * 0.035s);
+  transform-origin: 50% 100%;
+  backface-visibility: hidden;
+}
+
+.btn-rolling-line.original .btn-rolling-char {
+  transform: translateY(0) rotateX(0);
+  opacity: 1;
+}
+
+.btn-rolling-line.duplicate .btn-rolling-char {
+  transform: translateY(120%) rotateX(-90deg);
+  opacity: 0;
+}
+
+.btn-hover-rolling-magic:hover .btn-rolling-line.original .btn-rolling-char,
+.btn-hover-rolling-magic.is-auto-hovered .btn-rolling-line.original .btn-rolling-char {
+  transform: translateY(-120%) rotateX(90deg);
+  opacity: 0;
+}
+
+.btn-hover-rolling-magic:hover .btn-rolling-line.duplicate .btn-rolling-char,
+.btn-hover-rolling-magic.is-auto-hovered .btn-rolling-line.duplicate .btn-rolling-char {
+  transform: translateY(0) rotateX(0);
+  opacity: 1;
+}

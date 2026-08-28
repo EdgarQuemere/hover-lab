@@ -1,0 +1,62 @@
+/* 23. Tracé SVG Circuit Élégant (Clean Single Line Circuit Sweep) */
+.btn-hover-outline-draw-glow {
+  position: relative;
+  border: none !important;
+  background-color: transparent !important;
+  transition: transform 0.25s ease;
+}
+
+.btn-hover-outline-draw-glow .btn-svg-border {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  overflow: visible;
+  border-radius: inherit;
+}
+
+.btn-hover-outline-draw-glow .btn-svg-rect-draw {
+  fill: transparent;
+  stroke: var(--btn-color, #18181b);
+  stroke-width: 1.5;
+  pathLength: 100;
+  stroke-dasharray: 100 0;
+  stroke-dashoffset: 0;
+  transition: fill 0.3s ease, stroke-dasharray 0.35s ease, stroke-dashoffset 0.35s ease;
+}
+
+@keyframes svgCleanCircuitSweep {
+  0% {
+    stroke-dasharray: 100 0;
+    stroke-dashoffset: 0;
+  }
+  20% {
+    stroke-dasharray: 25 75;
+    stroke-dashoffset: -5;
+  }
+  80% {
+    stroke-dasharray: 25 75;
+    stroke-dashoffset: -75;
+  }
+  100% {
+    stroke-dasharray: 100 0;
+    stroke-dashoffset: -100;
+  }
+}
+
+.btn-hover-outline-draw-glow:hover .btn-svg-rect-draw,
+.btn-hover-outline-draw-glow.is-auto-hovered .btn-svg-rect-draw {
+  fill: rgba(24, 24, 27, 0.05);
+  animation: svgCleanCircuitSweep 0.85s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+}
+
+.canvas-dark .btn-hover-outline-draw-glow:hover .btn-svg-rect-draw,
+.canvas-dark .btn-hover-outline-draw-glow.is-auto-hovered .btn-svg-rect-draw {
+  fill: rgba(255, 255, 255, 0.08);
+}
+
+.btn-hover-outline-draw-glow:hover,
+.btn-hover-outline-draw-glow.is-auto-hovered {
+  transform: translateY(-2px);
+}

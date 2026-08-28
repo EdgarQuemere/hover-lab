@@ -1,0 +1,10 @@
+/* 13. Épaississement de Bordure (Outline Weight Growth) */
+.btn-hover-outline-weight {
+  transition: border-width 0.25s ease, box-shadow 0.25s ease, transform 0.25s ease;
+}
+
+.btn-hover-outline-weight:hover,
+.btn-hover-outline-weight.is-auto-hovered {
+  border-width: 2.5px;
+  transform: scale(1.02);
+}

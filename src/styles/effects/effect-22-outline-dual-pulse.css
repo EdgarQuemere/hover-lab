@@ -1,0 +1,61 @@
+/* 22. Double Tracé SVG Opposé (Colliding Dual Circuits) */
+.btn-hover-outline-dual-pulse {
+  position: relative;
+  border: none !important;
+  background-color: transparent !important;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.btn-hover-outline-dual-pulse .btn-svg-border {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  overflow: visible;
+  border-radius: inherit;
+}
+
+.btn-hover-outline-dual-pulse .btn-svg-rect-pulse-1,
+.btn-hover-outline-dual-pulse .btn-svg-rect-pulse-2 {
+  fill: transparent;
+  stroke: var(--btn-color, #18181b);
+  stroke-width: 1.5;
+  pathLength: 100;
+  stroke-dasharray: 100 0;
+  stroke-dashoffset: 0;
+  transition: fill 0.35s ease;
+}
+
+@keyframes svgDualPulseCW {
+  0% { stroke-dasharray: 0 100; stroke-dashoffset: 0; }
+  50% { stroke-dasharray: 25 75; stroke-dashoffset: -25; }
+  100% { stroke-dasharray: 100 0; stroke-dashoffset: -50; }
+}
+
+@keyframes svgDualPulseCCW {
+  0% { stroke-dasharray: 0 100; stroke-dashoffset: 0; }
+  50% { stroke-dasharray: 25 75; stroke-dashoffset: 25; }
+  100% { stroke-dasharray: 100 0; stroke-dashoffset: 50; }
+}
+
+.btn-hover-outline-dual-pulse:hover .btn-svg-rect-pulse-1,
+.btn-hover-outline-dual-pulse.is-auto-hovered .btn-svg-rect-pulse-1 {
+  fill: rgba(24, 24, 27, 0.05);
+  animation: svgDualPulseCW 0.85s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+}
+
+.btn-hover-outline-dual-pulse:hover .btn-svg-rect-pulse-2,
+.btn-hover-outline-dual-pulse.is-auto-hovered .btn-svg-rect-pulse-2 {
+  animation: svgDualPulseCCW 0.85s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+}
+
+.btn-hover-outline-dual-pulse:hover,
+.btn-hover-outline-dual-pulse.is-auto-hovered {
+  transform: translateY(-2px);
+}
+
+.canvas-dark .btn-hover-outline-dual-pulse:hover .btn-svg-rect-pulse-1,
+.canvas-dark .btn-hover-outline-dual-pulse.is-auto-hovered .btn-svg-rect-pulse-1 {
+  fill: rgba(255, 255, 255, 0.08);
+}

@@ -1,0 +1,20 @@
+/* 09. Rotation Magnétique (Magnetic Float) */
+.btn-hover-magnetic {
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease, background-color 0.3s ease;
+}
+
+.btn-hover-magnetic .btn-icon {
+  transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.btn-hover-magnetic:hover,
+.btn-hover-magnetic.is-auto-hovered {
+  transform: translateY(-4px) scale(1.02);
+  box-shadow: 0 12px 24px -6px rgba(0, 0, 0, 0.12);
+  background-color: rgba(24, 24, 27, 0.04);
+}
+
+.btn-hover-magnetic:hover .btn-icon,
+.btn-hover-magnetic.is-auto-hovered .btn-icon {
+  transform: rotate(45deg) scale(1.15);
+}

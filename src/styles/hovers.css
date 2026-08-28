@@ -1,0 +1,28 @@
+/* ==========================================================================
+   HOVERLAB - Modular Hover Animations Catalog
+   Each hover effect is segmented into its own dev CSS file in ./effects/
+   ========================================================================== */
+
+@import './effects/effect-01-fill-sweep.css';
+@import './effects/effect-02-icon-push.css';
+@import './effects/effect-03-shimmer.css';
+@import './effects/effect-04-3d-press.css';
+@import './effects/effect-05-corner-brackets.css';
+@import './effects/effect-06-glow-pulse.css';
+@import './effects/effect-07-ripple.css';
+@import './effects/effect-08-underline.css';
+@import './effects/effect-09-magnetic.css';
+@import './effects/effect-10-lens.css';
+@import './effects/effect-11-text-elevator.css';
+@import './effects/effect-12-color-acid.css';
+@import './effects/effect-13-outline-weight.css';
+@import './effects/effect-14-outline-dashed.css';
+@import './effects/effect-15-outline-double-ring.css';
+@import './effects/effect-16-outline-notches.css';
+@import './effects/effect-17-outline-revolving.css';
+@import './effects/effect-18-confetti-burst.css';
+@import './effects/effect-19-icon-swap-morph.css';
+@import './effects/effect-20-stagger-liquid.css';
+@import './effects/effect-21-rolling-magic.css';
+@import './effects/effect-22-outline-dual-pulse.css';
+@import './effects/effect-23-outline-draw-glow.css';

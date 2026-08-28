@@ -1,0 +1,44 @@
+/* 11. Ascenseur Texte (Text Elevator Roll) */
+.btn-hover-text-elevator {
+  position: relative;
+  overflow: hidden !important;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.btn-hover-text-elevator .btn-content-wrap {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  height: 100%;
+  width: 100%;
+}
+
+.btn-hover-text-elevator:hover .btn-content-wrap,
+.btn-hover-text-elevator.is-auto-hovered .btn-content-wrap {
+  transform: translateY(-160%);
+}
+
+.btn-hover-text-elevator .btn-content-duplicate {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transform: translateY(160%);
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  height: 100%;
+  width: 100%;
+}
+
+.btn-hover-text-elevator:hover .btn-content-duplicate,
+.btn-hover-text-elevator.is-auto-hovered .btn-content-duplicate {
+  transform: translateY(0);
+}
+
+.btn-hover-text-elevator:hover,
+.btn-hover-text-elevator.is-auto-hovered {
+  background-color: rgba(24, 24, 27, 0.04);
+}
