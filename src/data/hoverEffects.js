@@ -193,47 +193,52 @@ export const HOVER_EFFECTS = [
     name: '08. Carte 3D Pivotante',
     category: 'Monochrome B&W',
     className: 'btn-hover-card-flip',
-    description: 'Carte 3D recto-verso qui pivote à 180° au survol avec face arrière contrastée violette.',
-    cssCode: `.card {
-  width: 200px;
-  height: 250px;
-  margin: 1rem auto;
+    description: 'Bouton 3D recto-verso qui pivote à 180° au survol avec inversion dynamique des couleurs et du contour.',
+    cssCode: `.btn-hover-card-flip {
   perspective: 1000px;
-  cursor: pointer;
+  position: relative;
+  background: transparent;
+  border: none;
+  padding: 0;
 }
 
-.card-inner {
+.btn-hover-card-flip .card-inner {
   position: relative;
   width: 100%;
   height: 100%;
-  transition: transform 0.6s;
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
   transform-style: preserve-3d;
 }
 
-.card:hover .card-inner {
+.btn-hover-card-flip:hover .card-inner {
   transform: rotateY(180deg);
 }
 
-.card-front,
-.card-back {
+.btn-hover-card-flip .card-front,
+.btn-hover-card-flip .card-back {
   position: absolute;
+  inset: 0;
   width: 100%;
   height: 100%;
   backface-visibility: hidden;
-  display: flex;
+  display: inline-flex;
   align-items: center;
   justify-content: center;
-  border-radius: 0.5rem;
+  gap: 8px;
+  border-radius: inherit;
+  padding: 0 20px;
 }
 
-.card-front {
-  background: white;
-  border: 1px solid #e5e7eb;
+.btn-hover-card-flip .card-front {
+  background-color: var(--btn-bg, transparent);
+  color: var(--btn-color, #e6332a);
+  border: 1.5px solid var(--btn-color, #e6332a);
 }
 
-.card-back {
-  background: #8b5cf6;
-  color: white;
+.btn-hover-card-flip .card-back {
+  background-color: var(--btn-color, #e6332a);
+  color: var(--btn-bg, #ffffff);
+  border: 1.5px solid var(--btn-color, #e6332a);
   transform: rotateY(180deg);
 }`
   },
