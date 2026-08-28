@@ -190,37 +190,51 @@ export const HOVER_EFFECTS = [
   },
   {
     id: 8,
-    name: '08. Soulignement Intégré',
+    name: '08. Carte 3D Pivotante',
     category: 'Monochrome B&W',
-    className: 'btn-hover-underline',
-    description: 'Une ligne de soulignement fine et visible s’étend proprement à l’intérieur du bouton.',
-    cssCode: `.btn-hover-underline {
+    className: 'btn-hover-card-flip',
+    description: 'Carte 3D recto-verso qui pivote à 180° au survol avec face arrière contrastée violette.',
+    cssCode: `.card {
+  width: 200px;
+  height: 250px;
+  margin: 1rem auto;
+  perspective: 1000px;
+  cursor: pointer;
+}
+
+.card-inner {
   position: relative;
-  overflow: hidden;
-  transition: background-color 0.3s ease, transform 0.25s ease;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.6s;
+  transform-style: preserve-3d;
 }
 
-.btn-hover-underline::after {
-  content: '';
+.card:hover .card-inner {
+  transform: rotateY(180deg);
+}
+
+.card-front,
+.card-back {
   position: absolute;
-  bottom: 5px;
-  left: 50%;
-  width: 0;
-  height: 2px;
-  background-color: var(--btn-color, #18181b);
-  transform: translateX(-50%);
-  transition: width 0.35s cubic-bezier(0.16, 1, 0.3, 1);
-  border-radius: 2px;
-  z-index: 2;
-  pointer-events: none;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0.5rem;
 }
 
-.btn-hover-underline:hover::after {
-  width: calc(100% - 24px);
+.card-front {
+  background: white;
+  border: 1px solid #e5e7eb;
 }
 
-.btn-hover-underline:hover {
-  transform: translateY(-2px);
+.card-back {
+  background: #8b5cf6;
+  color: white;
+  transform: rotateY(180deg);
 }`
   },
   {

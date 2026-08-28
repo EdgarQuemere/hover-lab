@@ -270,9 +270,26 @@ export default function FocusSandbox({ effect, config, onClose, onOpenCode, t })
                       />
                     </svg>
                   )}
-                  {hasIcon && (isIconLeft || isIconOnly) && <SelectedIconComp className="btn-icon" size={18} weight={config.iconWeight} />}
-                  {!isIconOnly && <span>{customButtonText || 'Button'}</span>}
-                  {hasIcon && isIconRight && !isIconOnly && <SelectedIconComp className="btn-icon" size={18} weight={config.iconWeight} />}
+                  {currentEffect.className.includes('card-flip') ? (
+                    <div className="card-inner">
+                      <div className="card-front">
+                        {hasIcon && (isIconLeft || isIconOnly) && <SelectedIconComp className="btn-icon" size={18} weight={config.iconWeight} />}
+                        {!isIconOnly && <span>{customButtonText || 'Button'}</span>}
+                        {hasIcon && isIconRight && !isIconOnly && <SelectedIconComp className="btn-icon" size={18} weight={config.iconWeight} />}
+                      </div>
+                      <div className="card-back">
+                        {hasIcon && (isIconLeft || isIconOnly) && <SelectedIconComp className="btn-icon" size={18} weight={config.iconWeight} />}
+                        {!isIconOnly && <span>{customButtonText || 'Button'}</span>}
+                        {hasIcon && isIconRight && !isIconOnly && <SelectedIconComp className="btn-icon" size={18} weight={config.iconWeight} />}
+                      </div>
+                    </div>
+                  ) : (
+                    <>
+                      {hasIcon && (isIconLeft || isIconOnly) && <SelectedIconComp className="btn-icon" size={18} weight={config.iconWeight} />}
+                      {!isIconOnly && <span>{customButtonText || 'Button'}</span>}
+                      {hasIcon && isIconRight && !isIconOnly && <SelectedIconComp className="btn-icon" size={18} weight={config.iconWeight} />}
+                    </>
+                  )}
                 </button>
               </div>
 

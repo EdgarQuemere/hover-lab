@@ -116,8 +116,8 @@ export const TRANSLATIONS = {
     effect_7_desc: 'Circular wave expanding outward from the center of the button.',
     effect_7_cat: 'Monochrome B&W',
     // Effect 8
-    effect_8_name: '08. Integrated Underline',
-    effect_8_desc: 'A fine, visible underline smoothly extends inside the bottom edge of the button.',
+    effect_8_name: '08. 3D Card Flip',
+    effect_8_desc: 'Two-sided 3D card rotating 180° on hover with contrasting violet back side.',
     effect_8_cat: 'Monochrome B&W',
     // Effect 9
     effect_9_name: '09. Magnetic Rotation Float',
@@ -298,8 +298,8 @@ export const TRANSLATIONS = {
     effect_7_desc: 'Vague circulaire s’agrandissant depuis le centre du bouton.',
     effect_7_cat: 'Monochrome B&W',
     // Effect 8
-    effect_8_name: '08. Soulignement Intégré',
-    effect_8_desc: 'Une ligne de soulignement fine et visible s’étend proprement à l’intérieur du bouton.',
+    effect_8_name: '08. Carte 3D Pivotante',
+    effect_8_desc: 'Carte 3D recto-verso qui pivote à 180° au survol avec face arrière contrastée violette.',
     effect_8_cat: 'Monochrome B&W',
     // Effect 9
     effect_9_name: '09. Rotation Magnétique',
@@ -476,8 +476,8 @@ export const TRANSLATIONS = {
     effect_7_desc: 'Onda circular que se expande desde el centro del botón.',
     effect_7_cat: 'Monochrome B&W',
     // Effect 8
-    effect_8_name: '08. Subrayado Integrado',
-    effect_8_desc: 'Una línea de subrayado fina y limpia se extiende dentro del botón.',
+    effect_8_name: '08. Tarjeta 3D Giratoria',
+    effect_8_desc: 'Tarjeta 3D de dos caras que gira 180° al pasar el ratón con reverso violeta contrastado.',
     effect_8_cat: 'Monochrome B&W',
     // Effect 9
     effect_9_name: '09. Rotación Magnética',
@@ -654,8 +654,8 @@ export const TRANSLATIONS = {
     effect_7_desc: 'Kreisförmige Welle, die sich aus der Mitte der Schaltfläche ausbreitet.',
     effect_7_cat: 'Monochrome B&W',
     // Effect 8
-    effect_8_name: '08. Integrierte Unterstreichung',
-    effect_8_desc: 'Eine feine, sichtbare Unterstreichungslinie dehnt sich sauber im Inneren aus.',
+    effect_8_name: '08. 3D-Karten-Flip',
+    effect_8_desc: 'Zweiseitige 3D-Karte, die sich beim Hovern um 180° dreht mit kontrastreicher violetter Rückseite.',
     effect_8_cat: 'Monochrome B&W',
     // Effect 9
     effect_9_name: '09. Magnetische Schwebelocation',

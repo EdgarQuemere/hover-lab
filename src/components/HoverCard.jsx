@@ -273,6 +273,19 @@ export default function HoverCard({
                 {hasIcon && isIconRight && !isIconOnly && iconElement('btn-icon-right')}
               </div>
             </>
+          ) : effect.className.includes('hover-card-flip') ? (
+            <div className="card-inner">
+              <div className="card-front">
+                {hasIcon && (isIconLeft || isIconOnly) && iconElement('btn-icon-left')}
+                {!isIconOnly && <span>{config.buttonText || 'Filtres'}</span>}
+                {hasIcon && isIconRight && !isIconOnly && iconElement('btn-icon-right')}
+              </div>
+              <div className="card-back">
+                {hasIcon && (isIconLeft || isIconOnly) && iconElement('btn-icon-left')}
+                {!isIconOnly && <span>{config.buttonText || 'Filtres'}</span>}
+                {hasIcon && isIconRight && !isIconOnly && iconElement('btn-icon-right')}
+              </div>
+            </div>
           ) : (
             <>
               {hasIcon && (isIconLeft || isIconOnly) && iconElement('btn-icon-left')}
