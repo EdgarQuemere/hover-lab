@@ -699,5 +699,108 @@ export const HOVER_EFFECTS = [
 .btn-hover-outline-draw-glow:hover {
   transform: translateY(-2px);
 }`
+  },
+  {
+    id: 24,
+    name: '24. Volet Diagonal Bicolore',
+    category: 'Remplissages & Dégradés',
+    className: 'btn-hover-diagonal-shutter',
+    description: 'Deux volets diagonaux s’unissent depuis des angles opposés avec surélévation tactile.',
+    cssCode: `.btn-hover-diagonal-shutter {
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease;
+}
+
+.btn-hover-diagonal-shutter::before,
+.btn-hover-diagonal-shutter::after {
+  content: '';
+  position: absolute;
+  width: 130%;
+  height: 130%;
+  background-color: var(--btn-color, #18181b);
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  z-index: -1;
+  pointer-events: none;
+}
+
+.btn-hover-diagonal-shutter::before {
+  top: -130%;
+  left: -130%;
+  transform: rotate(25deg);
+}
+
+.btn-hover-diagonal-shutter::after {
+  bottom: -130%;
+  right: -130%;
+  transform: rotate(25deg);
+}
+
+.btn-hover-diagonal-shutter:hover::before {
+  transform: translate(65%, 65%) rotate(25deg);
+}
+
+.btn-hover-diagonal-shutter:hover::after {
+  transform: translate(-65%, -65%) rotate(25deg);
+}
+
+.btn-hover-diagonal-shutter:hover {
+  color: var(--btn-bg, #ffffff) !important;
+  transform: translateY(-3px) scale(1.02);
+  box-shadow: 0 10px 24px -4px rgba(24, 24, 27, 0.18);
+}`
+  },
+  {
+    id: 25,
+    name: '25. Réfraction Holographique',
+    category: 'Effets Spéciaux',
+    className: 'btn-hover-holographic-glitch',
+    description: 'Faisceau prismatique holographique avec balayage néon et inclinaison dynamique de l’icône.',
+    cssCode: `.btn-hover-holographic-glitch {
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+.btn-hover-holographic-glitch::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -150%;
+  width: 220%;
+  height: 200%;
+  background: linear-gradient(
+    115deg,
+    transparent 20%,
+    rgba(0, 240, 255, 0.45) 38%,
+    rgba(255, 0, 128, 0.45) 50%,
+    rgba(204, 255, 0, 0.45) 62%,
+    transparent 80%
+  );
+  transform: rotate(25deg);
+  transition: transform 0.75s cubic-bezier(0.19, 1, 0.22, 1);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.btn-hover-holographic-glitch:hover::before {
+  transform: translateX(180%) rotate(25deg);
+}
+
+.btn-hover-holographic-glitch:hover {
+  transform: translateY(-3px) scale(1.025);
+  box-shadow: 0 8px 24px rgba(0, 240, 255, 0.25), 0 2px 10px rgba(255, 0, 128, 0.2);
+  border-color: rgba(0, 240, 255, 0.6) !important;
+}
+
+.btn-hover-holographic-glitch .btn-icon {
+  transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.btn-hover-holographic-glitch:hover .btn-icon {
+  transform: scale(1.2) rotate(-12deg);
+}`
   }
 ];
+

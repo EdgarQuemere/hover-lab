@@ -1,0 +1,49 @@
+/* ==========================================================================
+   Effect 24: Volet Diagonal Bicolore (Diagonal Shutter Fill)
+   Category: Fills & Sweeps
+   ========================================================================== */
+
+.btn-hover-diagonal-shutter {
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease;
+}
+
+.btn-hover-diagonal-shutter::before,
+.btn-hover-diagonal-shutter::after {
+  content: '';
+  position: absolute;
+  width: 130%;
+  height: 130%;
+  background-color: var(--btn-color, #18181b);
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  z-index: -1;
+  pointer-events: none;
+}
+
+.btn-hover-diagonal-shutter::before {
+  top: -130%;
+  left: -130%;
+  transform: rotate(25deg);
+}
+
+.btn-hover-diagonal-shutter::after {
+  bottom: -130%;
+  right: -130%;
+  transform: rotate(25deg);
+}
+
+.btn-hover-diagonal-shutter:hover::before {
+  transform: translate(65%, 65%) rotate(25deg);
+}
+
+.btn-hover-diagonal-shutter:hover::after {
+  transform: translate(-65%, -65%) rotate(25deg);
+}
+
+.btn-hover-diagonal-shutter:hover {
+  color: var(--btn-bg, #ffffff) !important;
+  transform: translateY(-3px) scale(1.02);
+  box-shadow: 0 10px 24px -4px rgba(24, 24, 27, 0.18);
+}

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useMemo } from 'react';
 import { CaretDown } from '@phosphor-icons/react';
 import Header from './components/Header';
 import ControlsBar from './components/ControlsBar';
@@ -50,6 +50,8 @@ const EFFECT_CATEGORY_MAP = {
   21: 'fx',
   22: 'borders',
   23: 'borders',
+  24: 'fills',
+  25: 'fx',
 };
 
 export default function App() {
@@ -79,26 +81,32 @@ export default function App() {
     document.body.className = `font-satoshi ${config.canvasTheme === 'dark' ? 'theme-dark' : 'theme-light'}`;
   }, [config.canvasTheme]);
 
-  const translatedEffects = HOVER_EFFECTS.map((eff) => getTranslatedEffect(eff, lang));
+  const translatedEffects = useMemo(
+    () => HOVER_EFFECTS.map((eff) => getTranslatedEffect(eff, lang)),
+    [lang]
+  );
 
-  const filteredEffects = translatedEffects.filter((effect) => {
-    // Search query filter
-    if (searchQuery.trim()) {
-      const q = searchQuery.toLowerCase().trim();
-      const matchName = effect.name ? effect.name.toLowerCase().includes(q) : false;
-      const matchDesc = effect.description ? effect.description.toLowerCase().includes(q) : false;
-      const matchCat = effect.category ? effect.category.toLowerCase().includes(q) : false;
-      const matchClass = effect.className ? effect.className.toLowerCase().includes(q) : false;
-      if (!matchName && !matchDesc && !matchCat && !matchClass) return false;
-    }
+  const filteredEffects = useMemo(() => {
+    return translatedEffects.filter((effect) => {
+      // Search query filter
+      if (searchQuery.trim()) {
+        const q = searchQuery.toLowerCase().trim();
+        const matchName = effect.name ? effect.name.toLowerCase().includes(q) : false;
+        const matchDesc = effect.description ? effect.description.toLowerCase().includes(q) : false;
+        const matchCat = effect.category ? effect.category.toLowerCase().includes(q) : false;
+        const matchClass = effect.className ? effect.className.toLowerCase().includes(q) : false;
+        if (!matchName && !matchDesc && !matchCat && !matchClass) return false;
+      }
 
-    // Category filter using new 4-category taxonomy
-    if (config.filterCategory && config.filterCategory !== 'all') {
-      const cat = EFFECT_CATEGORY_MAP[effect.id];
-      if (cat !== config.filterCategory) return false;
-    }
-    return true;
-  });
+      // Category filter using new 4-category taxonomy
+      if (config.filterCategory && config.filterCategory !== 'all') {
+        const cat = EFFECT_CATEGORY_MAP[effect.id];
+        if (cat !== config.filterCategory) return false;
+      }
+      return true;
+    });
+  }, [translatedEffects, searchQuery, config.filterCategory]);
+
 
   // Random auto-hover interval loop (configurable mode: off / slow / fast)
   useEffect(() => {
@@ -159,37 +167,76 @@ export default function App() {
     userHoveredRef.current.delete(id);
   };
 
+  const [pendingScrollId, setPendingScrollId] = useState(null);
   const [targetedEffectId, setTargetedEffectId] = useState(null);
 
-  // Handle direct link URL hash auto-scroll & highlight (#effect-3 or #3)
+  // 1. Listen for URL hash changes (#effect-25 or #25) and expand pagination
   useEffect(() => {
     const handleHashCheck = () => {
       const hash = window.location.hash;
       if (!hash) return;
+
       const rawId = hash.replace('#effect-', '').replace('#', '');
       const parsedId = parseInt(rawId, 10);
       if (isNaN(parsedId)) return;
 
       const targetIndex = filteredEffects.findIndex((e) => e.id === parsedId);
       if (targetIndex >= 0) {
+        // Expand pagination limit so the card is rendered in the DOM
         const requiredLimit = Math.ceil((targetIndex + 1) / CARDS_PER_PAGE) * CARDS_PER_PAGE;
         setVisibleCount((prev) => Math.max(prev, requiredLimit));
-      }
 
-      setTimeout(() => {
-        const el = document.getElementById(`effect-${parsedId}`);
-        if (el) {
-          el.scrollIntoView({ behavior: 'smooth', block: 'center' });
-          setTargetedEffectId(parsedId);
-          setTimeout(() => setTargetedEffectId(null), 2800);
-        }
-      }, 350);
+        // Queue pending scroll target
+        setPendingScrollId(parsedId);
+      }
     };
 
     handleHashCheck();
     window.addEventListener('hashchange', handleHashCheck);
     return () => window.removeEventListener('hashchange', handleHashCheck);
   }, [filteredEffects]);
+
+  // 2. Perform smooth scroll ONLY when the target element exists in the DOM
+  useEffect(() => {
+    if (!pendingScrollId) return;
+
+    const targetId = pendingScrollId;
+    setPendingScrollId(null); // Clear pending scroll so it only runs once!
+
+    const scrollTimer = setTimeout(() => {
+      const el = document.getElementById(`effect-${targetId}`);
+      if (!el) return;
+
+      const rect = el.getBoundingClientRect();
+      const elementTop = rect.top + window.pageYOffset;
+      const elementHeight = rect.height;
+      const viewportHeight = window.innerHeight;
+      const maxScrollY = Math.max(0, document.documentElement.scrollHeight - viewportHeight);
+
+      const targetIndex = filteredEffects.findIndex((e) => e.id === targetId);
+      const isLast3Cards = targetIndex >= 0 && targetIndex >= filteredEffects.length - 3;
+
+      let targetY;
+      if (isLast3Cards) {
+        // If it's among the last 3 cards, scroll all the way to the bottom of the page
+        targetY = maxScrollY;
+      } else {
+        // Otherwise, center the card in the viewport
+        targetY = elementTop - (viewportHeight - elementHeight) / 2;
+        if (targetY > maxScrollY) targetY = maxScrollY;
+        if (targetY < 0) targetY = 0;
+      }
+
+      window.scrollTo({ top: targetY, behavior: 'smooth' });
+      setTargetedEffectId(targetId);
+
+      setTimeout(() => {
+        setTargetedEffectId(null);
+      }, 2800);
+    }, 150);
+
+    return () => clearTimeout(scrollTimer);
+  }, [pendingScrollId, visibleCount, filteredEffects]);
 
   const [overrideModalConfig, setOverrideModalConfig] = useState(null);
 

@@ -39,14 +39,16 @@ export default function FocusSandbox({ effect, config, onClose, onOpenCode, t })
   ];
 
   const currentEffect = effect;
-  if (!currentEffect) return null;
 
   useEffect(() => {
-    setCustomCssCode(currentEffect.cssCode || '');
+    if (currentEffect) {
+      setCustomCssCode(currentEffect.cssCode || '');
+    }
   }, [currentEffect]);
 
   // Inject dynamic user-edited CSS or speed overrides
   useEffect(() => {
+    if (!currentEffect) return;
     const styleId = 'sandbox-custom-live-css';
     let styleEl = document.getElementById(styleId);
     if (!styleEl) {
@@ -89,6 +91,9 @@ export default function FocusSandbox({ effect, config, onClose, onOpenCode, t })
     observer.observe(btnRef.current);
     return () => observer.disconnect();
   }, [config.buttonText, config.buttonSize, config.iconPosition, config.iconName]);
+
+  if (!currentEffect) return null;
+
 
   const SelectedIconComp = AVAILABLE_ICONS.find((i) => i.id === config.iconName)?.Icon || ArrowRight;
 

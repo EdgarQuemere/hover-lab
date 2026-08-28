@@ -179,6 +179,14 @@ export const TRANSLATIONS = {
     effect_23_name: '23. Monochromatic Circuit',
     effect_23_desc: 'Full border at rest. On hover, a single opening sweeps 360° around the circuit before hermetically closing.',
     effect_23_cat: 'Transformations Outline',
+    // Effect 24
+    effect_24_name: '24. Two-Tone Diagonal Shutter',
+    effect_24_desc: 'Two diagonal shutters merge from opposite corners accompanied by tactile lift.',
+    effect_24_cat: 'Fills & Sweeps',
+    // Effect 25
+    effect_25_name: '25. Holographic Refraction',
+    effect_25_desc: 'Prismatic holographic beam sweep with iridescent glow and icon tilt.',
+    effect_25_cat: 'Special FX & Particles',
   },
   fr: {
     search_placeholder: 'Rechercher un effet...',
@@ -353,6 +361,14 @@ export const TRANSLATIONS = {
     effect_23_name: '23. Circuit Monochromatique',
     effect_23_desc: 'Le bouton possède son contour complet au repos. Au survol, une ouverture balaye le circuit à 360° avant de se refermer hermétiquement.',
     effect_23_cat: 'Transformations Outline',
+    // Effect 24
+    effect_24_name: '24. Volet Diagonal Bicolore',
+    effect_24_desc: 'Deux volets diagonaux s’unissent depuis des angles opposés avec surélévation tactile.',
+    effect_24_cat: 'Remplissages & Dégradés',
+    // Effect 25
+    effect_25_name: '25. Réfraction Holographique',
+    effect_25_desc: 'Faisceau prismatique holographique avec balayage néon et inclinaison dynamique de l’icône.',
+    effect_25_cat: 'Effets Spéciaux',
   },
   es: {
     search_placeholder: 'Buscar un efecto...',
@@ -523,6 +539,14 @@ export const TRANSLATIONS = {
     effect_23_name: '23. Circuito Monocromático SVG',
     effect_23_desc: 'Contorno completo en reposo. Al pasar el ratón, una abertura barre el circuito 360° antes de cerrarse herméticamente.',
     effect_23_cat: 'Transformations Outline',
+    // Effect 24
+    effect_24_name: '24. Persiana Diagonal Bicolor',
+    effect_24_desc: 'Dos persianas diagonales se unen desde esquinas opuestas con elevación táctil.',
+    effect_24_cat: 'Fills & Sweeps',
+    // Effect 25
+    effect_25_name: '25. Refracción Holográfica',
+    effect_25_desc: 'Haz prismático holográfico con barrido neón e inclinación del icono.',
+    effect_25_cat: 'Efectos Especiales / Color',
   },
   de: {
     search_placeholder: 'Effekt suchen...',
@@ -693,6 +717,14 @@ export const TRANSLATIONS = {
     effect_23_name: '23. Monochromer SVG-Schaltkreis-Sweep',
     effect_23_desc: 'Vollständige Kontur im Ruhezustand. Beim Hovern streift eine Öffnung 360° um den Kreis und schließt sich hermetisch.',
     effect_23_cat: 'Transformations Outline',
+    // Effect 24
+    effect_24_name: '24. Diagonaler Zweifarben-Rollladen',
+    effect_24_desc: 'Zwei diagonale Blenden verbinden sich aus gegenüberliegenden Ecken mit taktiler Anhebung.',
+    effect_24_cat: 'Fills & Sweeps',
+    // Effect 25
+    effect_25_name: '25. Holografische Brechung',
+    effect_25_desc: 'Prismatischer holografischer Strahl mit Neon-Sweep und Icon-Neigung.',
+    effect_25_cat: 'Spezialeffekte / Farbe',
   }
 };
 
