@@ -197,15 +197,14 @@ export const HOVER_EFFECTS = [
     cssCode: `.btn-hover-card-flip {
   perspective: 1000px;
   position: relative;
-  background: transparent;
-  border: none;
-  padding: 0;
+  overflow: visible;
+  background-color: transparent;
+  border-color: transparent;
 }
 
 .btn-hover-card-flip .card-inner {
-  position: relative;
-  width: 100%;
-  height: 100%;
+  position: absolute;
+  inset: 0;
   transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
   transform-style: preserve-3d;
 }
@@ -218,27 +217,23 @@ export const HOVER_EFFECTS = [
 .btn-hover-card-flip .card-back {
   position: absolute;
   inset: 0;
-  width: 100%;
-  height: 100%;
   backface-visibility: hidden;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 8px;
+  gap: 10px;
   border-radius: inherit;
-  padding: 0 20px;
+  border: 1.5px solid var(--btn-color, #18181b);
 }
 
 .btn-hover-card-flip .card-front {
   background-color: var(--btn-bg, transparent);
-  color: var(--btn-color, #e6332a);
-  border: 1.5px solid var(--btn-color, #e6332a);
+  color: var(--btn-color, #18181b);
 }
 
 .btn-hover-card-flip .card-back {
-  background-color: var(--btn-color, #e6332a);
+  background-color: var(--btn-color, #18181b);
   color: var(--btn-bg, #ffffff);
-  border: 1.5px solid var(--btn-color, #e6332a);
   transform: rotateY(180deg);
 }`
   },

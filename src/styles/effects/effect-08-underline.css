@@ -1,20 +1,25 @@
 /* ==========================================================================
    Effect 08: Flip 3D Recto-Verso (3D Card Flip)
+   The button itself acts as the perspective container.
+   .card-inner wraps both faces and handles the 3D rotation.
+   .card-front shows the normal state, .card-back shows on hover.
+   The button keeps its natural dimensions from specimen-btn sizing.
    ========================================================================== */
 
 .btn-hover-card-flip {
   perspective: 1000px;
   position: relative;
-  background-color: transparent !important;
-  border: none !important;
-  box-shadow: none !important;
-  padding: 0 !important;
+  overflow: visible;
+  /* Keep the button's natural padding so it has real height/width,
+     but hide default background/border — the faces handle that */
+  background-color: transparent;
+  border-color: transparent;
+  transition: none;
 }
 
 .btn-hover-card-flip .card-inner {
-  position: relative;
-  width: 100%;
-  height: 100%;
+  position: absolute;
+  inset: 0;
   transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
   transform-style: preserve-3d;
 }
@@ -28,27 +33,22 @@
 .btn-hover-card-flip .card-back {
   position: absolute;
   inset: 0;
-  width: 100%;
-  height: 100%;
   backface-visibility: hidden;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 8px;
+  gap: 10px;
   border-radius: inherit;
-  padding: 0 20px;
-  box-sizing: border-box;
+  border: 1.5px solid var(--btn-color, #18181b);
 }
 
 .btn-hover-card-flip .card-front {
   background-color: var(--btn-bg, transparent);
-  color: var(--btn-color, #e6332a);
-  border: 1.5px solid var(--btn-color, #e6332a);
+  color: var(--btn-color, #18181b);
 }
 
 .btn-hover-card-flip .card-back {
-  background-color: var(--btn-color, #e6332a);
+  background-color: var(--btn-color, #18181b);
   color: var(--btn-bg, #ffffff);
-  border: 1.5px solid var(--btn-color, #e6332a);
   transform: rotateY(180deg);
 }
