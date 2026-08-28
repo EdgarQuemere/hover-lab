@@ -1,35 +1,37 @@
 import React from 'react';
 import { Play, Pause, Lightning } from '@phosphor-icons/react';
 
-export default function AutoPlayControl({ mode = 'fast', onChangeMode }) {
+export default function AutoPlayControl({ mode = 'fast', onChangeMode, t }) {
+  const tr = (key, fallback) => (t ? t(key) : fallback);
+
   return (
     <div className="autoplay-control-container">
       <button
         type="button"
         className={`autoplay-btn ${mode === 'off' ? 'is-active' : ''}`}
         onClick={() => onChangeMode('off')}
-        title="Désactiver la démo automatique / Pause"
+        title={tr('auto_off_title', 'Disable auto-demo / Pause')}
       >
         <Pause size={12} weight="bold" />
-        <span>OFF</span>
+        <span>{tr('auto_off', 'OFF')}</span>
       </button>
       <button
         type="button"
         className={`autoplay-btn ${mode === 'slow' ? 'is-active' : ''}`}
         onClick={() => onChangeMode('slow')}
-        title="Démo automatique douce (2.4s)"
+        title={tr('auto_slow_title', 'Gentle auto-demo (2.4s)')}
       >
         <Play size={12} weight="bold" />
-        <span>Slow</span>
+        <span>{tr('auto_slow', 'Slow')}</span>
       </button>
       <button
         type="button"
         className={`autoplay-btn ${mode === 'fast' ? 'is-active' : ''}`}
         onClick={() => onChangeMode('fast')}
-        title="Démo automatique rapide (350ms)"
+        title={tr('auto_fast_title', 'Fast auto-demo (350ms)')}
       >
         <Lightning size={12} weight="fill" />
-        <span>Fast</span>
+        <span>{tr('auto_fast', 'Fast')}</span>
       </button>
     </div>
   );

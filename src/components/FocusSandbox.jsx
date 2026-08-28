@@ -19,15 +19,24 @@ const STAGE_BACKDROPS = [
   { id: 'wallpaper', name: 'Wallpaper HD', bg: 'url("https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=1200&q=80")', class: 'stage-backdrop-wallpaper' },
 ];
 
-export default function FocusSandbox({ effect, config, onClose, onOpenCode }) {
+export default function FocusSandbox({ effect, config, onClose, onOpenCode, t }) {
+  const tr = (key, fallback) => (t ? t(key) : fallback);
+
   const [animSpeed, setAnimSpeed] = useState(0.35); // in seconds
   const [backdropId, setBackdropId] = useState('light');
-  const [customButtonText, setCustomButtonText] = useState(config.buttonText || 'Filtres');
+  const [customButtonText, setCustomButtonText] = useState(config.buttonText || tr('default_button_text', 'Filters'));
   const [studioButtonColor, setStudioButtonColor] = useState(config.buttonColor || '#e6332a');
   const [customCssCode, setCustomCssCode] = useState(effect?.cssCode || '');
   const [hoverCount, setHoverCount] = useState(0);
   const btnRef = useRef(null);
   const [dimensions, setDimensions] = useState({ width: 160, height: 48 });
+
+  const stageBackdrops = [
+    { id: 'light', name: tr('bg_light', 'Clair'), bg: '#eeeeee', class: 'stage-backdrop-light' },
+    { id: 'dark', name: tr('bg_dark', 'Sombre'), bg: '#111111', class: 'stage-backdrop-dark' },
+    { id: 'mesh', name: tr('bg_mesh', 'Gradient Mesh'), bg: 'linear-gradient(135deg, #0f172a 0%, #1e1b4b 50%, #311042 100%)', class: 'stage-backdrop-mesh' },
+    { id: 'wallpaper', name: tr('bg_wallpaper', 'Wallpaper HD'), bg: 'url("https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=1200&q=80")', class: 'stage-backdrop-wallpaper' },
+  ];
 
   const currentEffect = effect;
   if (!currentEffect) return null;
@@ -83,7 +92,7 @@ export default function FocusSandbox({ effect, config, onClose, onOpenCode }) {
 
   const SelectedIconComp = AVAILABLE_ICONS.find((i) => i.id === config.iconName)?.Icon || ArrowRight;
 
-  const currentBackdrop = STAGE_BACKDROPS.find((b) => b.id === backdropId) || STAGE_BACKDROPS[0];
+  const currentBackdrop = stageBackdrops.find((b) => b.id === backdropId) || stageBackdrops[0];
   const isDarkCanvas = backdropId === 'dark' || backdropId === 'mesh' || backdropId === 'wallpaper';
   const canvasThemeClass = isDarkCanvas ? 'canvas-dark' : 'canvas-light';
 
@@ -111,7 +120,7 @@ export default function FocusSandbox({ effect, config, onClose, onOpenCode }) {
         {/* Header */}
         <div className="sandbox-modal-header">
           <div className="sandbox-header-brand">
-            <span className="sandbox-badge">MODE STUDIO</span>
+            <span className="sandbox-badge">{tr('studio_badge', 'MODE STUDIO')}</span>
             <h2>#{currentEffect.id} {cleanTitle}</h2>
           </div>
           <div className="sandbox-header-actions">
@@ -129,7 +138,7 @@ export default function FocusSandbox({ effect, config, onClose, onOpenCode }) {
               }}
             >
               <Code size={16} />
-              <span>Exporter le code</span>
+              <span>{tr('export_code', 'Exporter le code')}</span>
             </button>
             <button type="button" className="close-btn" onClick={onClose} title="Fermer le Studio">
               <X size={20} />
@@ -145,7 +154,7 @@ export default function FocusSandbox({ effect, config, onClose, onOpenCode }) {
             <div className="control-card">
               <div className="control-card-header">
                 <SlidersHorizontal size={16} />
-                <span>Vitesse d'animation</span>
+                <span>{tr('anim_speed_title', 'Vitesse d\'animation')}</span>
                 <span className="speed-val-badge">{animSpeed}s</span>
               </div>
               <input
@@ -158,20 +167,20 @@ export default function FocusSandbox({ effect, config, onClose, onOpenCode }) {
                 className="speed-range-slider"
               />
               <div className="slider-labels">
-                <span>Rapide (0.1s)</span>
-                <span>Normal (0.35s)</span>
-                <span>Lent (3.0s)</span>
+                <span>{tr('speed_fast_label', 'Rapide (0.1s)')}</span>
+                <span>{tr('speed_normal_label', 'Normal (0.35s)')}</span>
+                <span>{tr('speed_slow_label', 'Lent (3.0s)')}</span>
               </div>
             </div>
 
-            {/* 2. Stage Backdrop Selector (Glassmorphism removed) */}
+            {/* 2. Stage Backdrop Selector */}
             <div className="control-card">
               <div className="control-card-header">
                 <Palette size={16} />
-                <span>Arrière-plan de scène</span>
+                <span>{tr('stage_bg_title', 'Arrière-plan de scène')}</span>
               </div>
               <div className="backdrop-grid">
-                {STAGE_BACKDROPS.map((bd) => (
+                {stageBackdrops.map((bd) => (
                   <button
                     key={bd.id}
                     type="button"
@@ -188,14 +197,14 @@ export default function FocusSandbox({ effect, config, onClose, onOpenCode }) {
             <div className="control-card">
               <div className="control-card-header">
                 <Eye size={16} />
-                <span>Texte du Bouton</span>
+                <span>{tr('btn_text_title', 'Texte du Bouton')}</span>
               </div>
               <input
                 type="text"
                 className="sandbox-input-text"
                 value={customButtonText}
                 onChange={(e) => setCustomButtonText(e.target.value)}
-                placeholder="Texte personnalisé..."
+                placeholder="Texte..."
               />
             </div>
 
@@ -203,7 +212,7 @@ export default function FocusSandbox({ effect, config, onClose, onOpenCode }) {
             <div className="control-card">
               <div className="control-card-header">
                 <Palette size={16} />
-                <span>Couleur du Bouton</span>
+                <span>{tr('btn_color_title', 'Couleur du Bouton')}</span>
               </div>
               <CustomColorPicker
                 color={studioButtonColor}
@@ -216,13 +225,13 @@ export default function FocusSandbox({ effect, config, onClose, onOpenCode }) {
             <div className="control-card flex-1">
               <div className="control-card-header">
                 <Code size={16} />
-                <span>Éditeur CSS en direct</span>
+                <span>{tr('live_css_title', 'Éditeur CSS en direct')}</span>
               </div>
               <textarea
                 className="live-css-editor"
                 value={customCssCode}
                 onChange={(e) => setCustomCssCode(e.target.value)}
-                placeholder="Personnalisez le CSS..."
+                placeholder="CSS..."
                 spellCheck="false"
               />
             </div>
@@ -265,19 +274,19 @@ export default function FocusSandbox({ effect, config, onClose, onOpenCode }) {
               {/* Stage Metrics Info Bar */}
               <div className="sandbox-metrics-bar">
                 <div className="metric-tag">
-                  <span className="m-label">Survols :</span>
+                  <span className="m-label">{tr('metric_hovers', 'Survols :')}</span>
                   <span className="m-val">{hoverCount}</span>
                 </div>
                 <div className="metric-tag">
-                  <span className="m-label">Vitesse :</span>
+                  <span className="m-label">{tr('metric_speed', 'Vitesse :')}</span>
                   <span className="m-val">{animSpeed}s</span>
                 </div>
                 <div className="metric-tag">
-                  <span className="m-label">Couleur :</span>
+                  <span className="m-label">{tr('metric_color', 'Couleur :')}</span>
                   <span className="m-val mono">{studioButtonColor}</span>
                 </div>
                 <div className="metric-tag">
-                  <span className="m-label">Classe :</span>
+                  <span className="m-label">{tr('metric_class', 'Classe :')}</span>
                   <span className="m-val mono">.{currentEffect.className}</span>
                 </div>
               </div>

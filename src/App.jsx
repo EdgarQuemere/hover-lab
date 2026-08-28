@@ -246,6 +246,7 @@ export default function App() {
             setActiveModalEffect(eff);
             setOverrideModalConfig(customConfig || null);
           }}
+          t={t}
         />
       )}
     </div>

@@ -58,7 +58,7 @@ export default function Header({
       </div>
 
       <div className="header-actions">
-        <AutoPlayControl mode={autoPlayMode} onChangeMode={setAutoPlayMode} />
+        <AutoPlayControl mode={autoPlayMode} onChangeMode={setAutoPlayMode} t={t} />
         <LanguageSelector lang={lang} onChangeLang={setLang} />
 
         <div className="header-search-bar">
