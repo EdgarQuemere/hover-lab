@@ -121,21 +121,67 @@ export const HOVER_EFFECTS = [
   },
   {
     id: 5,
-    name: '05. Métamorphose Rectangle',
+    name: '05. Métamorphose Géométrique',
     category: 'Monochrome B&W',
     className: 'btn-hover-corner-brackets',
-    description: 'Au survol, le contour du bouton se métamorphose de sa forme d’origine vers un rectangle structuré (border-radius: 4px).',
+    description: 'Cadre géométrique dynamique en pulsation avec expansion du tracking, impulsion d\'icône et surélévation tactile.',
     cssCode: `.btn-hover-corner-brackets {
   position: relative;
-  transition: border-radius 0.35s cubic-bezier(0.2, 0.8, 0.2, 1),
-              transform 0.25s ease,
-              background-color 0.3s ease;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+              background-color 0.3s ease,
+              border-color 0.3s ease,
+              letter-spacing 0.3s ease;
+}
+
+.btn-hover-corner-brackets::before,
+.btn-hover-corner-brackets::after {
+  content: '';
+  position: absolute;
+  border-radius: inherit;
+  pointer-events: none;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+              opacity 0.35s ease;
+}
+
+.btn-hover-corner-brackets::before {
+  inset: -5px;
+  border: 1px dashed var(--btn-color, #18181b);
+  opacity: 0;
+  transform: scale(0.92);
+}
+
+.btn-hover-corner-brackets::after {
+  inset: 0;
+  background-color: var(--btn-color, #18181b);
+  opacity: 0;
+  transform: scale(0.6);
+  z-index: -1;
+}
+
+.btn-hover-corner-brackets .btn-icon {
+  transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
 .btn-hover-corner-brackets:hover {
-  border-radius: 4px !important;
-  transform: translateY(-2px);
-  background-color: rgba(24, 24, 27, 0.05);
+  transform: translateY(-3px) scale(1.02);
+  letter-spacing: 0.02em;
+  box-shadow: 0 10px 24px -6px rgba(0, 0, 0, 0.12),
+              0 0 0 1px var(--btn-color, #18181b);
+}
+
+.btn-hover-corner-brackets:hover::before {
+  opacity: 0.7;
+  transform: scale(1.08);
+}
+
+.btn-hover-corner-brackets:hover::after {
+  opacity: 0.08;
+  transform: scale(1);
+}
+
+.btn-hover-corner-brackets:hover .btn-icon {
+  transform: translateX(4px) scale(1.15);
 }`
   },
   {
@@ -198,13 +244,14 @@ export const HOVER_EFFECTS = [
   perspective: 1000px;
   position: relative;
   overflow: visible;
-  background-color: transparent;
-  border-color: transparent;
+  background: none;
+  border: none;
+  padding: 0;
 }
 
 .btn-hover-card-flip .card-inner {
-  position: absolute;
-  inset: 0;
+  position: relative;
+  display: inline-flex;
   transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
   transform-style: preserve-3d;
 }
@@ -215,23 +262,24 @@ export const HOVER_EFFECTS = [
 
 .btn-hover-card-flip .card-front,
 .btn-hover-card-flip .card-back {
-  position: absolute;
-  inset: 0;
   backface-visibility: hidden;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 10px;
-  border-radius: inherit;
   border: 1.5px solid var(--btn-color, #18181b);
+  border-radius: inherit;
 }
 
 .btn-hover-card-flip .card-front {
   background-color: var(--btn-bg, transparent);
   color: var(--btn-color, #18181b);
+  padding: 12px 28px;
 }
 
 .btn-hover-card-flip .card-back {
+  position: absolute;
+  inset: 0;
   background-color: var(--btn-color, #18181b);
   color: var(--btn-bg, #ffffff);
   transform: rotateY(180deg);
@@ -815,6 +863,243 @@ export const HOVER_EFFECTS = [
 .btn-hover-holographic-glitch:hover .btn-icon {
   transform: scale(1.2) rotate(-12deg);
 }`
+  },
+  {
+    id: 26,
+    name: '26. Onde Sismique',
+    category: 'Monochrome B&W',
+    className: 'btn-hover-seismic-pulse',
+    description: 'Tremblement sismique subtil du bouton accompagné d\'une onde concentrique qui se propage et s\'efface.',
+    cssCode: `.btn-hover-seismic-pulse {
+  position: relative;
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.btn-hover-seismic-pulse::before {
+  content: '';
+  position: absolute;
+  inset: -4px;
+  border: 1.5px solid var(--btn-color, #18181b);
+  border-radius: inherit;
+  opacity: 0;
+  transform: scale(0.95);
+  transition: opacity 0.35s ease, transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  pointer-events: none;
+}
+
+.btn-hover-seismic-pulse:hover {
+  animation: seismicShake 0.4s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+}
+
+.btn-hover-seismic-pulse:hover::before {
+  opacity: 0.6;
+  transform: scale(1.12);
+  animation: seismicRingExpand 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes seismicShake {
+  0%, 100% { transform: translateX(0); }
+  15% { transform: translateX(-3px) rotate(-0.5deg); }
+  30% { transform: translateX(2px) rotate(0.3deg); }
+  45% { transform: translateX(-2px) rotate(-0.2deg); }
+  60% { transform: translateX(1.5px) rotate(0.1deg); }
+  75% { transform: translateX(-1px); }
+}
+
+@keyframes seismicRingExpand {
+  0% { opacity: 0; transform: scale(0.95); }
+  40% { opacity: 0.6; transform: scale(1.08); }
+  100% { opacity: 0; transform: scale(1.2); }
+}`
+  },
+  {
+    id: 27,
+    name: '27. Rideau Vertical',
+    category: 'Monochrome B&W',
+    className: 'btn-hover-vertical-curtain',
+    description: 'Deux rideaux verticaux se referment depuis le haut et le bas avec inversion du texte.',
+    cssCode: `.btn-hover-vertical-curtain {
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.btn-hover-vertical-curtain::before,
+.btn-hover-vertical-curtain::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 55%;
+  background-color: var(--btn-color, #18181b);
+  z-index: -1;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  pointer-events: none;
+}
+
+.btn-hover-vertical-curtain::before {
+  top: 0;
+  transform: translateY(-100%);
+  border-radius: inherit;
+}
+
+.btn-hover-vertical-curtain::after {
+  bottom: 0;
+  transform: translateY(100%);
+  border-radius: inherit;
+}
+
+.btn-hover-vertical-curtain:hover::before {
+  transform: translateY(0);
+}
+
+.btn-hover-vertical-curtain:hover::after {
+  transform: translateY(0);
+}
+
+.btn-hover-vertical-curtain:hover {
+  color: var(--btn-bg, #ffffff) !important;
+  transform: translateY(-2px);
+}`
+  },
+  {
+    id: 28,
+    name: '28. Rebond Élastique',
+    category: 'Monochrome B&W',
+    className: 'btn-hover-elastic-bounce',
+    description: 'Le bouton s\'écrase puis rebondit avec un effet ressort élastique et ombre dynamique.',
+    cssCode: `.btn-hover-elastic-bounce {
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow 0.25s ease;
+}
+
+.btn-hover-elastic-bounce .btn-icon {
+  transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.btn-hover-elastic-bounce:hover {
+  animation: elasticBounce 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+  box-shadow: 0 10px 28px -6px rgba(0, 0, 0, 0.15);
+}
+
+.btn-hover-elastic-bounce:hover .btn-icon {
+  transform: translateY(-2px) scale(1.2);
+}
+
+@keyframes elasticBounce {
+  0% { transform: scale(1) translateY(0); }
+  20% { transform: scale(1.06, 0.92) translateY(2px); }
+  45% { transform: scale(0.96, 1.08) translateY(-8px); }
+  65% { transform: scale(1.02, 0.97) translateY(-3px); }
+  80% { transform: scale(0.99, 1.01) translateY(-5px); }
+  100% { transform: scale(1) translateY(-4px); }
+}`
+  },
+  {
+    id: 29,
+    name: '29. Fondu Brume',
+    category: 'Monochrome B&W',
+    className: 'btn-hover-mist-fade',
+    description: 'Remplissage flou de type brume qui envahit progressivement le bouton depuis la gauche.',
+    cssCode: `.btn-hover-mist-fade {
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow 0.3s ease;
+}
+
+.btn-hover-mist-fade::before {
+  content: '';
+  position: absolute;
+  top: -10%;
+  left: -10%;
+  width: 130%;
+  height: 130%;
+  background: radial-gradient(
+    ellipse at 20% 50%,
+    var(--btn-color, #18181b) 0%,
+    var(--btn-color, #18181b) 50%,
+    transparent 72%
+  );
+  opacity: 0;
+  transform: translateX(-60%);
+  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+              opacity 0.4s ease;
+  z-index: -1;
+  border-radius: inherit;
+  filter: blur(6px);
+}
+
+.btn-hover-mist-fade:hover::before {
+  opacity: 1;
+  transform: translateX(0);
+  filter: blur(0px);
+}
+
+.btn-hover-mist-fade:hover {
+  color: var(--btn-bg, #ffffff) !important;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px -4px rgba(0, 0, 0, 0.12);
+}`
+  },
+  {
+    id: 30,
+    name: '30. Balayage Radar Conique',
+    category: 'Monochrome B&W',
+    className: 'btn-hover-conic-radar',
+    description: 'Faisceau radar conique rotatif à 360° avec révolution complète de l\'icône et aura lumineuse.',
+    cssCode: `.btn-hover-conic-radar {
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow 0.3s ease;
+}
+
+.btn-hover-conic-radar::before {
+  content: '';
+  position: absolute;
+  top: -100%;
+  left: -100%;
+  width: 300%;
+  height: 300%;
+  background: conic-gradient(
+    from 0deg at 50% 50%,
+    transparent 0deg,
+    transparent 270deg,
+    var(--btn-color, #18181b) 360deg
+  );
+  opacity: 0;
+  transform: rotate(0deg);
+  transition: opacity 0.35s ease;
+  z-index: -1;
+  pointer-events: none;
+}
+
+.btn-hover-conic-radar .btn-icon {
+  transition: transform 0.45s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.btn-hover-conic-radar:hover::before {
+  opacity: 0.18;
+  animation: conicRadarSpin 1.2s linear infinite;
+}
+
+.btn-hover-conic-radar:hover {
+  transform: translateY(-2.5px) scale(1.02);
+  box-shadow: 0 10px 24px -4px rgba(0, 0, 0, 0.12),
+              0 0 16px -4px var(--btn-color, #18181b);
+}
+
+.btn-hover-conic-radar:hover .btn-icon {
+  transform: rotate(360deg) scale(1.2);
+}
+
+@keyframes conicRadarSpin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}`
   }
 ];
-

@@ -75,7 +75,16 @@ export const AVAILABLE_FONTS = [
   { id: 'font-mono', name: 'JetBrains Mono' },
 ];
 
-export default function ControlsBar({ config, onChange, t }) {
+export default function ControlsBar({
+  config,
+  onChange,
+  t,
+  isFloating = false,
+  isFloatingVisible = false,
+  isFloatingAnimating = false,
+  style,
+  className = ''
+}) {
   const tr = t || ((k) => k);
 
   const handleInputChange = (field, value) => {
@@ -101,15 +110,18 @@ export default function ControlsBar({ config, onChange, t }) {
   ];
 
   const translatedCategories = [
-    { id: 'all', label: tr('cat_all'), count: 23, Icon: SquaresFour },
-    { id: 'fills', label: tr('cat_fills'), count: 6, Icon: Palette },
+    { id: 'all', label: tr('cat_all'), count: 30, Icon: SquaresFour },
+    { id: 'fills', label: tr('cat_fills'), count: 9, Icon: Palette },
     { id: 'borders', label: tr('cat_borders'), count: 7, Icon: BoundingBox },
-    { id: 'motion', label: tr('cat_motion'), count: 6, Icon: NavigationArrow },
-    { id: 'fx', label: tr('cat_fx'), count: 4, Icon: Sparkle },
+    { id: 'motion', label: tr('cat_motion'), count: 8, Icon: NavigationArrow },
+    { id: 'fx', label: tr('cat_fx'), count: 6, Icon: Sparkle },
   ];
 
   return (
-    <div className="controls-bar">
+    <div
+      className={`controls-bar ${isFloating ? 'is-floating' : ''} ${isFloating && isFloatingVisible ? 'is-floating-visible' : ''} ${isFloating && isFloatingAnimating ? 'is-floating-animating' : ''} ${className}`}
+      style={style}
+    >
       {/* 1. Button Text */}
       <div className="controls-group main-input-group">
         <label className="control-label">

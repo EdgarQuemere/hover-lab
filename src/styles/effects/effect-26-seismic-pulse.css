@@ -1,0 +1,53 @@
+/* 26. Onde Sismique (Seismic Pulse) */
+.btn-hover-seismic-pulse {
+  position: relative;
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.btn-hover-seismic-pulse::before {
+  content: '';
+  position: absolute;
+  inset: -4px;
+  border: 1.5px solid var(--btn-color, #18181b);
+  border-radius: inherit;
+  opacity: 0;
+  transform: scale(0.95);
+  transition: opacity 0.35s ease, transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  pointer-events: none;
+}
+
+.btn-hover-seismic-pulse:hover,
+.btn-hover-seismic-pulse.is-auto-hovered {
+  animation: seismicShake 0.4s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+}
+
+.btn-hover-seismic-pulse:hover::before,
+.btn-hover-seismic-pulse.is-auto-hovered::before {
+  opacity: 0.6;
+  transform: scale(1.12);
+  animation: seismicRingExpand 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes seismicShake {
+  0%, 100% { transform: translateX(0); }
+  15% { transform: translateX(-3px) rotate(-0.5deg); }
+  30% { transform: translateX(2px) rotate(0.3deg); }
+  45% { transform: translateX(-2px) rotate(-0.2deg); }
+  60% { transform: translateX(1.5px) rotate(0.1deg); }
+  75% { transform: translateX(-1px); }
+}
+
+@keyframes seismicRingExpand {
+  0% {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  40% {
+    opacity: 0.6;
+    transform: scale(1.08);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1.2);
+  }
+}

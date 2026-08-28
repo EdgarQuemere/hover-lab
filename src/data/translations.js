@@ -104,9 +104,9 @@ export const TRANSLATIONS = {
     effect_4_desc: 'Solid 3D extruded block effect with sharp shadow that depresses on hover and click.',
     effect_4_cat: 'Monochrome B&W',
     // Effect 5
-    effect_5_name: '05. Rectangle Morph',
-    effect_5_desc: 'On hover, the button border morphs smoothly from its original shape into a structured rectangle (border-radius: 4px).',
-    effect_5_cat: 'Monochrome B&W',
+    effect_5_name: '05. Geometric Morph & Frame',
+    effect_5_desc: 'Pulsing geometric frame aura with tracking expansion, icon impulse, and tactile lift.',
+    effect_5_cat: 'Slide & Motion',
     // Effect 6
     effect_6_name: '06. Luminous Ambient Glow',
     effect_6_desc: 'Monochrome luminous halo expanding outward with slight scaling.',
@@ -187,6 +187,26 @@ export const TRANSLATIONS = {
     effect_25_name: '25. Holographic Refraction',
     effect_25_desc: 'Prismatic holographic beam sweep with iridescent glow and icon tilt.',
     effect_25_cat: 'Special FX & Particles',
+    // Effect 26
+    effect_26_name: '26. Seismic Pulse',
+    effect_26_desc: 'Subtle seismic shake of the button with a concentric ring that expands and fades.',
+    effect_26_cat: 'Slide & Motion',
+    // Effect 27
+    effect_27_name: '27. Vertical Curtain',
+    effect_27_desc: 'Two vertical curtains close from top and bottom with color inversion.',
+    effect_27_cat: 'Fills & Sweeps',
+    // Effect 28
+    effect_28_name: '28. Elastic Bounce',
+    effect_28_desc: 'Button squishes down then springs back up with elastic overshoot and dynamic shadow.',
+    effect_28_cat: 'Slide & Motion',
+    // Effect 29
+    effect_29_name: '29. Mist Fade',
+    effect_29_desc: 'Foggy mist fill creeps in from the left with a blur-to-sharp reveal.',
+    effect_29_cat: 'Fills & Sweeps',
+    // Effect 30
+    effect_30_name: '30. Conic Radar Sweep',
+    effect_30_desc: '360° rotating conic radar beam with 360° icon revolution and ambient luminous aura.',
+    effect_30_cat: 'Special FX & Particles',
   },
   fr: {
     search_placeholder: 'Rechercher un effet...',
@@ -286,9 +306,9 @@ export const TRANSLATIONS = {
     effect_4_desc: 'Effet bloc solide 3D avec ombre nette qui s’enfonce lors du survol et clic.',
     effect_4_cat: 'Monochrome B&W',
     // Effect 5
-    effect_5_name: '05. Métamorphose Rectangle',
-    effect_5_desc: 'Au survol, le contour du bouton se métamorphose de sa forme d’origine vers un rectangle structuré (border-radius: 4px).',
-    effect_5_cat: 'Monochrome B&W',
+    effect_5_name: '05. Métamorphose Géométrique',
+    effect_5_desc: 'Cadre géométrique dynamique en pulsation avec expansion du tracking, impulsion d\'icône et surélévation tactile.',
+    effect_5_cat: 'Glissements & Mouvements',
     // Effect 6
     effect_6_name: '06. Halo Lumineux',
     effect_6_desc: 'Halo lumineux monochrome qui se déploie avec un léger grossissement.',
@@ -367,8 +387,28 @@ export const TRANSLATIONS = {
     effect_24_cat: 'Remplissages & Dégradés',
     // Effect 25
     effect_25_name: '25. Réfraction Holographique',
-    effect_25_desc: 'Faisceau prismatique holographique avec balayage néon et inclinaison dynamique de l’icône.',
+    effect_25_desc: 'Faisceau prismatique holographique avec balayage néon et inclinaison dynamique de l\'icône.',
     effect_25_cat: 'Effets Spéciaux',
+    // Effect 26
+    effect_26_name: '26. Onde Sismique',
+    effect_26_desc: 'Tremblement sismique subtil du bouton avec une onde concentrique qui se propage et s\'efface.',
+    effect_26_cat: 'Glissements & Mouvements',
+    // Effect 27
+    effect_27_name: '27. Rideau Vertical',
+    effect_27_desc: 'Deux rideaux verticaux se referment depuis le haut et le bas avec inversion des couleurs.',
+    effect_27_cat: 'Remplissages & Dégradés',
+    // Effect 28
+    effect_28_name: '28. Rebond Élastique',
+    effect_28_desc: 'Le bouton s\'écrase puis rebondit avec un effet ressort élastique et ombre dynamique.',
+    effect_28_cat: 'Glissements & Mouvements',
+    // Effect 29
+    effect_29_name: '29. Fondu Brume',
+    effect_29_desc: 'Remplissage flou de type brume qui envahit progressivement le bouton depuis la gauche.',
+    effect_29_cat: 'Remplissages & Dégradés',
+    // Effect 30
+    effect_30_name: '30. Balayage Radar Conique',
+    effect_30_desc: 'Faisceau radar conique rotatif à 360° avec révolution complète de l\'icône et aura lumineuse.',
+    effect_30_cat: 'Effets Spéciaux',
   },
   es: {
     search_placeholder: 'Buscar un efecto...',
@@ -464,9 +504,9 @@ export const TRANSLATIONS = {
     effect_4_desc: 'Efecto de bloque 3D sólido con sombra nítida que se presiona al pasar el ratón y hacer clic.',
     effect_4_cat: 'Monochrome B&W',
     // Effect 5
-    effect_5_name: '05. Metamorfosis Rectangular',
-    effect_5_desc: 'Al pasar el ratón, el borde se transforma suavemente a un rectángulo estructurado (radio: 4px).',
-    effect_5_cat: 'Monochrome B&W',
+    effect_5_name: '05. Metamorfosis Geométrica',
+    effect_5_desc: 'Marco geométrico dinámico en pulsación con expansión de espaciado, impulso del icono y elevación táctil.',
+    effect_5_cat: 'Deslizamiento y Movimiento',
     // Effect 6
     effect_6_name: '06. Halo Luminoso',
     effect_6_desc: 'Halo luminoso monocromo que se despliega con un ligero aumento de tamaño.',
@@ -547,6 +587,26 @@ export const TRANSLATIONS = {
     effect_25_name: '25. Refracción Holográfica',
     effect_25_desc: 'Haz prismático holográfico con barrido neón e inclinación del icono.',
     effect_25_cat: 'Efectos Especiales / Color',
+    // Effect 26
+    effect_26_name: '26. Pulso Sísmico',
+    effect_26_desc: 'Temblor sísmico sutil del botón con una onda concéntrica que se expande y desvanece.',
+    effect_26_cat: 'Deslizamiento y Movimiento',
+    // Effect 27
+    effect_27_name: '27. Cortina Vertical',
+    effect_27_desc: 'Dos cortinas verticales se cierran desde arriba y abajo con inversión de colores.',
+    effect_27_cat: 'Rellenos y Barridos',
+    // Effect 28
+    effect_28_name: '28. Rebote Elástico',
+    effect_28_desc: 'El botón se comprime y rebota con efecto elástico de resorte y sombra dinámica.',
+    effect_28_cat: 'Deslizamiento y Movimiento',
+    // Effect 29
+    effect_29_name: '29. Fundido Neblina',
+    effect_29_desc: 'Relleno borroso tipo neblina que invade progresivamente el botón desde la izquierda.',
+    effect_29_cat: 'Rellenos y Barridos',
+    // Effect 30
+    effect_30_name: '30. Barrido Radar Cónico',
+    effect_30_desc: 'Haz de radar cónico giratorio de 360° con revolución completa del icono y aura luminosa.',
+    effect_30_cat: 'Efectos Especiales / Color',
   },
   de: {
     search_placeholder: 'Effekt suchen...',
@@ -642,9 +702,9 @@ export const TRANSLATIONS = {
     effect_4_desc: 'Solider 3D-Block-Effekt mit scharfem Schatten, der beim Hovern und Klicken einsinkt.',
     effect_4_cat: 'Monochrome B&W',
     // Effect 5
-    effect_5_name: '05. Rechteck-Morphing',
-    effect_5_desc: 'Beim Hovern verwandelt sich die Kontur von der Ursprungsform in ein strukturiertes Rechteck (Eckenradius: 4px).',
-    effect_5_cat: 'Monochrome B&W',
+    effect_5_name: '05. Geometrisches Morphing',
+    effect_5_desc: 'Pulsierender geometrischer Rahmen mit Zeichenabstand-Erweiterung, Icon-Impuls und taktilem Anheben.',
+    effect_5_cat: 'Gleiten & Bewegung',
     // Effect 6
     effect_6_name: '06. Leuchtender Halo-Glow',
     effect_6_desc: 'Monochromer leuchtender Halo, der sich mit leichter Vergrößerung ausbreitet.',
@@ -725,6 +785,26 @@ export const TRANSLATIONS = {
     effect_25_name: '25. Holografische Brechung',
     effect_25_desc: 'Prismatischer holografischer Strahl mit Neon-Sweep und Icon-Neigung.',
     effect_25_cat: 'Spezialeffekte / Farbe',
+    // Effect 26
+    effect_26_name: '26. Seismischer Puls',
+    effect_26_desc: 'Subtiles seismisches Zittern des Buttons mit einer konzentrischen Welle, die sich ausbreitet und verblasst.',
+    effect_26_cat: 'Gleiten & Bewegung',
+    // Effect 27
+    effect_27_name: '27. Vertikaler Vorhang',
+    effect_27_desc: 'Zwei vertikale Vorhänge schließen sich von oben und unten mit Farbumkehr.',
+    effect_27_cat: 'Füllungen & Verläufe',
+    // Effect 28
+    effect_28_name: '28. Elastischer Sprung',
+    effect_28_desc: 'Der Button wird zusammengedrückt und springt mit elastischem Federeffekt und dynamischem Schatten zurück.',
+    effect_28_cat: 'Gleiten & Bewegung',
+    // Effect 29
+    effect_29_name: '29. Nebel-Einblendung',
+    effect_29_desc: 'Verschwommene Nebelfüllung, die den Button von links progressiv einhüllt.',
+    effect_29_cat: 'Füllungen & Verläufe',
+    // Effect 30
+    effect_30_name: '30. Konischer Radar-Sweep',
+    effect_30_desc: '360° rotierender konischer Radarstrahl mit 360°-Icon-Drehung und leuchtender Aura.',
+    effect_30_cat: 'Spezialeffekte / Farbe',
   }
 };
 

@@ -1,25 +1,32 @@
 /* ==========================================================================
    Effect 08: Flip 3D Recto-Verso (3D Card Flip)
-   The button itself acts as the perspective container.
-   .card-inner wraps both faces and handles the 3D rotation.
-   .card-front shows the normal state, .card-back shows on hover.
-   The button keeps its natural dimensions from specimen-btn sizing.
+   
+   Architecture:
+   - The <button> resets its own visual (border/bg/padding = none) and acts
+     as the perspective container only.
+   - .card-inner is a FLOW element (display: inline-flex) that holds both faces
+     and handles the 3D rotation via transform-style: preserve-3d.
+   - .card-front is a FLOW element: it provides the natural button dimensions
+     (padding, text, border) — making the button look identical to all others.
+   - .card-back is position: absolute, layered behind card-front, and revealed
+     on hover when card-inner rotates 180°.
    ========================================================================== */
 
 .btn-hover-card-flip {
   perspective: 1000px;
   position: relative;
   overflow: visible;
-  /* Keep the button's natural padding so it has real height/width,
-     but hide default background/border — the faces handle that */
-  background-color: transparent;
-  border-color: transparent;
+  /* Strip the button's own visual — the faces handle it */
+  background: none;
+  border: none;
+  padding: 0;
   transition: none;
 }
 
 .btn-hover-card-flip .card-inner {
-  position: absolute;
-  inset: 0;
+  position: relative;
+  display: inline-flex;
+  border-radius: inherit;
   transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
   transform-style: preserve-3d;
 }
@@ -29,26 +36,51 @@
   transform: rotateY(180deg);
 }
 
+/* ---- Shared face styles ---- */
 .btn-hover-card-flip .card-front,
 .btn-hover-card-flip .card-back {
-  position: absolute;
-  inset: 0;
   backface-visibility: hidden;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 10px;
-  border-radius: inherit;
+  white-space: nowrap;
+  font-weight: 500;
+  letter-spacing: -0.01em;
   border: 1.5px solid var(--btn-color, #18181b);
+  border-radius: inherit;
 }
 
+/* ---- Front face (flow → sizes the button) ---- */
 .btn-hover-card-flip .card-front {
   background-color: var(--btn-bg, transparent);
   color: var(--btn-color, #18181b);
 }
 
+/* ---- Back face (absolute overlay, hidden until flip) ---- */
 .btn-hover-card-flip .card-back {
+  position: absolute;
+  inset: 0;
   background-color: var(--btn-color, #18181b);
   color: var(--btn-bg, #ffffff);
   transform: rotateY(180deg);
+}
+
+/* ---- Mirror btn-size-* padding so faces match all other buttons ---- */
+.btn-hover-card-flip.btn-size-sm .card-front,
+.btn-hover-card-flip.btn-size-sm .card-back {
+  padding: 8px 20px;
+  font-size: 0.8125rem;
+}
+
+.btn-hover-card-flip.btn-size-md .card-front,
+.btn-hover-card-flip.btn-size-md .card-back {
+  padding: 12px 28px;
+  font-size: 0.9375rem;
+}
+
+.btn-hover-card-flip.btn-size-lg .card-front,
+.btn-hover-card-flip.btn-size-lg .card-back {
+  padding: 16px 36px;
+  font-size: 1.0625rem;
 }

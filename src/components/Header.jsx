@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { forwardRef } from 'react';
 import { MagnifyingGlass, X } from '@phosphor-icons/react';
 import LanguageSelector from './LanguageSelector';
 import AutoPlayControl from './AutoPlayControl';
 
-export default function Header({
+const Header = forwardRef(function Header({
   searchQuery,
   setSearchQuery,
   buttonColor = '#e6332a',
@@ -13,9 +13,9 @@ export default function Header({
   autoPlayMode = 'fast',
   setAutoPlayMode,
   t
-}) {
+}, ref) {
   return (
-    <header className="header">
+    <header className="header" ref={ref}>
       <div className="header-brand">
         <div className="brand-logo-wrap" title="HoverLab Logo">
           <svg
@@ -84,4 +84,6 @@ export default function Header({
       </div>
     </header>
   );
-}
+});
+
+export default Header;

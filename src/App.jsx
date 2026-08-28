@@ -52,6 +52,11 @@ const EFFECT_CATEGORY_MAP = {
   23: 'borders',
   24: 'fills',
   25: 'fx',
+  26: 'motion',
+  27: 'fills',
+  28: 'motion',
+  29: 'fills',
+  30: 'fx',
 };
 
 export default function App() {
@@ -66,6 +71,16 @@ export default function App() {
 
   const t = (key, params) => getTranslation(lang, key, params);
 
+  const [overrideModalConfig, setOverrideModalConfig] = useState(null);
+  const [isStickyFloating, setIsStickyFloating] = useState(false);
+  const [isStickyVisible, setIsStickyVisible] = useState(false);
+  const [isFloatingAnimating, setIsFloatingAnimating] = useState(false);
+  const headerRef = useRef(null);
+  const controlsBarAnchorRef = useRef(null);
+  const lastScrollYRef = useRef(0);
+  const [headerHeight, setHeaderHeight] = useState(75);
+  const [controlsBarHeight, setControlsBarHeight] = useState(0);
+
   // Sync default buttonText when language changes if user hasn't typed custom text
   const handleLangChange = (newLang) => {
     const oldDefault = getTranslation(lang, 'default_button_text');
@@ -75,6 +90,57 @@ export default function App() {
     }
     setLang(newLang);
   };
+
+  // Measure dynamic dimensions for header and controls bar
+  useEffect(() => {
+    const updateDimensions = () => {
+      if (headerRef.current) {
+        setHeaderHeight(headerRef.current.offsetHeight);
+      }
+      if (controlsBarAnchorRef.current) {
+        const height = controlsBarAnchorRef.current.offsetHeight;
+        if (height > 0) {
+          setControlsBarHeight(height);
+        }
+      }
+    };
+    updateDimensions();
+    window.addEventListener('resize', updateDimensions);
+    return () => window.removeEventListener('resize', updateDimensions);
+  }, []);
+
+  // Smart scroll detection: slide ControlsBar in under Header when scrolling UP past the fold
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY || window.pageYOffset;
+      const scrollDelta = currentScrollY - lastScrollYRef.current;
+      const anchorEl = controlsBarAnchorRef.current;
+      const threshold = anchorEl ? (anchorEl.offsetTop + anchorEl.offsetHeight) : 155;
+
+      if (currentScrollY <= threshold) {
+        // Back at the top: stay in native document flow
+        setIsStickyFloating(false);
+        setIsStickyVisible(false);
+        setIsFloatingAnimating(false);
+      } else {
+        // Passed the fold / deep in the page
+        setIsStickyFloating(true);
+        if (scrollDelta < -4) {
+          // Intentional scroll up: reveal floating controls bar smoothly under header
+          setIsStickyVisible(true);
+          setIsFloatingAnimating(true);
+        } else if (scrollDelta > 6) {
+          // Scrolling down: hide floating controls bar
+          setIsStickyVisible(false);
+        }
+      }
+
+      lastScrollYRef.current = currentScrollY;
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   // Apply canvas theme to body, keep site font fixed on font-satoshi
   useEffect(() => {
@@ -238,14 +304,13 @@ export default function App() {
     return () => clearTimeout(scrollTimer);
   }, [pendingScrollId, visibleCount, filteredEffects]);
 
-  const [overrideModalConfig, setOverrideModalConfig] = useState(null);
-
   const visibleEffects = filteredEffects.slice(0, visibleCount);
   const hasMore = visibleCount < filteredEffects.length;
 
   return (
     <div className="app-container font-satoshi">
       <Header
+        ref={headerRef}
         searchQuery={searchQuery}
         setSearchQuery={setSearchQuery}
         buttonColor={config.buttonColor}
@@ -257,7 +322,22 @@ export default function App() {
         t={t}
       />
 
-      <ControlsBar config={config} onChange={setConfig} t={t} lang={lang} />
+      <div
+        ref={controlsBarAnchorRef}
+        className="controls-bar-anchor"
+        style={{ minHeight: isStickyFloating && controlsBarHeight ? `${controlsBarHeight}px` : undefined }}
+      >
+        <ControlsBar
+          config={config}
+          onChange={setConfig}
+          t={t}
+          lang={lang}
+          isFloating={isStickyFloating}
+          isFloatingVisible={isStickyVisible}
+          isFloatingAnimating={isFloatingAnimating}
+          style={isStickyFloating ? { top: `${headerHeight}px` } : undefined}
+        />
+      </div>
 
       <main className="main-content">
         {filteredEffects.length > 0 ? (
