@@ -30,11 +30,13 @@
   z-index: 1;
 }
 
-.btn-hover-holographic-glitch:hover::before {
+.btn-hover-holographic-glitch:hover::before,
+.btn-hover-holographic-glitch.is-auto-hovered::before {
   transform: translateX(180%) rotate(25deg);
 }
 
-.btn-hover-holographic-glitch:hover {
+.btn-hover-holographic-glitch:hover,
+.btn-hover-holographic-glitch.is-auto-hovered {
   transform: translateY(-3px) scale(1.025);
   box-shadow: 0 8px 24px rgba(0, 240, 255, 0.25), 0 2px 10px rgba(255, 0, 128, 0.2);
   border-color: rgba(0, 240, 255, 0.6) !important;
@@ -44,6 +46,7 @@
   transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
-.btn-hover-holographic-glitch:hover .btn-icon {
+.btn-hover-holographic-glitch:hover .btn-icon,
+.btn-hover-holographic-glitch.is-auto-hovered .btn-icon {
   transform: scale(1.2) rotate(-12deg);
 }

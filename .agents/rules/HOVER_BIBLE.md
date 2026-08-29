@@ -1,47 +1,47 @@
 # 📖 La Bible du Hover — HoverLab
 
-> Document de référence exhaustif pour la création, le maintien et l'intégration de tout nouvel effet hover dans HoverLab.
+> **Document de référence exhaustif pour la création, le maintien et l'intégration de tout effet hover dans HoverLab.**
 
 ---
 
 ## 1. Architecture Globale
 
-### Arborescence des fichiers concernés
-
 ```
 src/
 ├── data/
-│   ├── hoverEffects.js          # Catalogue des effets (id, name, className, cssCode…)
-│   └── translations.js          # Traductions EN / FR / ES / DE par effet
+│   ├── hoverEffects.js          # Catalogue officiel des effets (id, name, category, className, description, cssCode)
+│   └── translations.js          # Traductions EN / FR / ES / DE (métadonnées, réglages, noms & descriptions des effets)
 ├── styles/
-│   ├── hovers.css               # Agrégateur @import de chaque fichier d'effet
+│   ├── hovers.css               # Agrégateur global (@import de chaque fichier d'effet modulaire)
 │   └── effects/
 │       ├── effect-01-fill-sweep.css
 │       ├── effect-02-icon-push.css
-│       └── effect-XX-slug.css   # Un fichier CSS par effet
+│       └── effect-XX-slug.css   # Un fichier CSS dédié par effet (actuellement 30 effets)
 ├── components/
-│   ├── HoverCard.jsx            # Card de la grille principale (rendu du bouton)
-│   ├── FocusSandbox.jsx         # Mode Studio (preview isolée + contrôles live)
-│   ├── ControlsBar.jsx          # Barre de réglages globale
-│   └── CodeModal.jsx            # Modal d'export multi-format
+│   ├── HoverCard.jsx            # Carte individuelle de la grille (rendu interactif, partage, deep-linking)
+│   ├── FocusSandbox.jsx         # Mode Studio Pro (preview isolée, réglages, éditeur CSS grand format, sauvegarde)
+│   ├── ControlsBar.jsx          # Barre de personnalisation globale (texte, icône, taille, arrondi, couleur, fond)
+│   ├── AutoPlayControl.jsx      # Contrôle 2-états de la démo automatique (OFF / ON)
+│   ├── CustomColorPicker.jsx    # Sélecteur de couleur avancé (presets, pipette écran, dégradé, hex)
+│   └── CodeModal.jsx            # Modale d'exportation multi-format (CSS, Tailwind, React, Tokens) avec scroll fluide
 ├── utils/
-│   └── exportUtils.js           # Générateurs Vanilla CSS, Tailwind, Framer, Tokens
-├── index.css                    # Styles de base (.specimen-btn, tailles, canvas)
-├── App.jsx                      # Config state, catégories, pagination, hash scroll
-└── App.css                      # Layout de l'app (grille, header, main-content)
+│   └── exportUtils.js           # Moteur de génération de code (Vanilla CSS, Tailwind, Framer Motion, Tokens JSON)
+├── index.css                    # Styles de base du système de design (.specimen-btn, polices, thèmes de canvas)
+├── App.jsx                      # État global, pagination réactive, filtrage par catégorie, deep-linking URL
+└── App.css                      # Layout de l'application (en-tête, grille adaptative, modales, studio)
 ```
 
 ---
 
 ## 2. Le Bouton de Base (`.specimen-btn`)
 
-### HTML de base (rendu React)
+### Structure HTML de référence (Rendu React standard)
 
 ```html
 <button class="specimen-btn font-satoshi btn-size-md btn-hover-XXXX"
         style="border-radius: 9999px; --btn-color: #e6332a;">
-  <span>Filters</span>
-  <svg class="btn-icon btn-icon-right"><!-- Phosphor Icon --></svg>
+  <span>HoverLab</span>
+  <svg class="btn-icon btn-icon-right"><!-- Icon SVG --></svg>
 </button>
 ```
 
@@ -65,522 +65,190 @@ src/
 ```
 
 > [!IMPORTANT]
-> Le bouton est toujours **transparent avec un outline** par défaut. Chaque effet vient modifier le comportement au `:hover` sans altérer l'état de repos (sauf cas spéciaux documentés).
+> Par défaut, le bouton est **transparent avec une bordure de 1.5px**. Chaque effet vient styliser le comportement au `:hover` (et `.is-auto-hovered`) sans dégrader l'état de repos.
 
-### Tailles (`.btn-size-*`)
+### Tailles supportées (`.btn-size-*`)
 
-| Classe | Padding | Font-size |
-|---|---|---|
-| `.btn-size-sm` | `8px 20px` | `0.8125rem` (13px) |
-| `.btn-size-md` | `12px 28px` | `0.9375rem` (15px) |
-| `.btn-size-lg` | `16px 36px` | `1.0625rem` (17px) |
+| Classe | Padding | Taille de police | Taille d'icône |
+|---|---|---|---|
+| `.btn-size-sm` | `8px 20px` | `0.8125rem` (13px) | `14px` |
+| `.btn-size-md` | `12px 28px` | `0.9375rem` (15px) | `17px` *(Défaut)* |
+| `.btn-size-lg` | `16px 36px` | `1.0625rem` (17px) | `20px` |
 
-### Typographies (`.font-*`)
+### Typographies disponibles (`.font-*`)
 
-| Classe | Police |
-|---|---|
-| `.font-satoshi` | Satoshi (Fontshare) |
-| `.font-inter` | Inter (Google) |
-| `.font-space` | Space Grotesk (Google) |
-| `.font-instrument` | Instrument Sans (Google) |
-| `.font-mono` | JetBrains Mono (Google) |
+* `.font-satoshi` : Satoshi (Moderne & géométrique - *Défaut*)
+* `.font-inter` : Inter (Épuré & standard UI)
+* `.font-space` : Space Grotesk (Tech & expressif)
+* `.font-instrument` : Instrument Sans (Élégant & éditorial)
+* `.font-mono` : JetBrains Mono (Monospace technique)
 
 ---
 
-## 3. Variables CSS Dynamiques
+## 3. Variables CSS Dynamiques & Thèmes
 
-### Variables du bouton
+### Variables fondamentales
 
-| Variable | Rôle | Default Light | Default Dark |
+| Variable | Rôle | Fallback Clair | Fallback Sombre |
 |---|---|---|---|
-| `--btn-color` | Couleur principale du bouton (texte + bordure) | `#18181b` | `#FFFFFF` |
-| `--btn-bg` | Couleur du fond du canvas (pour inverser les couleurs au hover) | `#EFECE6` | `#0E0E10` |
+| `--btn-color` | Couleur d'accentuation (texte, bordure, remplissages animés) | `#18181b` | `#FFFFFF` |
+| `--btn-bg` | Couleur du fond de scène (utilisée pour contraster lors des inversions) | `#EEEEEE` | `#111111` |
+| `--anim-speed` | Vitesse d'animation dynamique en Mode Studio | `0.35s` | `0.35s` |
 
 > [!WARNING]
-> Ces variables sont injectées en **inline style** sur le bouton (`--btn-color`) ET via les classes `.canvas-light` / `.canvas-dark` sur le container parent (`.specimen-canvas`). Tout effet CSS DOIT utiliser ces variables au lieu de couleurs en dur.
+> Ces variables sont injectées en **inline styles** ou via les classes de thème parentes `.canvas-light` et `.canvas-dark`. **Ne jamais coder de couleurs en dur dans un effet** sans utiliser `var(--btn-color, #18181b)`.
 
-### Thèmes de canvas
+### Border-Radius & Formes
 
-```css
-.canvas-light {
-  background-color: #EFECE6;
-  --btn-color: #18181B;
-  --btn-bg: #EFECE6;
-}
-
-.canvas-dark {
-  background-color: #0E0E10;
-  --btn-color: #FFFFFF;
-  --btn-bg: #0E0E10;
-}
-```
-
-### Border-radius
-
-Appliqué en **inline style** sur le `<button>` via `radiusStyle` dans `HoverCard.jsx` :
-
-```js
-const radiusStyle = {
-  borderRadius: config.borderRadiusValue === 999
-    ? `${Math.round(maxPillRadius)}px`   // Pill = demi-hauteur
-    : `${config.borderRadiusValue}px`,   // 0, 8, 16, ou custom
-  ...(config.buttonColor ? { '--btn-color': config.buttonColor } : {})
-};
-```
-
-| Preset | Valeur |
-|---|---|
-| Carré | `0px` |
-| Arrondi léger | `8px` |
-| Arrondi marqué | `16px` |
-| Pill | `999` → calculé dynamiquement (`height / 2`) |
+Le border-radius est appliqué dynamiquement via `radiusStyle` sur le bouton :
+* `0px` : Carré brut (Brutalism)
+* `6px` : Arrondi subtil
+* `12px` : Arrondi moderne (*Défaut*)
+* `999` (Pill) : Calculé dynamiquement à la demi-hauteur (`height / 2`, ex: `24px` ou `9999px`)
 
 > [!IMPORTANT]
-> `border-radius` n'est **PAS** une propriété CSS héritée par défaut. Si votre effet utilise des éléments enfants (`.card-inner`, `.card-front`, etc.), vous DEVEZ ajouter `border-radius: inherit` sur **chaque nœud** intermédiaire pour que la chaîne fonctionne.
+> `border-radius` n'étant pas une propriété héritée par défaut en CSS, tout pseudo-élément (`::before`, `::after`) ou conteneur interne (`.card-inner`, `.btn-content-wrap`) **DOIT obligatoirement inclure `border-radius: inherit;`**.
 
 ---
 
-## 4. Panneau de Réglages (ControlsBar)
+## 4. Panneau de Réglages Global (ControlsBar)
 
-Tous les réglages listés ci-dessous sont connectés au bouton. Chaque effet doit les respecter.
+Tous les réglages de la barre supérieure pilotent instantanément tous les hovers de la grille :
 
-### 4.1 — Button Text (`config.buttonText`)
-- **Input** : Champ texte libre
-- **Default** : `"Filters"` (traduit par langue : FR = `"Filtres"`, etc.)
-- **Rendu** : `<span>{config.buttonText || 'Filtres'}</span>` dans le bouton
-- **Connexion** : Le texte apparaît dans les `<span>` internes du bouton
-
-### 4.2 — Category (`config.filterCategory`)
-- **Options** : `all`, `fills`, `borders`, `motion`, `fx`
-- **Mapping** : Défini dans `EFFECT_CATEGORY_MAP` dans `App.jsx` (id → catégorie)
-- **Impact** : Filtre la grille. Chaque nouvel effet doit être ajouté à `EFFECT_CATEGORY_MAP`.
-
-### 4.3 — Typography (`config.fontFamily`)
-- **Options** : `font-satoshi`, `font-inter`, `font-space`, `font-instrument`, `font-mono`
-- **Rendu** : Ajouté comme classe sur le `<button>` via `fullClassName`
-- **Impact** : Change la police du texte du bouton
-
-### 4.4 — Phosphor Icon (`config.iconName`)
-- **Options** : 15 icônes Phosphor (`ArrowRight`, `Sparkle`, `Lightning`, `Compass`, `Plus`, `ShoppingBag`, `Heart`, `PaperPlane`, `Lock`, `Code`, `Star`, `Globe`, `Download`, `Check`, `Cursor`)
-- **Rendu** : `<SelectedIconComp className="btn-icon" size={17} weight={config.iconWeight} />`
-- **Impact** : Change l'icône dans le bouton. Accessible via `.btn-icon` en CSS.
-
-### 4.5 — Icon Position (`config.iconPosition`)
-
-| Valeur | Comportement |
-|---|---|
-| `left` | Icône à gauche du texte (`.btn-icon-left`) |
-| `right` | Icône à droite du texte (`.btn-icon-right`) |
-| `only` | Icône seule, pas de texte |
-| `none` | Pas d'icône |
-
-### 4.6 — Border Radius (`config.borderRadiusValue`)
-- **Presets** : `0px`, `8px`, `16px`, `Pill` (999)
-- **Input** : Champ numérique libre + presets segmented button
-- **Rendu** : Inline style `borderRadius` sur le `<button>`
-- **Impact** : Change la forme du bouton. Effets avec éléments enfants → `border-radius: inherit`
-
-### 4.7 — Button Fill Color (`config.buttonColor`)
-- **Presets** : 🔴 `#e6332a` (défaut), 🟡 `#f6e81d`, ⚫ `#18181b`, 🔵 `#2563eb`, 🟢 `#10b981`, 🟣 `#8b5cf6`, 🟠 `#f97316`
-- **Input** : Color picker custom (hex, eyedropper)
-- **Rendu** : Injecté en inline style `--btn-color: #XXXXXX`
-- **Impact** : Change la couleur du contour, du texte, et de tous les éléments CSS utilisant `var(--btn-color)`
-
-### 4.8 — Card Background (`config.cardBgColor`)
-- **Presets** : Clair `#eeeeee`, Sombre `#111111`
-- **Input** : Color picker custom
-- **Rendu** : Background du `.specimen-canvas` + définition de `--btn-bg`
-- **Impact** : Inversion automatique de `--btn-color` si fond sombre + couleur foncée
+1. **Texte du Bouton (`config.buttonText`)** :
+   * **Défaut** : `"HoverLab"`
+   * S'affiche dynamiquement dans les `<span>` internes du bouton.
+2. **Catégorie (`config.filterCategory`)** :
+   * Filtre la grille selon les 5 catégories officielles.
+3. **Typographie (`config.fontFamily`)** :
+   * Applique la classe `.font-*` sur le bouton.
+4. **Icône (`config.iconName`)** :
+   * 15 icônes vectorielles disponibles (ArrowRight, Sparkle, Lightning, Compass, Plus, ShoppingBag, Heart, PaperPlane, Lock, Code, Star, Globe, Download, Check, Cursor).
+5. **Position de l'icône (`config.iconPosition`)** :
+   * `none` : Pas d'icône.
+   * `left` : Icône à gauche du texte (`.btn-icon-left`).
+   * `right` : Icône à droite du texte (`.btn-icon-right` - *Défaut*).
+   * `only` : Icône seule (sans texte).
+6. **Arrondi des angles (`config.borderRadiusValue`)** :
+   * Segmented button (0, 6, 12, Pill) + champ numérique de précision.
+7. **Couleur du bouton (`config.buttonColor`)** :
+   * Définit `--btn-color` (défaut : `#e6332a`).
+8. **Fond des Cards (`config.cardBgColor`)** :
+   * Définit `--btn-bg` et le fond de scène (Clair `#eeeeee` / Sombre `#111111` / Custom).
 
 ---
 
-## 5. Classes CSS Essentielles
+## 5. Mode AutoPlay (Démo Automatique)
 
-```
-.specimen-btn         → Bouton de base (outline, padding, flexbox)
-.btn-size-sm/md/lg    → Taille du bouton
-.font-*               → Typographie
-.btn-hover-XXXX       → Classe CSS de l'effet (ajoutée sur le <button>)
-.is-auto-hovered      → Classe toggle pour l'animation automatique de la grille
-.canvas-light         → Container clair (--btn-color: #18181B)
-.canvas-dark          → Container sombre (--btn-color: #FFFFFF)
-.btn-icon             → Icône Phosphor dans le bouton
-.btn-icon-left        → Position gauche
-.btn-icon-right       → Position droite
-```
+Le contrôle en haut à droite permet d'animer automatiquement les boutons sans interaction de la souris :
+* **OFF** : Animations déclenchées uniquement au survol réel de l'utilisateur.
+* **ON** : Défilement séquentiel aléatoire appliquant la classe `.is-auto-hovered` sur les cartes visibles.
 
----
-
-## 6. Règles CSS pour un Effet Standard
-
-### Template minimal
-
-```css
-/* XX. Nom de l'Effet (Nom Anglais) */
-.btn-hover-mon-effet {
-  position: relative;
-  overflow: hidden;              /* Si nécessaire */
-  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.btn-hover-mon-effet:hover,
-.btn-hover-mon-effet.is-auto-hovered {
-  transform: translateY(-2px);   /* Exemple : légère élévation */
-}
-```
-
-### ⚠️ Règles impératives
-
-| Règle | Explication |
-|---|---|
-| **Toujours supporter `.is-auto-hovered`** | L'animation automatique de la grille ajoute cette classe. Dupliquer chaque sélecteur `:hover` avec `.is-auto-hovered`. |
-| **Utiliser `var(--btn-color, #18181b)`** | Couleur par défaut. Jamais de couleur en dur sauf effets cosmétiques (ombres rgba). |
-| **Utiliser `var(--btn-bg, #ffffff)`** | Pour les inversions de couleur au hover. |
-| **Fallback = `#18181b`** (pas `#e6332a`) | Le fallback CSS dans les `var()` doit être `#18181b` (le noir du thème light). `#e6332a` est injecté à runtime, pas un fallback. |
-| **`border-radius: inherit`** | Sur tout pseudo-element ou enfant pour respecter la forme pill/arrondie. |
-| **Ne PAS écraser le padding/border/bg** du bouton (sauf cas spécial documenté) | L'apparence de base du bouton doit rester cohérente. |
-| **Easing signature** | `cubic-bezier(0.16, 1, 0.3, 1)` — l'easing standard de HoverLab. |
-| **Pas de `!important` sauf nécessité absolue** | Uniquement sur `color` lors d'une inversion (pour contrer la spécificité inline) et `overflow: hidden !important` quand critique. |
+> [!IMPORTANT]
+> **Règle absolue** : Tout effet CSS **DOIT obligatoirement dupliquer ses sélecteurs `:hover` avec `.is-auto-hovered`** :
+> ```css
+> .btn-hover-mon-effet:hover,
+> .btn-hover-mon-effet.is-auto-hovered {
+>   /* Styles d'animation */
+> }
+> ```
 
 ---
 
-## 7. Effets avec DOM Spécial (Custom Markup)
+## 6. Mode Studio Pro (FocusSandbox)
 
-Certains effets nécessitent un markup HTML spécial à l'intérieur du `<button>`. Ce markup est conditionnel dans `HoverCard.jsx` et `FocusSandbox.jsx`.
+Le Studio est l'espace de prototypage avancé ouvert au clic sur **"Studio"** :
 
-### 7.1 — Texte Elevator (effet 11)
-
-```html
-<button class="specimen-btn btn-hover-text-elevator">
-  <div class="btn-content-wrap">
-    <span>Filtres</span>
-    <svg class="btn-icon">…</svg>
-  </div>
-  <div class="btn-content-duplicate">
-    <span>Filtres</span>
-    <svg class="btn-icon">…</svg>
-  </div>
-</button>
-```
-- **Détection** : `effect.className.includes('hover-text-elevator')`
-- **Principe** : `btn-content-wrap` monte, `btn-content-duplicate` glisse depuis le bas
-
-### 7.2 — Rolling Magic (effet 21)
-
-```html
-<button class="specimen-btn btn-hover-rolling-magic">
-  <svg class="btn-icon btn-icon-left">…</svg>
-  <span class="btn-rolling-text">
-    <span class="btn-rolling-line original">
-      <span class="btn-rolling-char" style="--char-i: 0">F</span>
-      <span class="btn-rolling-char" style="--char-i: 1">i</span>
-      …
-    </span>
-    <span class="btn-rolling-line duplicate">…</span>
-  </span>
-</button>
-```
-- **Détection** : `effect.className.includes('btn-hover-rolling-magic')`
-- **Principe** : Chaque lettre tourne individuellement avec un délai staggered via `--char-i`
-
-### 7.3 — Icon Swap Morph (effet 19)
-
-```html
-<button class="specimen-btn btn-hover-icon-swap-morph">
-  <svg class="btn-icon btn-icon-swap-left">…</svg>
-  <span class="btn-content-wrap">Filtres</span>
-</button>
-```
-- **Détection** : `effect.className.includes('btn-hover-icon-swap-morph')`
-
-### 7.4 — Stagger Liquid (effet 20)
-
-```html
-<button class="specimen-btn btn-hover-stagger-liquid">
-  <span class="btn-stagger-drop" style="--delay: 1"></span>
-  <span class="btn-stagger-drop" style="--delay: 2"></span>
-  <span class="btn-stagger-drop" style="--delay: 3"></span>
-  <span class="btn-stagger-drop" style="--delay: 4"></span>
-  <span>Filtres</span>
-  <svg class="btn-icon">…</svg>
-</button>
-```
-- **Détection** : `effect.className.includes('btn-hover-stagger-liquid')`
-- **Principe** : 4 gouttes décoratives avec délai staggered via `--delay`
-
-### 7.5 — 3D Card Flip (effet 8)
-
-```html
-<button class="specimen-btn btn-hover-card-flip">
-  <div class="card-inner">
-    <div class="card-front">
-      <span>Filtres</span>
-      <svg class="btn-icon">…</svg>
-    </div>
-    <div class="card-back">
-      <span>Filtres</span>
-      <svg class="btn-icon">…</svg>
-    </div>
-  </div>
-</button>
-```
-- **Détection** : `effect.className.includes('hover-card-flip')`
-- **Principe** : Le bouton strip son propre border/padding/bg. `.card-front` est un élément **flow** qui donne la taille, `.card-back` est absolute. `.card-inner` gère la rotation 3D.
-- **⚠️ Particularité** : Ce type d'effet doit dupliquer les paddings `btn-size-*` sur les faces, car le bouton a `padding: 0`.
-
-### 7.6 — Effets SVG Outline (effets 17, 22, 23)
-
-```html
-<button class="specimen-btn btn-hover-outline-revolving">
-  <svg class="btn-svg-border" width="100%" height="100%">
-    <rect class="btn-svg-rect" x="0.75" y="0.75"
-          width="…" height="…" rx="…" ry="…" pathLength="100" />
-  </svg>
-  <span>Filtres</span>
-</button>
-```
-- **Détection** : `effect.className.includes('btn-hover-outline-revolving')` / `dual-pulse` / `draw-glow`
-- **Principe** : Le SVG `<rect>` est superposé au bouton avec `pathLength="100"` pour animer `stroke-dasharray` / `stroke-dashoffset`
-- **Dimensions** : Calculées par `ResizeObserver` dans le composant React
+### Organisation par Onglets
+1. 🎛️ **Onglet "Réglages"** :
+   * **Vitesse d'animation** : Slider de 0.1s à 3.0s **+ saisie clavier directe** (flèches ↑/↓ et validation Entrée).
+   * **Arrière-plan de scène (4 options)** :
+     * Haut-gauche : **Clair** (`#eeeeee`)
+     * Haut-droite : **Sombre** (`#111111`)
+     * Bas-gauche : **Wallpaper HD** (Image haute résolution)
+     * Bas-droite : **Personnalisé (Custom)** avec pastille de couleur et sélecteur `CustomColorPicker` intégré (prend par défaut la couleur des cartes d'accueil).
+   * **Texte du Bouton en direct**.
+   * **Couleur du Bouton en direct** avec pipette écran.
+2. 💻 **Onglet "Éditeur CSS"** :
+   * Espace de code **pleine hauteur (~500px+)**.
+   * **Synchronisation bidirectionnelle** : Modifier le slider ajuste la durée dans le CSS, et modifier la durée dans le code met à jour le slider en direct.
+   * 💾 **Sauvegarder** : Mémorise le CSS personnalisé dans `localStorage` pour cet effet.
+   * 🔄 **Réinitialiser** : Restaure le CSS officiel d'origine.
+   * 📋 **Copier** : Copie dans le presse-papier avec feedback visuel.
 
 ---
 
-## 8. Ajouter un Nouvel Effet (Checklist)
+## 7. Les 5 Catégories Officielles
 
-### Étape 1 — Fichier CSS
-Créer `src/styles/effects/effect-XX-slug.css` :
-```css
-/* XX. Nom FR (Nom EN) */
-.btn-hover-slug {
-  /* État de base : position, overflow, transition */
-}
+Chaque effet appartient à l'une de ces 5 catégories :
 
-.btn-hover-slug:hover,
-.btn-hover-slug.is-auto-hovered {
-  /* Animation au survol */
-}
-```
-
-### Étape 2 — Agrégateur CSS
-Ajouter dans `src/styles/hovers.css` :
-```css
-@import './effects/effect-XX-slug.css';
-```
-
-### Étape 3 — Données de l'effet
-Ajouter dans `src/data/hoverEffects.js` :
-```js
-{
-  id: XX,
-  name: 'XX. Nom Français',
-  category: 'Monochrome B&W',
-  className: 'btn-hover-slug',
-  description: 'Description française courte.',
-  cssCode: `/* Le CSS exact de l'effet, tel qu'exporté */`
-}
-```
-
-### Étape 4 — Catégorie
-Ajouter dans `App.jsx` → `EFFECT_CATEGORY_MAP` :
-```js
-XX: 'fills',  // ou 'borders', 'motion', 'fx'
-```
-
-| Catégorie | Description |
-|---|---|
-| `fills` | Remplissages et balayages de couleur |
-| `borders` | Bordures, outlines, contours animés |
-| `motion` | Mouvements, translations, rotations |
-| `fx` | Effets spéciaux, particules, glitch |
-
-### Étape 5 — Traductions
-Ajouter dans `src/data/translations.js` pour les **4 langues** (EN, FR, ES, DE) :
-```js
-// Effect XX
-effect_XX_name: 'XX. English Name',
-effect_XX_desc: 'English description of the effect.',
-effect_XX_cat: 'Monochrome B&W',
-```
-
-### Étape 6 — Markup spécial (si nécessaire)
-Si l'effet nécessite un DOM custom (voir Section 7) :
-
-1. **`HoverCard.jsx`** — Ajouter une branche conditionnelle dans le rendu du `<button>` :
-   ```jsx
-   ) : effect.className.includes('hover-slug') ? (
-     <div className="custom-wrapper">…</div>
-   ) : (
-   ```
-
-2. **`FocusSandbox.jsx`** — Idem pour le Mode Studio, même markup.
-
-### Étape 7 — Build & Test
-```bash
-npm run build    # Vérifie compilation sans erreurs
-npm run dev      # Teste visuellement le rendu
-```
-
----
-
-## 9. Mode Studio (FocusSandbox)
-
-Le Mode Studio est une modal plein écran déclenchée par le bouton **"Studio"** de chaque card.
-
-### Contrôles du Studio
-
-| Contrôle | Variable | Effet |
+| Catégorie FR / EN | Identifiant Map | Thématique |
 |---|---|---|
-| **Vitesse d'animation** | `animSpeed` (0.1s → 3.0s) | Override `transition-duration` et `animation-duration` sur l'effet et ses `::before`/`::after` |
-| **Arrière-plan de scène** | `backdropId` | Clair, Sombre, Gradient Mesh, Wallpaper HD |
-| **Texte du bouton** | `customButtonText` | Texte live éditable |
-| **Couleur du bouton** | `studioButtonColor` | Color picker avec eyedropper |
-| **Éditeur CSS en direct** | `customCssCode` | Textarea modifiable, injecté live via `<style>` dans `<head>` |
-
-### Injection CSS live
-
-Le Studio injecte dynamiquement un `<style id="sandbox-custom-live-css">` contenant :
-```css
-:root { --anim-speed: 0.35s; }
-.btn-hover-XXXX {
-  transition-duration: 0.35s !important;
-  animation-duration: 0.35s !important;
-}
-.btn-hover-XXXX::before, .btn-hover-XXXX::after {
-  transition-duration: 0.35s !important;
-  animation-duration: 0.35s !important;
-}
-/* + le CSS édité par l'utilisateur */
-```
-
-### Export depuis le Studio
-
-Le bouton **"Exporter le code"** ouvre `CodeModal` avec l'effet customisé (CSS modifié, couleur, vitesse). Les formats disponibles :
-- **Vanilla CSS** : CSS pur avec variables `:root`
-- **Tailwind CSS** : JSX + `tailwind.config.js` keyframes
-- **React Framer Motion** : Composant React avec `motion.button`
-- **Design Tokens** : JSON structuré
+| **Monochrome B&W** | `fills` | Inversions noir & blanc minimalistes et sweeps graphiques |
+| **Accent Couleur** | `fills` / `motion` | Jeux de couleurs vives, gradients et dégradés néon |
+| **Transformations Outline** | `borders` | SVG revolving borders, doubles anneaux, encoches et pointillés |
+| **Effets Spéciaux** | `fx` | Glitch holographique, confetti burst, ripple, radar conique |
+| **Remplissages & Dégradés** | `fills` | Volets diagonaux, rideaux verticaux, staggered drops liquides |
 
 ---
 
-## 10. Animation Automatique de la Grille
+## 8. Effets avec DOM Spécial (Markup Dédié)
 
-### Modes
+Si un effet nécessite une structure HTML interne spécifique, celle-ci doit être synchronisée dans `HoverCard.jsx` ET dans `FocusSandbox.jsx` :
 
-| Mode | Vitesse | Comportement |
-|---|---|---|
-| `off` | — | Aucune animation automatique |
-| `slow` | 2500ms/2000ms | Hover aléatoire lent sur les cards visibles |
-| `fast` | 1500ms/1200ms | Hover aléatoire rapide |
-
-### Fonctionnement
-- L'app ajoute la classe `.is-auto-hovered` aux boutons ciblés
-- Si l'utilisateur survole manuellement un bouton (`onMouseEnter`), l'auto-hover est désactivé sur cette card
-- Chaque effet DOIT supporter `.is-auto-hovered` en plus de `:hover`
-
----
-
-## 11. Liens Directs & Partage
-
-### Format
-```
-https://hoverlab.com/#effect-XX
-https://hoverlab.com/#XX
-```
-
-### Comportement
-1. Parse le hash au chargement
-2. Expand la pagination (`visibleCount`) pour inclure la card cible
-3. Attend que le DOM soit prêt (`pendingScrollId` + listener)
-4. Scroll smooth vers la card `#effect-XX`
-5. Si la card fait partie des **3 dernières**, scroll jusqu'au bas de la page (`maxScrollY`)
-6. La card ciblée reçoit la classe `.is-targeted-highlight` pour un flash visuel
+1. **Texte Elevator (#11)** :
+   * Structure : `.btn-content-wrap` (monte) + `.btn-content-duplicate` (glisse depuis le bas).
+2. **Rolling Magic (#21)** :
+   * Structure : `.btn-rolling-line.original` + `.btn-rolling-line.duplicate` avec lettres découpées en `.btn-rolling-char` et index `--char-i`.
+3. **Icon Swap Morph (#19)** :
+   * Structure : `.btn-icon-swap-left` + transition de translation.
+4. **Stagger Liquid (#20)** :
+   * Structure : 4 gouttes `.btn-stagger-drop` avec délais échelonnés via `--delay: 1..4`.
+5. **3D Card Flip (#8)** :
+   * Structure : `.card-inner` contenant `.card-front` et `.card-back`.
+6. **Effets SVG Outline (#17, #22, #23)** :
+   * Structure : SVG `<rect>` avec `pathLength="100"` animé via `stroke-dasharray` / `stroke-dashoffset`.
 
 ---
 
-## 12. Convention de Nommage
+## 9. Checklist pour Ajouter un Nouvel Effet (ex: Effet #31)
 
-### Fichier CSS
-```
-effect-XX-slug-en-kebab.css
-```
-
-### Classe CSS
-```
-btn-hover-slug-en-kebab
-```
-
-### Données JS (`hoverEffects.js`)
-```js
-{
-  id: XX,
-  name: 'XX. Nom Français',        // Numéroté avec padding (01, 02… 25)
-  category: 'Monochrome B&W',      // Toujours cette valeur pour l'instant
-  className: 'btn-hover-slug',     // Doit matcher le fichier CSS
-  description: 'Description FR.',
-  cssCode: `...`                   // Le CSS exportable (sans .is-auto-hovered)
-}
-```
-
-### Traductions
-```js
-effect_XX_name: '...',
-effect_XX_desc: '...',
-effect_XX_cat: 'Monochrome B&W',
-```
+- [ ] **1. Créer le fichier CSS modulaire** : `src/styles/effects/effect-31-slug.css`
+  * Utiliser `var(--btn-color, #18181b)` et `var(--btn-bg, #ffffff)`.
+  * Dupliquer chaque règle `:hover` avec `.is-auto-hovered`.
+  * Easing signature : `cubic-bezier(0.16, 1, 0.3, 1)`.
+- [ ] **2. Importer dans l'agrégateur** : Ajouter `@import './effects/effect-31-slug.css';` dans `src/styles/hovers.css`.
+- [ ] **3. Déclarer dans le catalogue** : Ajouter l'objet dans `src/data/hoverEffects.js` (`id: 31`, `name`, `category`, `className`, `description`, `cssCode`).
+- [ ] **4. Ajouter les traductions (4 langues)** :
+  * Dans `src/data/translations.js`, ajouter `effect_31_name`, `effect_31_desc`, `effect_31_cat` pour **FR**, **EN**, **ES**, et **DE**.
+- [ ] **5. Déclarer la catégorie** : Ajouter `31: 'categorie_id'` dans `EFFECT_CATEGORY_MAP` dans `src/App.jsx`.
+- [ ] **6. DOM Spécial (si nécessaire)** : Si l'effet nécessite des balises supplémentaires, les ajouter dans `HoverCard.jsx` et `FocusSandbox.jsx`.
+- [ ] **7. Vérifier le build** : Exécuter `npm run build` pour valider l'absence d'erreurs.
 
 ---
 
-## 13. Erreurs Courantes à Éviter
+## 10. Liens de Partage & Deep-Linking
 
-| ❌ Erreur | ✅ Correction |
+* Format de lien direct : `https://hoverlab.dev/#effect-XX` ou `#XX`.
+* Lors de l'accès via un lien partagé :
+  1. L'application réinitialise les filtres si l'effet était masqué.
+  2. La pagination (`visibleCount`) est automatiquement étendue pour afficher la carte.
+  3. Un défilement centré fluide (*smooth scroll*) amène l'écran sur la carte.
+  4. L'effet ciblé déclenche une pulsation visuelle (`.is-targeted-highlight`).
+
+---
+
+## 11. Erreurs Fréquentes à Éviter Absolument
+
+| ❌ Erreur | ✅ Bon réflexe |
 |---|---|
-| Couleur en dur `#e6332a` dans le CSS | Utiliser `var(--btn-color, #18181b)` |
-| Fallback `var(--btn-color, #e6332a)` | Fallback = `#18181b` (le noir light) |
-| Oublier `.is-auto-hovered` | Dupliquer chaque `:hover` avec `.is-auto-hovered` |
-| `!important` partout | Seulement pour `color` sur inversion et `overflow` |
-| `border: none !important` sur le bouton | Utiliser `border-color: transparent` ou déléguer aux faces |
-| `padding: 0 !important` sur le bouton | Si strip nécessaire, dupliquer les paddings `btn-size-*` sur les enfants |
-| `border-radius` qui ne se propage pas | Ajouter `border-radius: inherit` sur chaque nœud intermédiaire |
-| Oublier d'ajouter l'effet dans `EFFECT_CATEGORY_MAP` | Le bouton ne sera pas filtrable par catégorie |
-| Oublier les traductions dans les 4 langues | Ajouter EN, FR, ES, DE dans `translations.js` |
-| Markup spécial dans `HoverCard.jsx` mais pas dans `FocusSandbox.jsx` | Toujours synchroniser les deux composants |
+| Écrire une couleur hex en dur dans le CSS | Toujours utiliser `var(--btn-color, #18181b)` |
+| Oublier `.is-auto-hovered` | Toujours lier `:hover` et `.is-auto-hovered` |
+| Oublier `border-radius: inherit` sur les enfants/pseudos | Assure la compatibilité avec le mode Pill (`999px`) |
+| Oublier les traductions dans les 4 langues | Toujours renseigner FR, EN, ES, DE dans `translations.js` |
+| Markup custom présent dans `HoverCard` mais pas dans `FocusSandbox` | Toujours garder les deux composants synchronisés |
+| Bloquer le scroll dans l'export de code | S'assurer que le conteneur `<pre>` garde `overflow: auto` |
 
 ---
 
-## 14. Résumé Visuel — Connexion Réglages → Bouton
-
-```
-┌─────────────────────────────────────────────────────────────────┐
-│                     CONTROLS BAR (Réglages)                     │
-├──────────────┬──────────────────────────────────────────────────┤
-│ Button Text  │ → <span> dans le <button>                        │
-│ Category     │ → Filtre la grille (EFFECT_CATEGORY_MAP)         │
-│ Typography   │ → Classe .font-* sur le <button>                 │
-│ Phosphor Icon│ → <svg class="btn-icon"> dans le <button>        │
-│ Icon Position│ → left/right/only/none → position de l'icône     │
-│ Border Radius│ → Inline style borderRadius sur le <button>      │
-│ Button Color │ → Inline style --btn-color sur le <button>       │
-│ Card BG      │ → Background du .specimen-canvas + --btn-bg      │
-└──────────────┴──────────────────────────────────────────────────┘
-                              │
-                              ▼
-┌─────────────────────────────────────────────────────────────────┐
-│               <button class="specimen-btn                       │
-│                       font-satoshi                              │
-│                       btn-size-md                               │
-│                       btn-hover-XXXX                            │
-│                       [is-auto-hovered]"                        │
-│                style="border-radius: 9999px;                    │
-│                       --btn-color: #e6332a;">                   │
-│                                                                 │
-│   ┌─────────────────────────────────────────────────────────┐   │
-│   │  [SVG Icon]  <span>Texte du bouton</span>  [SVG Icon]  │   │
-│   └─────────────────────────────────────────────────────────┘   │
-│                                                                 │
-└─────────────────────────────────────────────────────────────────┘
-```
-
----
-
-> [!TIP]
-> Ce document doit être mis à jour à chaque ajout de nouveau réglage, nouveau type de markup spécial, ou changement d'architecture. C'est la source de vérité unique pour la création d'effets hover dans HoverLab.
+> **HoverLab Source of Truth — Conserver ce document à jour lors de toute évolution structurelle.**

@@ -34,15 +34,18 @@
   transform: rotate(25deg);
 }
 
-.btn-hover-diagonal-shutter:hover::before {
+.btn-hover-diagonal-shutter:hover::before,
+.btn-hover-diagonal-shutter.is-auto-hovered::before {
   transform: translate(65%, 65%) rotate(25deg);
 }
 
-.btn-hover-diagonal-shutter:hover::after {
+.btn-hover-diagonal-shutter:hover::after,
+.btn-hover-diagonal-shutter.is-auto-hovered::after {
   transform: translate(-65%, -65%) rotate(25deg);
 }
 
-.btn-hover-diagonal-shutter:hover {
+.btn-hover-diagonal-shutter:hover,
+.btn-hover-diagonal-shutter.is-auto-hovered {
   color: var(--btn-bg, #ffffff) !important;
   transform: translateY(-3px) scale(1.02);
   box-shadow: 0 10px 24px -4px rgba(24, 24, 27, 0.18);
