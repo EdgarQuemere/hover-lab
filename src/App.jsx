@@ -67,7 +67,7 @@ export default function App() {
   const [config, setConfig] = useState(DEFAULT_CONFIG);
   const [activeModalEffect, setActiveModalEffect] = useState(null);
   const [activeStudioEffect, setActiveStudioEffect] = useState(null);
-  const [autoPlayMode, setAutoPlayMode] = useState('fast'); // 'off' | 'slow' | 'fast'
+  const [autoPlayMode, setAutoPlayMode] = useState('on'); // 'off' | 'on'
   const [autoHoveredIds, setAutoHoveredIds] = useState(new Set());
   const userHoveredRef = useRef(new Set());
 
@@ -190,15 +190,15 @@ export default function App() {
   }, [translatedEffects, searchQuery, config.filterCategory]);
 
 
-  // Random auto-hover interval loop (configurable mode: off / slow / fast)
+  // Random auto-hover interval loop (configurable mode: off / on)
   useEffect(() => {
     if (activeModalEffect || activeStudioEffect || autoPlayMode === 'off') {
       setAutoHoveredIds(new Set());
       return;
     }
 
-    const intervalMs = autoPlayMode === 'slow' ? 2400 : 350;
-    const durationMs = autoPlayMode === 'slow' ? 1800 : 1200;
+    const intervalMs = 350;
+    const durationMs = 1200;
 
     const interval = setInterval(() => {
       setAutoHoveredIds((prev) => {

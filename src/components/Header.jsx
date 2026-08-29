@@ -10,7 +10,7 @@ const Header = forwardRef(function Header({
   canvasTheme = 'light',
   lang = 'en',
   setLang,
-  autoPlayMode = 'fast',
+  autoPlayMode = 'on',
   setAutoPlayMode,
   t
 }, ref) {

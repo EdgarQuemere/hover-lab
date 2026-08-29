@@ -66,11 +66,9 @@ export const TRANSLATIONS = {
 
     // Auto-Play & Studio Translations
     auto_off: 'OFF',
-    auto_slow: 'Slow',
-    auto_fast: 'Fast',
+    auto_on: 'ON',
     auto_off_title: 'Disable auto-demo / Pause',
-    auto_slow_title: 'Gentle auto-demo (2.4s)',
-    auto_fast_title: 'Fast auto-demo (350ms)',
+    auto_on_title: 'Enable auto-demo',
     studio_badge: 'STUDIO MODE',
     export_code: 'Export code',
     anim_speed_title: 'Animation speed',
@@ -271,11 +269,9 @@ export const TRANSLATIONS = {
 
     // Auto-Play & Studio Translations
     auto_off: 'OFF',
-    auto_slow: 'Lent',
-    auto_fast: 'Rapide',
+    auto_on: 'ON',
     auto_off_title: 'Désactiver la démo automatique / Pause',
-    auto_slow_title: 'Démo automatique douce (2.4s)',
-    auto_fast_title: 'Démo automatique rapide (350ms)',
+    auto_on_title: 'Activer la démo automatique',
     studio_badge: 'MODE STUDIO',
     export_code: 'Exporter le code',
     anim_speed_title: 'Vitesse d\'animation',
@@ -472,11 +468,9 @@ export const TRANSLATIONS = {
 
     // Auto-Play & Studio Translations
     auto_off: 'OFF',
-    auto_slow: 'Lento',
-    auto_fast: 'Rápido',
+    auto_on: 'ON',
     auto_off_title: 'Desactivar demo automática / Pausa',
-    auto_slow_title: 'Demo automática suave (2.4s)',
-    auto_fast_title: 'Demo automática rápida (350ms)',
+    auto_on_title: 'Activar demo automática',
     studio_badge: 'MODO STUDIO',
     export_code: 'Exportar código',
     anim_speed_title: 'Velocidad de animación',
@@ -673,11 +667,9 @@ export const TRANSLATIONS = {
 
     // Auto-Play & Studio Translations
     auto_off: 'AUS',
-    auto_slow: 'Langsam',
-    auto_fast: 'Schnell',
+    auto_on: 'EIN',
     auto_off_title: 'Automatische Demo deaktivieren / Pause',
-    auto_slow_title: 'Sanfte automatische Demo (2.4s)',
-    auto_fast_title: 'Schnelle automatische Demo (350ms)',
+    auto_on_title: 'Automatische Demo aktivieren',
     studio_badge: 'STUDIO-MODUS',
     export_code: 'Code exportieren',
     anim_speed_title: 'Animationsgeschwindigkeit',
