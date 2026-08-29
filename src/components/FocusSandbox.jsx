@@ -24,7 +24,7 @@ export default function FocusSandbox({ effect, config, onClose, onOpenCode, t })
 
   const [animSpeed, setAnimSpeed] = useState(0.35); // in seconds
   const [backdropId, setBackdropId] = useState('light');
-  const [customButtonText, setCustomButtonText] = useState(config.buttonText || tr('default_button_text', 'Filters'));
+  const [customButtonText, setCustomButtonText] = useState(config.buttonText || tr('default_button_text', 'HoverLab'));
   const [studioButtonColor, setStudioButtonColor] = useState(config.buttonColor || '#e6332a');
   const [customCssCode, setCustomCssCode] = useState(effect?.cssCode || '');
   const [hoverCount, setHoverCount] = useState(0);

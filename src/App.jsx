@@ -13,7 +13,7 @@ import './App.css';
 const CARDS_PER_PAGE = 24;
 
 const DEFAULT_CONFIG = {
-  buttonText: 'Filters',
+  buttonText: 'HoverLab',
   fontFamily: 'font-satoshi',
   iconName: 'ArrowRight',
   iconPosition: 'right',

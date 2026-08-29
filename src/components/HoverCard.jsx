@@ -151,7 +151,7 @@ export default function HoverCard({
   const isRollingEffect = effect.className.includes('btn-hover-rolling-magic');
 
   const renderRollingText = (text) => {
-    const letters = Array.from(text || 'Filtres');
+    const letters = Array.from(text || 'HoverLab');
     return (
       <span className="btn-rolling-text">
         <span className="btn-rolling-line original">
@@ -280,24 +280,24 @@ export default function HoverCard({
           {isSwapMorph ? (
             <>
               {iconElement('btn-icon-swap-left')}
-              <span className="btn-content-wrap">{config.buttonText || 'Filtres'}</span>
+              <span className="btn-content-wrap">{config.buttonText || 'HoverLab'}</span>
             </>
           ) : isRollingEffect ? (
             <>
               {hasIcon && (isIconLeft || isIconOnly) && iconElement('btn-icon-left')}
-              {!isIconOnly && renderRollingText(config.buttonText || 'Filtres')}
+              {!isIconOnly && renderRollingText(config.buttonText || 'HoverLab')}
               {hasIcon && isIconRight && !isIconOnly && iconElement('btn-icon-right')}
             </>
           ) : effect.className.includes('hover-text-elevator') ? (
             <>
               <div className="btn-content-wrap">
                 {hasIcon && (isIconLeft || isIconOnly) && iconElement('btn-icon-left')}
-                {!isIconOnly && <span>{config.buttonText || 'Filtres'}</span>}
+                {!isIconOnly && <span>{config.buttonText || 'HoverLab'}</span>}
                 {hasIcon && isIconRight && !isIconOnly && iconElement('btn-icon-right')}
               </div>
               <div className="btn-content-duplicate">
                 {hasIcon && (isIconLeft || isIconOnly) && iconElement('btn-icon-left')}
-                {!isIconOnly && <span>{config.buttonText || 'Filtres'}</span>}
+                {!isIconOnly && <span>{config.buttonText || 'HoverLab'}</span>}
                 {hasIcon && isIconRight && !isIconOnly && iconElement('btn-icon-right')}
               </div>
             </>
@@ -305,19 +305,19 @@ export default function HoverCard({
             <div className="card-inner">
               <div className="card-front">
                 {hasIcon && (isIconLeft || isIconOnly) && iconElement('btn-icon-left')}
-                {!isIconOnly && <span>{config.buttonText || 'Filtres'}</span>}
+                {!isIconOnly && <span>{config.buttonText || 'HoverLab'}</span>}
                 {hasIcon && isIconRight && !isIconOnly && iconElement('btn-icon-right')}
               </div>
               <div className="card-back">
                 {hasIcon && (isIconLeft || isIconOnly) && iconElement('btn-icon-left')}
-                {!isIconOnly && <span>{config.buttonText || 'Filtres'}</span>}
+                {!isIconOnly && <span>{config.buttonText || 'HoverLab'}</span>}
                 {hasIcon && isIconRight && !isIconOnly && iconElement('btn-icon-right')}
               </div>
             </div>
           ) : (
             <>
               {hasIcon && (isIconLeft || isIconOnly) && iconElement('btn-icon-left')}
-              {!isIconOnly && <span>{config.buttonText || 'Filtres'}</span>}
+              {!isIconOnly && <span>{config.buttonText || 'HoverLab'}</span>}
               {hasIcon && isIconRight && !isIconOnly && iconElement('btn-icon-right')}
             </>
           )}
