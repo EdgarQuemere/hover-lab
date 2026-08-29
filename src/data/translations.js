@@ -7,6 +7,9 @@ export const LANGUAGES = [
 
 export const TRANSLATIONS = {
   en: {
+    page_meta_title: 'HoverLab — Interactive CSS Button Hover Effects Gallery & Playground',
+    page_meta_desc: 'Explore 30+ interactive, modern and high-performance CSS button hover effects. Live preview, customizable parameters, and instant HTML/CSS & React export.',
+    brand_tagline: 'Interactive CSS Button Hover Effects Laboratory',
     search_placeholder: 'Search an effect...',
     clear_search: 'Clear search',
     button_text_label: 'Button Text',
@@ -209,6 +212,9 @@ export const TRANSLATIONS = {
     effect_30_cat: 'Special FX & Particles',
   },
   fr: {
+    page_meta_title: 'HoverLab — Galerie & Laboratoire d\'Effets de Survol Boutons CSS',
+    page_meta_desc: 'Explorez 30+ effets de survol CSS interactifs et modernes pour boutons. Prévisualisation en direct, personnalisation avancée et export de code HTML/CSS & React.',
+    brand_tagline: 'Laboratoire d\'Effets de Survol de Boutons CSS Interactifs',
     search_placeholder: 'Rechercher un effet...',
     clear_search: 'Effacer la recherche',
     button_text_label: 'Texte du Bouton',
@@ -411,6 +417,9 @@ export const TRANSLATIONS = {
     effect_30_cat: 'Effets Spéciaux',
   },
   es: {
+    page_meta_title: 'HoverLab — Galería y Laboratorio de Efectos Hover CSS para Botones',
+    page_meta_desc: 'Explora más de 30 efectos hover CSS interactivos y modernos para botones. Vista previa en vivo, personalización y exportación rápida de código HTML/CSS.',
+    brand_tagline: 'Laboratorio de Efectos Hover CSS Interactivos',
     search_placeholder: 'Buscar un efecto...',
     clear_search: 'Borrar búsqueda',
     button_text_label: 'Texto del Botón',
@@ -609,6 +618,9 @@ export const TRANSLATIONS = {
     effect_30_cat: 'Efectos Especiales / Color',
   },
   de: {
+    page_meta_title: 'HoverLab — Interaktive CSS Button Hover-Effekte Galerie & Labor',
+    page_meta_desc: 'Entdecken Sie über 30 moderne CSS Button Hover-Effekte. Live-Vorschau, Anpassung und sofortiger HTML/CSS & React Code-Export.',
+    brand_tagline: 'Labor für interaktive CSS-Button-Hover-Effekte',
     search_placeholder: 'Effekt suchen...',
     clear_search: 'Suche löschen',
     button_text_label: 'Schaltflächentext',

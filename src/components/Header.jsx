@@ -54,6 +54,7 @@ const Header = forwardRef(function Header({
         </div>
         <div className="brand-text-wrap">
           <h1 className="brand-title">HoverLab</h1>
+          <p className="brand-tagline">{t ? t('brand_tagline') : 'Interactive CSS Button Hover Effects Laboratory'}</p>
         </div>
       </div>
 

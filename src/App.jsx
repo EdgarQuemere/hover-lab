@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, useMemo } from 'react';
+import React, { useState, useEffect, useRef, useMemo, useCallback } from 'react';
 import { CaretDown } from '@phosphor-icons/react';
 import Header from './components/Header';
 import ControlsBar from './components/ControlsBar';
@@ -60,7 +60,9 @@ const EFFECT_CATEGORY_MAP = {
 };
 
 export default function App() {
-  const [lang, setLang] = useState('en'); // Default language is English
+  const [lang, setLang] = useState(() => {
+    return localStorage.getItem('hover_lab_lang') || 'en';
+  });
   const [searchQuery, setSearchQuery] = useState('');
   const [config, setConfig] = useState(DEFAULT_CONFIG);
   const [activeModalEffect, setActiveModalEffect] = useState(null);
@@ -69,7 +71,7 @@ export default function App() {
   const [autoHoveredIds, setAutoHoveredIds] = useState(new Set());
   const userHoveredRef = useRef(new Set());
 
-  const t = (key, params) => getTranslation(lang, key, params);
+  const t = useCallback((key, params) => getTranslation(lang, key, params), [lang]);
 
   const [overrideModalConfig, setOverrideModalConfig] = useState(null);
   const [isStickyFloating, setIsStickyFloating] = useState(false);
@@ -146,6 +148,20 @@ export default function App() {
   useEffect(() => {
     document.body.className = `font-satoshi ${config.canvasTheme === 'dark' ? 'theme-dark' : 'theme-light'}`;
   }, [config.canvasTheme]);
+
+  // Dynamic SEO updates (HTML Lang attribute, Document Title & Meta Description)
+  useEffect(() => {
+    document.documentElement.lang = lang;
+    const metaTitle = t('page_meta_title');
+    if (metaTitle) {
+      document.title = metaTitle;
+    }
+    const metaDesc = t('page_meta_desc');
+    if (metaDesc) {
+      const descTag = document.querySelector('meta[name="description"]');
+      if (descTag) descTag.setAttribute('content', metaDesc);
+    }
+  }, [lang, t]);
 
   const translatedEffects = useMemo(
     () => HOVER_EFFECTS.map((eff) => getTranslatedEffect(eff, lang)),
@@ -233,10 +249,9 @@ export default function App() {
     userHoveredRef.current.delete(id);
   };
 
-  const [pendingScrollId, setPendingScrollId] = useState(null);
   const [targetedEffectId, setTargetedEffectId] = useState(null);
 
-  // 1. Listen for URL hash changes (#effect-25 or #25) and expand pagination
+  // Listen for URL hash changes (#effect-25 or #25), reset filters if needed, expand pagination, and scroll
   useEffect(() => {
     const handleHashCheck = () => {
       const hash = window.location.hash;
@@ -246,63 +261,52 @@ export default function App() {
       const parsedId = parseInt(rawId, 10);
       if (isNaN(parsedId)) return;
 
-      const targetIndex = filteredEffects.findIndex((e) => e.id === parsedId);
-      if (targetIndex >= 0) {
-        // Expand pagination limit so the card is rendered in the DOM
-        const requiredLimit = Math.ceil((targetIndex + 1) / CARDS_PER_PAGE) * CARDS_PER_PAGE;
-        setVisibleCount((prev) => Math.max(prev, requiredLimit));
+      const targetEffect = HOVER_EFFECTS.find((e) => e.id === parsedId);
+      if (!targetEffect) return;
 
-        // Queue pending scroll target
-        setPendingScrollId(parsedId);
+      // If search query or filter hides this card, reset them so the card is visible
+      if (searchQuery.trim()) {
+        setSearchQuery('');
       }
+      if (config.filterCategory !== 'all') {
+        const cat = EFFECT_CATEGORY_MAP[parsedId];
+        if (config.filterCategory !== cat) {
+          setConfig((prev) => ({ ...prev, filterCategory: 'all' }));
+        }
+      }
+
+      // Calculate required pagination limit
+      const allIndex = HOVER_EFFECTS.findIndex((e) => e.id === parsedId);
+      if (allIndex >= 0) {
+        const requiredLimit = Math.ceil((allIndex + 1) / CARDS_PER_PAGE) * CARDS_PER_PAGE;
+        setVisibleCount((prev) => Math.max(prev, requiredLimit));
+      }
+
+      // Smooth scroll & highlight with retry
+      let attempts = 0;
+      const maxAttempts = 20;
+
+      const tryScroll = () => {
+        const el = document.getElementById(`effect-${parsedId}`);
+        if (el) {
+          el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          setTargetedEffectId(parsedId);
+          setTimeout(() => {
+            setTargetedEffectId((current) => (current === parsedId ? null : current));
+          }, 3000);
+        } else if (attempts < maxAttempts) {
+          attempts++;
+          setTimeout(tryScroll, 60);
+        }
+      };
+
+      setTimeout(tryScroll, 100);
     };
 
     handleHashCheck();
     window.addEventListener('hashchange', handleHashCheck);
     return () => window.removeEventListener('hashchange', handleHashCheck);
-  }, [filteredEffects]);
-
-  // 2. Perform smooth scroll ONLY when the target element exists in the DOM
-  useEffect(() => {
-    if (!pendingScrollId) return;
-
-    const targetId = pendingScrollId;
-    setPendingScrollId(null); // Clear pending scroll so it only runs once!
-
-    const scrollTimer = setTimeout(() => {
-      const el = document.getElementById(`effect-${targetId}`);
-      if (!el) return;
-
-      const rect = el.getBoundingClientRect();
-      const elementTop = rect.top + window.pageYOffset;
-      const elementHeight = rect.height;
-      const viewportHeight = window.innerHeight;
-      const maxScrollY = Math.max(0, document.documentElement.scrollHeight - viewportHeight);
-
-      const targetIndex = filteredEffects.findIndex((e) => e.id === targetId);
-      const isLast3Cards = targetIndex >= 0 && targetIndex >= filteredEffects.length - 3;
-
-      let targetY;
-      if (isLast3Cards) {
-        // If it's among the last 3 cards, scroll all the way to the bottom of the page
-        targetY = maxScrollY;
-      } else {
-        // Otherwise, center the card in the viewport
-        targetY = elementTop - (viewportHeight - elementHeight) / 2;
-        if (targetY > maxScrollY) targetY = maxScrollY;
-        if (targetY < 0) targetY = 0;
-      }
-
-      window.scrollTo({ top: targetY, behavior: 'smooth' });
-      setTargetedEffectId(targetId);
-
-      setTimeout(() => {
-        setTargetedEffectId(null);
-      }, 2800);
-    }, 150);
-
-    return () => clearTimeout(scrollTimer);
-  }, [pendingScrollId, visibleCount, filteredEffects]);
+  }, [searchQuery, config.filterCategory]);
 
   const visibleEffects = filteredEffects.slice(0, visibleCount);
   const hasMore = visibleCount < filteredEffects.length;

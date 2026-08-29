@@ -799,6 +799,8 @@ body.theme-dark .select-input-sm {
   display: flex;
   flex-direction: column;
   height: 100%;
+  scroll-margin-top: 130px;
+  scroll-margin-bottom: 50px;
   transition: border-color 0.2s ease, transform 0.2s ease;
 }
 

@@ -1,5 +1,5 @@
 import React, { useRef, useState, useEffect } from 'react';
-import { Code, ArrowRight, ShareNetwork, Check, SlidersHorizontal } from '@phosphor-icons/react';
+import { Code, ArrowRight, ShareNetwork, Check } from '@phosphor-icons/react';
 import { AVAILABLE_ICONS } from './ControlsBar';
 
 function isColorDark(hex) {
@@ -41,19 +41,46 @@ export default function HoverCard({
     if (onUserHoverEnd) onUserHoverEnd(effect.id);
   };
 
-  const handleShareLink = (e) => {
+  const handleShareLink = async (e) => {
     e.stopPropagation();
-    const url = `${window.location.origin}${window.location.pathname}#effect-${effect.id}`;
-    if (navigator.clipboard && navigator.clipboard.writeText) {
-      navigator.clipboard.writeText(url);
-    } else {
-      const input = document.createElement('input');
-      input.value = url;
-      document.body.appendChild(input);
-      input.select();
-      document.execCommand('copy');
-      document.body.removeChild(input);
+    const baseUrl = window.location.href.split('#')[0];
+    const hash = `#effect-${effect.id}`;
+    const url = `${baseUrl}${hash}`;
+
+    try {
+      window.history.replaceState(null, '', hash);
+    } catch {
+      // ignore history errors
     }
+
+    let copied = false;
+    if (navigator.clipboard && window.isSecureContext) {
+      try {
+        await navigator.clipboard.writeText(url);
+        copied = true;
+      } catch {
+        copied = false;
+      }
+    }
+
+    if (!copied) {
+      try {
+        const textarea = document.createElement('textarea');
+        textarea.value = url;
+        textarea.style.position = 'fixed';
+        textarea.style.left = '-9999px';
+        textarea.style.top = '-9999px';
+        textarea.style.opacity = '0';
+        document.body.appendChild(textarea);
+        textarea.focus();
+        textarea.select();
+        copied = document.execCommand('copy');
+        document.body.removeChild(textarea);
+      } catch (err) {
+        console.error('Share copy fallback failed', err);
+      }
+    }
+
     setIsShareCopied(true);
     setTimeout(() => setIsShareCopied(false), 2000);
   };
@@ -148,16 +175,17 @@ export default function HoverCard({
   const cleanTitle = (effect.name || '').replace(/^\d+\.\s*/, '');
 
   return (
-    <div
+    <article
       id={`effect-${effect.id}`}
       className={`hover-specimen-card ${isTargeted ? 'is-targeted-highlight' : ''}`}
+      aria-labelledby={`effect-title-${effect.id}`}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
       <div className="specimen-header">
         <div className="specimen-title-wrap">
           <span className="specimen-id">#{effect.id}</span>
-          <h3 className="specimen-title">{cleanTitle}</h3>
+          <h2 id={`effect-title-${effect.id}`} className="specimen-title">{cleanTitle}</h2>
         </div>
         <div className="specimen-header-actions">
           <button
@@ -295,6 +323,6 @@ export default function HoverCard({
           )}
         </button>
       </div>
-    </div>
+    </article>
   );
 }
