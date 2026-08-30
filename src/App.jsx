@@ -111,9 +111,17 @@ export default function App() {
     return () => window.removeEventListener('resize', updateDimensions);
   }, []);
 
-  // Smart scroll detection: slide ControlsBar in under Header when scrolling UP past the fold
+  // Smart scroll detection: slide ControlsBar in under Header when scrolling UP past the fold (Desktop & Tablet only)
   useEffect(() => {
     const handleScroll = () => {
+      // Disable floating bar on mobile devices (< 768px)
+      if (window.innerWidth <= 768) {
+        setIsStickyFloating(false);
+        setIsStickyVisible(false);
+        setIsFloatingAnimating(false);
+        return;
+      }
+
       const currentScrollY = window.scrollY || window.pageYOffset;
       const scrollDelta = currentScrollY - lastScrollYRef.current;
       const anchorEl = controlsBarAnchorRef.current;

@@ -79,17 +79,39 @@ export default function CustomColorPicker({ color = '#E6332A', onChange, popover
     setHexInput(color);
   }, [color]);
 
-  // Dynamic positioning calculation for pos-right floating popover flush to trigger button
+  // Dynamic positioning calculation & flip detection
+  const [placement, setPlacement] = useState(popoverPosition);
+  const [isMobileScreen, setIsMobileScreen] = useState(() => typeof window !== 'undefined' && window.innerWidth <= 768);
+
   useEffect(() => {
-    if (isOpen && popoverPosition === 'right') {
+    const handleResize = () => {
+      setIsMobileScreen(window.innerWidth <= 768);
+    };
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  useEffect(() => {
+    if (isOpen) {
       const updateCoords = () => {
         const targetEl = triggerBtnRef.current || containerRef.current;
         if (!targetEl) return;
         const rect = targetEl.getBoundingClientRect();
-        setPopoverCoords({
-          top: rect.top + rect.height / 2,
-          left: rect.right + 10,
-        });
+        
+        if (popoverPosition === 'right') {
+          setPopoverCoords({
+            top: rect.top + rect.height / 2,
+            left: rect.right + 10,
+          });
+        } else {
+          // Auto flip top if near bottom
+          const spaceBelow = window.innerHeight - rect.bottom;
+          if (spaceBelow < 340 && rect.top > 340) {
+            setPlacement('top');
+          } else {
+            setPlacement('bottom');
+          }
+        }
       };
       updateCoords();
       window.addEventListener('resize', updateCoords);
@@ -149,6 +171,39 @@ export default function CustomColorPicker({ color = '#E6332A', onChange, popover
 
     window.addEventListener('mousemove', onMouseMove);
     window.addEventListener('mouseup', onMouseUp);
+  };
+
+  // Saturation/Value 2D Area touch dragging (Mobile/Tablet)
+  const updateSatValFromTouchEvent = (e) => {
+    if (!satValRef.current || !e.touches || !e.touches[0]) return;
+    const touch = e.touches[0];
+    const rect = satValRef.current.getBoundingClientRect();
+    const x = Math.max(0, Math.min(rect.width, touch.clientX - rect.left));
+    const y = Math.max(0, Math.min(rect.height, touch.clientY - rect.top));
+
+    const s = Math.round((x / rect.width) * 100);
+    const v = Math.round((1 - y / rect.height) * 100);
+
+    const newHex = hsvToHex(hsv.h, s, v);
+    onChange(newHex);
+  };
+
+  const handleSatValTouchStart = (e) => {
+    e.preventDefault();
+    updateSatValFromTouchEvent(e);
+
+    const onTouchMove = (moveEvent) => {
+      moveEvent.preventDefault();
+      updateSatValFromTouchEvent(moveEvent);
+    };
+
+    const onTouchEnd = () => {
+      window.removeEventListener('touchmove', onTouchMove);
+      window.removeEventListener('touchend', onTouchEnd);
+    };
+
+    window.addEventListener('touchmove', onTouchMove, { passive: false });
+    window.addEventListener('touchend', onTouchEnd);
   };
 
   // Hue Slider Change
@@ -216,21 +271,36 @@ export default function CustomColorPicker({ color = '#E6332A', onChange, popover
 
       {/* Popover Dropdown */}
       {isOpen && (
-        <div
-          ref={popoverRef}
-          className={`color-popover-card pos-${popoverPosition}`}
-          style={
-            popoverPosition === 'right'
-              ? {
-                  position: 'fixed',
-                  top: `${popoverCoords.top}px`,
-                  left: `${popoverCoords.left}px`,
-                  transform: 'translateY(-50%)',
-                  zIndex: 9999,
-                }
-              : undefined
-          }
-        >
+        <>
+          {isMobileScreen && (
+            <div
+              className="color-popover-backdrop"
+              onClick={() => setIsOpen(false)}
+            />
+          )}
+          <div
+            ref={popoverRef}
+            className={`color-popover-card pos-${placement} ${isMobileScreen ? 'is-mobile-modal' : ''}`}
+            style={
+              isMobileScreen
+                ? {
+                    position: 'fixed',
+                    top: '50%',
+                    left: '50%',
+                    transform: 'translate(-50%, -50%)',
+                    zIndex: 100000,
+                  }
+                : popoverPosition === 'right'
+                ? {
+                    position: 'fixed',
+                    top: `${popoverCoords.top}px`,
+                    left: `${popoverCoords.left}px`,
+                    transform: 'translateY(-50%)',
+                    zIndex: 9999,
+                  }
+                : undefined
+            }
+          >
           <div className="color-popover-header">
             <span className="color-popover-title">Choix de Couleur</span>
             <button
@@ -248,6 +318,7 @@ export default function CustomColorPicker({ color = '#E6332A', onChange, popover
             className="sat-val-picker"
             ref={satValRef}
             onMouseDown={handleSatValMouseDown}
+            onTouchStart={handleSatValTouchStart}
             style={{ backgroundColor: `hsl(${hsv.h}, 100%, 50%)` }}
           >
             <div className="sat-val-white-overlay" />
@@ -330,6 +401,7 @@ export default function CustomColorPicker({ color = '#E6332A', onChange, popover
             ))}
           </div>
         </div>
+        </>
       )}
     </div>
   );

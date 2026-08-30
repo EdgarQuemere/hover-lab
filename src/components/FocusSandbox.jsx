@@ -424,13 +424,20 @@ export default function FocusSandbox({ effect, config, onClose, onOpenCode, t })
         {/* Header */}
         <div className="sandbox-modal-header">
           <div className="sandbox-header-brand">
-            <span className="sandbox-badge">{tr('studio_badge', 'MODE STUDIO')}</span>
-            <h2>#{currentEffect.id} {cleanTitle}</h2>
+            <div className="sandbox-badge-wrap">
+              <span className="sandbox-badge">{tr('studio_badge', 'MODE STUDIO')}</span>
+              {currentEffect.category && (
+                <span className="sandbox-category-tag">{currentEffect.category}</span>
+              )}
+            </div>
+            <h2 className="sandbox-effect-title">
+              <span className="sandbox-title-num">#{currentEffect.id}</span>
+            </h2>
           </div>
           <div className="sandbox-header-actions">
             <button
               type="button"
-              className="code-btn primary"
+              className="sandbox-export-btn"
               onClick={() => {
                 onClose();
                 if (onOpenCode) {
@@ -440,12 +447,13 @@ export default function FocusSandbox({ effect, config, onClose, onOpenCode, t })
                   );
                 }
               }}
+              title={tr('export_code', 'Exporter le code')}
             >
               <Code size={16} />
               <span>{tr('export_code', 'Exporter le code')}</span>
             </button>
-            <button type="button" className="close-btn" onClick={onClose} title="Fermer le Studio">
-              <X size={20} />
+            <button type="button" className="sandbox-close-btn" onClick={onClose} title="Fermer le Studio">
+              <X size={18} />
             </button>
           </div>
         </div>
@@ -829,26 +837,6 @@ export default function FocusSandbox({ effect, config, onClose, onOpenCode, t })
                     )}
                   </button>
                 )}
-              </div>
-
-              {/* Stage Metrics Info Bar */}
-              <div className="sandbox-metrics-bar">
-                <div className="metric-tag">
-                  <span className="m-label">{tr('metric_hovers', 'Survols :')}</span>
-                  <span className="m-val">{hoverCount}</span>
-                </div>
-                <div className="metric-tag">
-                  <span className="m-label">{tr('metric_speed', 'Vitesse :')}</span>
-                  <span className="m-val">{animSpeed}s</span>
-                </div>
-                <div className="metric-tag">
-                  <span className="m-label">{tr('metric_color', 'Couleur :')}</span>
-                  <span className="m-val mono">{studioButtonColor}</span>
-                </div>
-                <div className="metric-tag">
-                  <span className="m-label">{tr('metric_class', 'Classe :')}</span>
-                  <span className="m-val mono">.{currentEffect.className}</span>
-                </div>
               </div>
             </div>
           </div>
