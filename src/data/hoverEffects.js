@@ -2,9 +2,9 @@ export const HOVER_EFFECTS = [
   {
     id: 1,
     name: '01. Inversion Fluide',
-    category: 'Monochrome B&W',
+    category: 'Remplissages & Dégradés',
     className: 'btn-hover-fill-sweep',
-    description: 'Remplissage fluide du fond de droite à gauche avec inversion des couleurs.',
+    description: 'Remplissage doux de gauche à droite avec inversion contrastée des couleurs.',
     cssCode: `.btn-hover-fill-sweep {
   position: relative;
   overflow: hidden;
@@ -35,9 +35,9 @@ export const HOVER_EFFECTS = [
   {
     id: 2,
     name: '02. Glissement Icône',
-    category: 'Monochrome B&W',
+    category: 'Glissements & Mouvements',
     className: 'btn-hover-icon-push',
-    description: 'Élévation subtile du bouton avec glissement dynamique de l’icône vers la droite.',
+    description: 'Surélévation subtile du bouton avec glissement dynamique du picto vers la droite.',
     cssCode: `.btn-hover-icon-push {
   transition: transform var(--anim-speed, 0.25s) cubic-bezier(0.16, 1, 0.3, 1),
               box-shadow var(--anim-speed, 0.25s) ease,
@@ -70,9 +70,9 @@ export const HOVER_EFFECTS = [
   {
     id: 3,
     name: '03. Reflet Éclat',
-    category: 'Monochrome B&W',
+    category: 'Effets Spéciaux',
     className: 'btn-hover-shimmer',
-    description: 'Un reflet lumineux élégant balaie la surface de gauche à droite au survol.',
+    description: 'Faisceau de lumière diagonal qui balaie la surface avec un éclat fluide.',
     cssCode: `.btn-hover-shimmer {
   position: relative;
   overflow: hidden;
@@ -132,9 +132,9 @@ export const HOVER_EFFECTS = [
   {
     id: 4,
     name: '04. Bloc 3D Pressé',
-    category: 'Monochrome B&W',
+    category: 'Glissements & Mouvements',
     className: 'btn-hover-3d-press',
-    description: 'Effet bloc solide 3D avec ombre nette qui s’enfonce lors du survol et clic.',
+    description: 'Effet de relief extrudé 3D qui s’enfonce fermement sous le clic et le survol.',
     cssCode: `.btn-hover-3d-press {
   position: relative;
   box-shadow: 4px 4px 0px var(--btn-color, #18181b);
@@ -149,9 +149,9 @@ export const HOVER_EFFECTS = [
   {
     id: 5,
     name: '05. Métamorphose Géométrique',
-    category: 'Monochrome B&W',
+    category: 'Bordures & Contours',
     className: 'btn-hover-corner-brackets',
-    description: 'Métamorphose fluide des angles (arrondi vers carré brut ou carré vers pilule) avec inversion contrastée et surélévation tactile.',
+    description: 'Quatre crochets géométriques qui se resserrent pour cadrer les angles.',
     cssCode: `.btn-hover-corner-brackets {
   position: relative;
   transition: border-radius var(--anim-speed, 0.4s) cubic-bezier(0.34, 1.56, 0.64, 1),
@@ -199,9 +199,9 @@ export const HOVER_EFFECTS = [
   {
     id: 6,
     name: '06. Halo Respirant',
-    category: 'Monochrome B&W',
+    category: 'Effets Spéciaux',
     className: 'btn-hover-glow-pulse',
-    description: 'Aura lumineuse atmosphérique avec apparition et disparition en fondu progressif ultra-doux.',
+    description: 'Aura lumineuse diffuse avec apparition et extinction en fondu velouté.',
     cssCode: `@keyframes ambientAuraBreathing {
   0%, 100% {
     box-shadow: 0 0 16px var(--btn-color, #18181b),
@@ -260,9 +260,9 @@ export const HOVER_EFFECTS = [
   {
     id: 7,
     name: '07. Expansion Radiale',
-    category: 'Monochrome B&W',
+    category: 'Remplissages & Dégradés',
     className: 'btn-hover-ripple',
-    description: 'Vague circulaire s’agrandissant depuis le centre du bouton.',
+    description: 'Onde circulaire fluide qui grandit depuis le centre pour couvrir le bouton.',
     cssCode: `.btn-hover-ripple {
   position: relative;
   overflow: hidden;
@@ -295,9 +295,9 @@ export const HOVER_EFFECTS = [
   {
     id: 8,
     name: '08. Carte 3D Pivotante',
-    category: 'Monochrome B&W',
+    category: 'Glissements & Mouvements',
     className: 'btn-hover-card-flip',
-    description: 'Bouton 3D recto-verso qui pivote à 180° au survol avec inversion dynamique des couleurs et du contour.',
+    description: 'Rotation 3D spectaculaire à 180° dévoilant le verso contrasté.',
     cssCode: `.btn-hover-card-flip {
   perspective: 1000px;
   position: relative;
@@ -346,9 +346,9 @@ export const HOVER_EFFECTS = [
   {
     id: 9,
     name: '09. Rotation Magnétique',
-    category: 'Monochrome B&W',
+    category: 'Glissements & Mouvements',
     className: 'btn-hover-magnetic',
-    description: 'Flottement vers le haut avec rotation fluide de 45° de l’icône.',
+    description: 'Élévation flottante du bouton avec pivot dynamique de l’icône à 45°.',
     cssCode: `.btn-hover-magnetic {
   transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease;
 }
@@ -370,9 +370,9 @@ export const HOVER_EFFECTS = [
   {
     id: 10,
     name: '10. Double Volet Split',
-    category: 'Monochrome B&W',
+    category: 'Remplissages & Dégradés',
     className: 'btn-hover-lens',
-    description: 'Deux volets symétriques glissent depuis le haut et le bas pour se rejoindre au centre avec inversion instantanée des couleurs.',
+    description: 'Deux volets verticaux glissent depuis le haut et le bas pour sceller le centre.',
     cssCode: `.btn-hover-lens {
   position: relative;
   overflow: hidden;
@@ -437,9 +437,9 @@ export const HOVER_EFFECTS = [
   {
     id: 11,
     name: '11. Ascenseur Texte',
-    category: 'Monochrome B&W',
+    category: 'Glissements & Mouvements',
     className: 'btn-hover-text-elevator',
-    description: 'Le texte monte hors du bouton avec un masquage strict pour éviter tout débordement.',
+    description: 'Le texte monte et laisse place à son double par glissement vertical continu.',
     cssCode: `.btn-hover-text-elevator {
   position: relative;
   overflow: hidden !important;
@@ -479,9 +479,9 @@ export const HOVER_EFFECTS = [
   {
     id: 12,
     name: '12. Néon',
-    category: 'Accent Couleur',
+    category: 'Effets Spéciaux',
     className: 'btn-hover-color-acid',
-    description: 'Allumage électrique instantané façon tube néon avec halo haute tension et rayonnement du texte.',
+    description: 'Allumage électrique instantané avec étincelle d’ignition et halo haute tension.',
     cssCode: `@keyframes neonFlickerIgnition {
   0% {
     opacity: 0.8;
@@ -550,9 +550,9 @@ export const HOVER_EFFECTS = [
   {
     id: 13,
     name: '13. Épaississement Bordure',
-    category: 'Transformations Outline',
+    category: 'Bordures & Contours',
     className: 'btn-hover-outline-weight',
-    description: 'La bordure s’épaissit de 1.5px à 3px avec une légère expansion du bouton.',
+    description: 'Le contour s’épaissit vers l’extérieur avec expansion tactile du bouton.',
     cssCode: `.btn-hover-outline-weight {
   transition: border-width 0.25s ease, box-shadow 0.25s ease, transform 0.25s ease;
 }
@@ -566,9 +566,9 @@ export const HOVER_EFFECTS = [
   {
     id: 14,
     name: '14. Bordure Pointillée',
-    category: 'Transformations Outline',
+    category: 'Bordures & Contours',
     className: 'btn-hover-outline-dashed',
-    description: 'La bordure continue se transforme en contour pointillé dynamique.',
+    description: 'La bordure continue se transforme en pointillés dynamiques en rotation.',
     cssCode: `.btn-hover-outline-dashed {
   transition: border-style 0.3s ease, border-color 0.3s ease, transform 0.25s ease;
 }
@@ -583,9 +583,9 @@ export const HOVER_EFFECTS = [
   {
     id: 15,
     name: '15. Double Anneau',
-    category: 'Transformations Outline',
+    category: 'Bordures & Contours',
     className: 'btn-hover-outline-double-ring',
-    description: 'Un second anneau concentrique intérieur se rétracte et se colle au contour.',
+    description: 'Un second contour concentrique se rétracte et fusionne avec la bordure.',
     cssCode: `.btn-hover-outline-double-ring {
   position: relative;
   z-index: 1;
@@ -611,9 +611,9 @@ export const HOVER_EFFECTS = [
   {
     id: 16,
     name: '16. Viseur Tech (Corner Brackets)',
-    category: 'Transformations Outline',
+    category: 'Bordures & Contours',
     className: 'btn-hover-outline-notches',
-    description: 'Quatre crochets de cadrage géométriques apparaissent aux angles et se verrouillent avec précision au survol.',
+    description: 'Encoches géométriques qui viennent verrouiller les 4 coins du bouton.',
     cssCode: `.btn-hover-outline-notches {
   position: relative;
   transition: transform var(--anim-speed, 0.3s) cubic-bezier(0.16, 1, 0.3, 1),
@@ -693,9 +693,9 @@ export const HOVER_EFFECTS = [
   {
     id: 17,
     name: '17. Tracé Outline SVG (Loop & Close)',
-    category: 'Transformations Outline',
+    category: 'Bordures & Contours',
     className: 'btn-hover-outline-revolving',
-    description: 'Au survol, une ouverture s’évide progressivement au point d’origine, fait un tour complet à 360° en glissant le long du contour, puis la fin du tracé la rattrape pour la sceller à 100%.',
+    description: 'Une ligne laser vectorielle parcourt le périmètre à 360° avant de se sceller.',
     cssCode: `.btn-hover-outline-revolving {
   position: relative;
   border: none !important;
@@ -756,7 +756,7 @@ export const HOVER_EFFECTS = [
     name: '18. Éjection Confettis Pétillants',
     category: 'Effets Spéciaux',
     className: 'btn-hover-confetti-burst',
-    description: 'Inspiré de votre snippet btn-187 : projection explosive de bulles confettis aux couleurs hyper pétillantes (Rose Néon, Vert Acide, Cyan, Jaune Vif).',
+    description: 'Explosion festive de particules néon projetées tout autour du bouton.',
     cssCode: `.btn-hover-confetti-burst::before {
   background-image: 
     radial-gradient(circle, #FF007F 22%, transparent 22%),
@@ -771,9 +771,9 @@ export const HOVER_EFFECTS = [
   {
     id: 19,
     name: '19. Permutation Icône & Texte',
-    category: 'Effets Spéciaux',
+    category: 'Glissements & Mouvements',
     className: 'btn-hover-icon-swap-morph',
-    description: 'Au survol, le mot et l’icône permutent harmonieusement leurs positions avec remplissage contrasté.',
+    description: 'L’icône et le mot échangent instantanément leur place avec glissement croisé.',
     cssCode: `.btn-hover-icon-swap-morph {
   position: relative;
   overflow: hidden;
@@ -849,9 +849,9 @@ export const HOVER_EFFECTS = [
   {
     id: 20,
     name: '20. Vagues en Cascades Staggered',
-    category: 'Effets Spéciaux',
+    category: 'Remplissages & Dégradés',
     className: 'btn-hover-stagger-liquid',
-    description: 'Inspiré de votre snippet btn-74 : 4 colonnes circulaires s’élèvent en cascades décalées (stagger) pour remplir le fond.',
+    description: 'Quatre colonnes liquides tombent en décalé pour remplir le fond.',
     cssCode: `.btn-hover-stagger-liquid .btn-stagger-drop {
   position: absolute;
   width: 25.5%;
@@ -871,9 +871,9 @@ export const HOVER_EFFECTS = [
   {
     id: 21,
     name: '21. Typographie Rolling & Picto Magique',
-    category: 'Effets Spéciaux',
+    category: 'Glissements & Mouvements',
     className: 'btn-hover-rolling-magic',
-    description: 'Au survol, les lettres s’enchaînent en cascade 3D rouleaux et le picto réalise une révolution complète 360° lumineuse avec aura néon.',
+    description: 'Cascade de lettres en rouleaux 3D et révolution 360° lumineuse de l’icône.',
     cssCode: `.btn-hover-rolling-magic {
   position: relative;
   overflow: hidden;
@@ -952,7 +952,7 @@ export const HOVER_EFFECTS = [
     name: '22. Double Onde Concentrique',
     category: 'Effets Spéciaux',
     className: 'btn-hover-outline-dual-pulse',
-    description: 'Au survol, deux ondes de choc concentriques se propagent vers l’extérieur avec dissipation progressive de l’aura.',
+    description: 'Deux ondes de choc radar se propagent vers l’extérieur avec halo diffus.',
     cssCode: `@keyframes concentricWavePulse1 {
   0% {
     transform: scale(1);
@@ -1030,7 +1030,7 @@ export const HOVER_EFFECTS = [
     name: '23. Scanner Laser Holographique',
     category: 'Effets Spéciaux',
     className: 'btn-hover-outline-draw-glow',
-    description: 'Une ligne laser haute intensité balaie verticalement le bouton avec projection lumineuse et aura d’énergie.',
+    description: 'Faisceau laser vertical haute précision qui balaie le bouton de haut en bas.',
     cssCode: `@keyframes cyberLaserScan {
   0% {
     top: -20%;
@@ -1124,7 +1124,7 @@ export const HOVER_EFFECTS = [
     name: '24. Volet Diagonal',
     category: 'Remplissages & Dégradés',
     className: 'btn-hover-diagonal-shutter',
-    description: 'Deux lames diagonales symétriques glissent à 30° depuis les coins opposés pour fermer le bouton.',
+    description: 'Deux lames biseautées à 30° glissent depuis les angles pour sceller le fond.',
     cssCode: `.btn-hover-diagonal-shutter {
   position: relative;
   overflow: hidden;
@@ -1192,7 +1192,7 @@ export const HOVER_EFFECTS = [
     name: '25. Glitch Holographique',
     category: 'Effets Spéciaux',
     className: 'btn-hover-holographic-glitch',
-    description: 'Effet glitch cyber avec décalage chromatique cyan/magenta, balayage laser et lignes CRT holographiques.',
+    description: 'Aberration chromatique cyan/magenta avec scanlines CRT et décalage RGB.',
     cssCode: `@keyframes cyberChromaticJitter {
   0% {
     transform: translateX(0);
@@ -1317,9 +1317,9 @@ export const HOVER_EFFECTS = [
   {
     id: 26,
     name: '26. Onde Sismique',
-    category: 'Monochrome B&W',
+    category: 'Glissements & Mouvements',
     className: 'btn-hover-seismic-pulse',
-    description: 'Tremblement sismique subtil du bouton accompagné d\'une onde concentrique qui se propage et s\'efface.',
+    description: 'Micro-tremblement sismique du bouton accompagné d’une onde concentrique.',
     cssCode: `.btn-hover-seismic-pulse {
   position: relative;
   transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
@@ -1367,7 +1367,7 @@ export const HOVER_EFFECTS = [
     name: '27. Rideau de Scène Horizontal',
     category: 'Remplissages & Dégradés',
     className: 'btn-hover-vertical-curtain',
-    description: 'Deux rideaux latéraux se referment depuis la gauche et la droite au centre avec inversion contrastée des couleurs.',
+    description: 'Deux volets latéraux se referment depuis les côtés pour se rejoindre au centre.',
     cssCode: `.btn-hover-vertical-curtain {
   position: relative;
   overflow: hidden;
@@ -1433,9 +1433,9 @@ export const HOVER_EFFECTS = [
   {
     id: 28,
     name: '28. Rebond Élastique',
-    category: 'Monochrome B&W',
+    category: 'Glissements & Mouvements',
     className: 'btn-hover-elastic-bounce',
-    description: 'Le bouton s\'écrase puis rebondit avec un effet ressort élastique et ombre dynamique.',
+    description: 'Déformation élastique squash & stretch avec rebond dynamique à l’arrivée.',
     cssCode: `.btn-hover-elastic-bounce {
   transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1),
               box-shadow 0.25s ease;
@@ -1468,7 +1468,7 @@ export const HOVER_EFFECTS = [
     name: '29. Dégradé Fluide Lumineux',
     category: 'Remplissages & Dégradés',
     className: 'btn-hover-mist-fade',
-    description: 'Dégradé velouté multi-tons avec animation fluide continue et diffusion lumineuse atmosphérique.',
+    description: 'Dégradé velouté multi-tons avec transition ultra-douce et nappe fluide.',
     cssCode: `@keyframes smoothGradientDrift {
   0% {
     background-position: 0% 50%;
@@ -1545,9 +1545,9 @@ export const HOVER_EFFECTS = [
   {
     id: 30,
     name: '30. Balayage Radar Conique',
-    category: 'Monochrome B&W',
+    category: 'Effets Spéciaux',
     className: 'btn-hover-conic-radar',
-    description: 'Faisceau radar conique rotatif à 360° avec révolution complète de l\'icône et aura lumineuse.',
+    description: 'Faisceau radar conique rotatif à 360° avec révolution complète de l’icône.',
     cssCode: `.btn-hover-conic-radar {
   position: relative;
   overflow: hidden;

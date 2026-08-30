@@ -111,10 +111,10 @@ export default function ControlsBar({
 
   const translatedCategories = [
     { id: 'all', label: tr('cat_all'), count: 30, Icon: SquaresFour },
-    { id: 'fills', label: tr('cat_fills'), count: 9, Icon: Palette },
-    { id: 'borders', label: tr('cat_borders'), count: 7, Icon: BoundingBox },
-    { id: 'motion', label: tr('cat_motion'), count: 8, Icon: NavigationArrow },
-    { id: 'fx', label: tr('cat_fx'), count: 6, Icon: Sparkle },
+    { id: 'fills', label: tr('cat_fills'), count: 7, Icon: Palette },
+    { id: 'borders', label: tr('cat_borders'), count: 6, Icon: BoundingBox },
+    { id: 'motion', label: tr('cat_motion'), count: 9, Icon: NavigationArrow },
+    { id: 'fx', label: tr('cat_fx'), count: 8, Icon: Sparkle },
   ];
 
   return (

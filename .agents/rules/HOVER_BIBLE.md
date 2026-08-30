@@ -190,17 +190,21 @@ Pour permettre au développeur d'intégrer le hover en 4 clics dans son projet s
 
 ---
 
-## 8. Les 5 Catégories Officielles
+## 8. Les 4 Catégories Officielles & Taxonomie
 
-Chaque effet appartient à l'une de ces 5 catégories :
+Chaque effet appartient rigoureusement à l'une de ces 4 catégories :
 
-| Catégorie FR / EN | Identifiant Map | Thématique |
-|---|---|---|
-| **Monochrome B&W** | `fills` | Inversions noir & blanc minimalistes et sweeps graphiques |
-| **Accent Couleur** | `fills` / `motion` | Jeux de couleurs vives, gradients et dégradés néon |
-| **Transformations Outline** | `borders` | SVG revolving borders, doubles anneaux, encoches et pointillés |
-| **Effets Spéciaux** | `fx` | Glitch holographique, confetti burst, ripple, radar conique |
-| **Remplissages & Dégradés** | `fills` | Volets diagonaux, rideaux verticaux, staggered drops liquides |
+| Catégorie FR | Catégorie EN | ID Système (`filterCategory`) | Total | Thématique & Mécanique |
+|---|---|---|---|---|
+| **Remplissages & Dégradés** | **Fills & Sweeps** | `fills` | 7 | Balayages de fond pleins, nappes de dégradés fluides, rideaux et volets. |
+| **Bordures & Contours** | **Borders & Outlines** | `borders` | 6 | Tracés laser SVG 360°, pointillés animés, surépaisseurs et crochets de cadrage. |
+| **Glissements & Mouvements** | **Slide & Motion** | `motion` | 9 | Translations d'icônes, permutations texte/picto, cascade 3D, rebonds et pivots. |
+| **Effets Spéciaux** | **Special FX & Particles** | `fx` | 8 | Halos respirants, tubes néon, glitchs cyber RGB, confetti et balayages radar. |
+
+> [!IMPORTANT]
+> ### Règle de Rédaction des Descriptions (Max 2 Lignes)
+> - **Longueur stricte** : Chaque description dans le catalogue et dans les 4 fichiers de traduction (`EN`, `FR`, `ES`, `DE`) **ne doit JAMAIS dépasser 2 lignes** sur les cartes de la galerie (entre 70 et 110 caractères maximum).
+> - **Style** : Direct, évocateur, professionnel, décrivant immédiatement la mécanique visuelle sans verbiage superflu.
 
 ---
 
@@ -264,6 +268,7 @@ Si un effet nécessite une structure HTML interne spécifique, celle-ci doit êt
 | Bouton étiré en mode icône seule | Appliquer `.btn-icon-only` (`aspect-ratio: 1/1`) pour un rendu circulaire parfait |
 | Exporter du CSS incomplet sans le bouton de base | Fournir le code HTML + CSS complet et autonome prêt à l'emploi |
 | Oublier les traductions dans les 4 langues | Toujours renseigner FR, EN, ES, DE dans `translations.js` |
+| Rédiger une description de plus de 2 lignes | Limiter à 70-110 caractères max (2 lignes max) pour un affichage épuré |
 | Markup custom présent dans `HoverCard` mais pas dans `FocusSandbox` ou l'export | Toujours garder les composants et le générateur de code synchronisés |
 
 ---
