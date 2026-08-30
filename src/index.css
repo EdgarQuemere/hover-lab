@@ -137,6 +137,27 @@ input, select {
   font-size: 1.0625rem;
 }
 
+/* Icon-only Button (Perfect 1:1 Aspect Ratio / Circular with Pill radius) */
+.specimen-btn.btn-icon-only {
+  padding: 0 !important;
+  aspect-ratio: 1 / 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+.specimen-btn.btn-icon-only.btn-size-sm {
+  width: 36px;
+  height: 36px;
+}
+.specimen-btn.btn-icon-only.btn-size-md {
+  width: 44px;
+  height: 44px;
+}
+.specimen-btn.btn-icon-only.btn-size-lg {
+  width: 54px;
+  height: 54px;
+}
+
 /* CANVAS BACKGROUND MODES */
 .canvas-dark {
   background-color: #0E0E10;

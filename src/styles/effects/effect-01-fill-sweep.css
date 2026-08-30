@@ -8,16 +8,12 @@
 .btn-hover-fill-sweep::before {
   content: '';
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
+  inset: -1px;
   background-color: var(--btn-color, #18181b);
   transform: scaleX(0);
   transform-origin: right center;
-  transition: transform 0.38s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: transform var(--anim-speed, 0.38s) cubic-bezier(0.16, 1, 0.3, 1);
   z-index: -1;
-  border-radius: inherit;
 }
 
 .btn-hover-fill-sweep:hover::before,
@@ -31,3 +27,4 @@
   color: var(--btn-bg, #ffffff) !important;
   border-color: var(--btn-color, #18181b) !important;
 }
+

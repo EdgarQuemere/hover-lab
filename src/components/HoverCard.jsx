@@ -136,9 +136,8 @@ export default function HoverCard({
   const sizeClass = `btn-size-${config.buttonSize}`;
   const fontClass = config.fontFamily;
   const showAutoHover = isAutoHovered && !isUserHovering;
-  const fullClassName = `specimen-btn ${fontClass} ${sizeClass} ${effect.className} ${showAutoHover ? 'is-auto-hovered' : ''}`;
-
   const isIconOnly = config.iconPosition === 'only';
+  const fullClassName = `specimen-btn ${fontClass} ${sizeClass} ${isIconOnly ? 'btn-icon-only' : ''} ${effect.className} ${showAutoHover ? 'is-auto-hovered' : ''}`;
   const isIconLeft = config.iconPosition === 'left';
   const isIconRight = config.iconPosition === 'right';
   const hasIcon = config.iconPosition !== 'none';

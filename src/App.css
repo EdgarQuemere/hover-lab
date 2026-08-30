@@ -1971,6 +1971,123 @@ body.theme-dark .item-icon-box {
   border: 1px solid rgba(59, 130, 246, 0.3);
 }
 
+/* CSS Live Editor Search Bar (Cmd + F) */
+.css-search-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 6px 10px;
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: 8px;
+  margin-top: 6px;
+  animation: fadeInSearch 0.15s ease-out;
+}
+
+@keyframes fadeInSearch {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.css-search-input-wrap {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex: 1;
+  min-width: 0;
+}
+
+.css-search-icon {
+  color: var(--text-muted);
+  flex-shrink: 0;
+}
+
+.css-search-input {
+  width: 100%;
+  border: none;
+  background: transparent;
+  color: var(--text-main);
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  outline: none;
+}
+
+.css-search-input::placeholder {
+  color: var(--text-faint);
+  font-family: var(--font-inter, sans-serif);
+}
+
+.css-search-right {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.css-search-counter {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  font-weight: 500;
+  user-select: none;
+}
+
+.css-search-nav {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}
+
+.css-search-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  border-radius: 4px;
+  color: var(--text-muted);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.css-search-btn:hover:not(:disabled) {
+  background-color: rgba(0, 0, 0, 0.08);
+  color: var(--text-main);
+}
+
+body.theme-dark .css-search-btn:hover:not(:disabled) {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+}
+
+.css-search-btn:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+
+.css-search-btn.close-search:hover {
+  color: #ef4444;
+}
+
+.css-action-btn.is-active {
+  background-color: rgba(0, 0, 0, 0.08);
+  color: var(--text-main);
+}
+
+body.theme-dark .css-action-btn.is-active {
+  background-color: rgba(255, 255, 255, 0.15);
+  color: #ffffff;
+}
+
 .css-editor-wrapper {
   flex: 1;
   display: flex;

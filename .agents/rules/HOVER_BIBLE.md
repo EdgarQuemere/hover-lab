@@ -128,7 +128,7 @@ Tous les réglages de la barre supérieure pilotent instantanément tous les hov
    * `none` : Pas d'icône.
    * `left` : Icône à gauche du texte (`.btn-icon-left`).
    * `right` : Icône à droite du texte (`.btn-icon-right` - *Défaut*).
-   * `only` : Icône seule (sans texte).
+   * `only` : Icône seule sans texte (`.btn-icon-only`). **Le bouton adopte impérativement un ratio 1:1** (`aspect-ratio: 1/1`, padding neutre `padding: 0`) pour former un cercle parfait en mode Pill (`9999px` / `50%`) ou un carré proportionné.
 6. **Arrondi des angles (`config.borderRadiusValue`)** :
    * Segmented button (0, 6, 12, Pill) + champ numérique de précision.
 7. **Couleur du bouton (`config.buttonColor`)** :
@@ -162,15 +162,16 @@ Le Studio est l'espace de prototypage avancé ouvert au clic sur **"Studio"** :
 ### Organisation par Onglets
 1. 🎛️ **Onglet "Réglages"** :
    * **Vitesse d'animation** : Slider de 0.1s à 3.0s **+ saisie clavier directe** (flèches ↑/↓ et validation Entrée).
-   * **Arrière-plan de scène (4 options)** :
+   * **Arrière-plan de scène (4 options)** *(initialisé automatiquement selon le fond choisi sur la page d'accueil : Clair, Sombre ou Personnalisé)* :
      * Haut-gauche : **Clair** (`#eeeeee`)
      * Haut-droite : **Sombre** (`#111111`)
      * Bas-gauche : **Wallpaper HD** (Image haute résolution)
-     * Bas-droite : **Personnalisé (Custom)** avec pastille de couleur et sélecteur `CustomColorPicker` intégré (prend par défaut la couleur des cartes d'accueil).
+     * Bas-droite : **Personnalisé (Custom)** avec pastille de couleur et sélecteur `CustomColorPicker` intégré (actif d'office si une couleur custom est sélectionnée sur l'accueil).
    * **Texte du Bouton en direct**.
    * **Couleur du Bouton en direct** avec pipette écran.
 2. 💻 **Onglet "Éditeur CSS"** :
    * Espace de code **pleine hauteur (~500px+)**.
+   * 🔍 **Recherche intégrée (`Cmd + F` / `Ctrl + F`)** : Barre de recherche avec comptage des occurrences (`1/X`), sélection/highlight dans le code, défilement automatique, et navigation au clavier (`Entrée` / `Shift+Entrée`).
    * **Synchronisation bidirectionnelle** : Modifier le slider ajuste la durée dans le CSS, et modifier la durée dans le code met à jour le slider en direct.
    * 💾 **Sauvegarder** : Mémorise le CSS personnalisé dans `localStorage` pour cet effet.
    * 🔄 **Réinitialiser** : Restaure le CSS officiel d'origine.
@@ -178,7 +179,18 @@ Le Studio est l'espace de prototypage avancé ouvert au clic sur **"Studio"** :
 
 ---
 
-## 7. Les 5 Catégories Officielles
+## 7. Système d'Exportation "Plug & Play" (HTML + CSS / Tailwind / React)
+
+Pour permettre au développeur d'intégrer le hover en 4 clics dans son projet sans friction :
+1. **Cellule 1 — Markup HTML** :
+   * Fournit le code HTML exact (`<button class="hover-btn ...">`), incluant le balisage SVG de l'icône active et les balises internes si DOM spécial.
+2. **Cellule 2 — Styles Autonomes** :
+   * Fournit la feuille de style complète comprenant le bouton de base (`.hover-btn`), la gestion du mode icône seule (`.btn-icon-only`), et les règles de l'effet.
+   * Les variables et valeurs configurées dans l'interface (`--btn-color`, `--btn-bg`, `border-radius`, `transition-duration`) sont injectées en dur et en fallback dans le code exporté.
+
+---
+
+## 8. Les 5 Catégories Officielles
 
 Chaque effet appartient à l'une de ces 5 catégories :
 
@@ -192,9 +204,9 @@ Chaque effet appartient à l'une de ces 5 catégories :
 
 ---
 
-## 8. Effets avec DOM Spécial (Markup Dédié)
+## 9. Effets avec DOM Spécial (Markup Dédié)
 
-Si un effet nécessite une structure HTML interne spécifique, celle-ci doit être synchronisée dans `HoverCard.jsx` ET dans `FocusSandbox.jsx` :
+Si un effet nécessite une structure HTML interne spécifique, celle-ci doit être synchronisée dans `HoverCard.jsx`, `FocusSandbox.jsx` et `exportUtils.js` :
 
 1. **Texte Elevator (#11)** :
    * Structure : `.btn-content-wrap` (monte) + `.btn-content-duplicate` (glisse depuis le bas).
@@ -211,44 +223,42 @@ Si un effet nécessite une structure HTML interne spécifique, celle-ci doit êt
 
 ---
 
-## 9. Checklist pour Ajouter un Nouvel Effet (ex: Effet #31)
+## 10. Règle Géométrique des Coins & Clipping (Anti-trous)
 
-- [ ] **1. Créer le fichier CSS modulaire** : `src/styles/effects/effect-31-slug.css`
-  * Utiliser `var(--btn-color, #18181b)` et `var(--btn-bg, #ffffff)`.
+> [!CAUTION]
+> **Ne jamais cumuler `overflow: hidden` sur le conteneur ET `border-radius: inherit` sur un pseudo-élément de remplissage (`::before`/`::after`).**
+> En CSS, le rayon interne $R_{interne} = R_{externe} - e_{bordure}$. L'application d'un rayon hérité $R_{externe}$ sur le pseudo-élément crée un écart géométrique (croissants / trous visibles aux 4 coins).
+> - **Règle** : Si le bouton a `overflow: hidden`, laisser le conteneur gérer le découpage et appliquer `inset: -1px;` sur le pseudo-élément sans `border-radius`.
+
+---
+
+## 11. Checklist pour Ajouter ou Valider un Effet
+
+- [ ] **1. Créer / Valider le fichier CSS modulaire** : `src/styles/effects/effect-XX-slug.css`
+  * Utiliser `var(--btn-color, #18181b)`, `var(--btn-bg, #ffffff)` et `var(--anim-speed, 0.35s)`.
   * Dupliquer chaque règle `:hover` avec `.is-auto-hovered`.
   * Easing signature : `cubic-bezier(0.16, 1, 0.3, 1)`.
-- [ ] **2. Importer dans l'agrégateur** : Ajouter `@import './effects/effect-31-slug.css';` dans `src/styles/hovers.css`.
-- [ ] **3. Déclarer dans le catalogue** : Ajouter l'objet dans `src/data/hoverEffects.js` (`id: 31`, `name`, `category`, `className`, `description`, `cssCode`).
-- [ ] **4. Ajouter les traductions (4 langues)** :
-  * Dans `src/data/translations.js`, ajouter `effect_31_name`, `effect_31_desc`, `effect_31_cat` pour **FR**, **EN**, **ES**, et **DE**.
-- [ ] **5. Déclarer la catégorie** : Ajouter `31: 'categorie_id'` dans `EFFECT_CATEGORY_MAP` dans `src/App.jsx`.
-- [ ] **6. DOM Spécial (si nécessaire)** : Si l'effet nécessite des balises supplémentaires, les ajouter dans `HoverCard.jsx` et `FocusSandbox.jsx`.
-- [ ] **7. Vérifier le build** : Exécuter `npm run build` pour valider l'absence d'erreurs.
+  * Absence de trous / artefacts aux 4 coins (règle de clipping respectée).
+- [ ] **2. Importer dans l'agrégateur** : `@import './effects/effect-XX-slug.css';` dans `src/styles/hovers.css`.
+- [ ] **3. Déclarer dans le catalogue** : Synchroniser `src/data/hoverEffects.js`.
+- [ ] **4. Valider l'export Plug & Play** : Vérifier que le snippet HTML et le CSS autonome générés dans `exportUtils.js` fonctionnent sans dépendance externe.
+- [ ] **5. Vérifier le build** : Exécuter `npm run build` pour valider l'absence d'erreurs.
 
 ---
 
-## 10. Liens de Partage & Deep-Linking
-
-* Format de lien direct : `https://hoverlab.dev/#effect-XX` ou `#XX`.
-* Lors de l'accès via un lien partagé :
-  1. L'application réinitialise les filtres si l'effet était masqué.
-  2. La pagination (`visibleCount`) est automatiquement étendue pour afficher la carte.
-  3. Un défilement centré fluide (*smooth scroll*) amène l'écran sur la carte.
-  4. L'effet ciblé déclenche une pulsation visuelle (`.is-targeted-highlight`).
-
----
-
-## 11. Erreurs Fréquentes à Éviter Absolument
+## 12. Erreurs Fréquentes à Éviter Absolument
 
 | ❌ Erreur | ✅ Bon réflexe |
 |---|---|
-| Écrire une couleur hex en dur dans le CSS | Toujours utiliser `var(--btn-color, #18181b)` |
+| Écrire une couleur hex en dur dans le CSS de base | Toujours utiliser `var(--btn-color, #18181b)` avec fallback |
 | Oublier `.is-auto-hovered` | Toujours lier `:hover` et `.is-auto-hovered` |
-| Oublier `border-radius: inherit` sur les enfants/pseudos | Assure la compatibilité avec le mode Pill (`999px`) |
+| `border-radius: inherit` à l'intérieur d'un bouton `overflow: hidden` | Utiliser `inset: -1px` sans rayon sur le pseudo-élément pour éviter les trous aux 4 coins |
+| Bouton étiré en mode icône seule | Appliquer `.btn-icon-only` (`aspect-ratio: 1/1`) pour un rendu circulaire parfait |
+| Exporter du CSS incomplet sans le bouton de base | Fournir le code HTML + CSS complet et autonome prêt à l'emploi |
 | Oublier les traductions dans les 4 langues | Toujours renseigner FR, EN, ES, DE dans `translations.js` |
-| Markup custom présent dans `HoverCard` mais pas dans `FocusSandbox` | Toujours garder les deux composants synchronisés |
-| Bloquer le scroll dans l'export de code | S'assurer que le conteneur `<pre>` garde `overflow: auto` |
+| Markup custom présent dans `HoverCard` mais pas dans `FocusSandbox` ou l'export | Toujours garder les composants et le générateur de code synchronisés |
 
 ---
 
 > **HoverLab Source of Truth — Conserver ce document à jour lors de toute évolution structurelle.**
+

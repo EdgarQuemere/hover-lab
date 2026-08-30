@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { X, Copy, Check } from '@phosphor-icons/react';
 import {
+  generateHtmlSnippet,
   generateVanillaCss,
   generateTailwindCss,
   generateReactFramerMotion,
@@ -14,24 +15,11 @@ export default function CodeModal({ effect, config, onClose, t }) {
 
   if (!effect) return null;
 
+  const htmlSnippet = generateHtmlSnippet(effect, config);
   const vanillaCss = generateVanillaCss(effect, config);
   const tailwindCss = generateTailwindCss(effect, config);
   const reactFramer = generateReactFramerMotion(effect, config);
   const designTokens = generateDesignTokens(effect, config);
-
-  const getCodeSnippet = () => {
-    switch (activeTab) {
-      case 'tailwind':
-        return tailwindCss;
-      case 'react':
-        return reactFramer;
-      case 'tokens':
-        return designTokens;
-      case 'css':
-      default:
-        return vanillaCss;
-    }
-  };
 
   const handleCopy = (text, type) => {
     navigator.clipboard.writeText(text);
@@ -40,7 +28,6 @@ export default function CodeModal({ effect, config, onClose, t }) {
   };
 
   const cleanTitle = (effect.name || '').replace(/^\d+\.\s*/, '');
-  const currentSnippet = getCodeSnippet();
 
   return (
     <div className="modal-backdrop" onClick={onClose}>
@@ -48,7 +35,7 @@ export default function CodeModal({ effect, config, onClose, t }) {
         <div className="modal-header">
           <div>
             <h2 className="modal-title">#{effect.id} {cleanTitle}</h2>
-            <p className="modal-subtitle">{tr('code_modal_subtitle')}</p>
+            <p className="modal-subtitle">{tr('code_modal_subtitle', 'Code prêt à l\'emploi pour vos projets')}</p>
           </div>
           <button type="button" className="close-btn" onClick={onClose}>
             <X size={18} />
@@ -62,7 +49,7 @@ export default function CodeModal({ effect, config, onClose, t }) {
             className={`modal-tab-btn ${activeTab === 'css' ? 'is-active' : ''}`}
             onClick={() => setActiveTab('css')}
           >
-            Vanilla CSS
+            Vanilla HTML / CSS
           </button>
           <button
             type="button"
@@ -88,25 +75,67 @@ export default function CodeModal({ effect, config, onClose, t }) {
         </div>
 
         <div className="modal-body">
-          <div className="code-block">
-            <div className="code-block-header">
-              <span className="code-lang">
-                {activeTab === 'css' && 'Vanilla CSS'}
-                {activeTab === 'tailwind' && 'Tailwind CSS v3/v4'}
-                {activeTab === 'react' && 'React Component'}
-                {activeTab === 'tokens' && 'Design Tokens'}
-              </span>
-              <button
-                type="button"
-                className="copy-snippet-btn"
-                onClick={() => handleCopy(currentSnippet, activeTab)}
-              >
-                {copiedType === activeTab ? <Check size={14} /> : <Copy size={14} />}
-                <span>{copiedType === activeTab ? tr('copied') : 'Copier le code'}</span>
-              </button>
+          {activeTab === 'css' ? (
+            <>
+              {/* 1. HTML Markup Block */}
+              <div className="code-block" style={{ marginBottom: '14px' }}>
+                <div className="code-block-header">
+                  <span className="code-lang">1. HTML Markup</span>
+                  <button
+                    type="button"
+                    className="copy-snippet-btn"
+                    onClick={() => handleCopy(htmlSnippet, 'html')}
+                  >
+                    {copiedType === 'html' ? <Check size={14} /> : <Copy size={14} />}
+                    <span>{copiedType === 'html' ? tr('copied', 'Copié !') : tr('copy_html', 'Copier l\'HTML')}</span>
+                  </button>
+                </div>
+                <pre className="code-content" style={{ maxHeight: '140px' }}>{htmlSnippet}</pre>
+              </div>
+
+              {/* 2. CSS Stylesheet Block */}
+              <div className="code-block">
+                <div className="code-block-header">
+                  <span className="code-lang">2. CSS Stylesheet (Base + Effet)</span>
+                  <button
+                    type="button"
+                    className="copy-snippet-btn"
+                    onClick={() => handleCopy(vanillaCss, 'css')}
+                  >
+                    {copiedType === 'css' ? <Check size={14} /> : <Copy size={14} />}
+                    <span>{copiedType === 'css' ? tr('copied', 'Copié !') : tr('copy_css', 'Copier le CSS')}</span>
+                  </button>
+                </div>
+                <pre className="code-content" style={{ maxHeight: '280px' }}>{vanillaCss}</pre>
+              </div>
+            </>
+          ) : (
+            <div className="code-block">
+              <div className="code-block-header">
+                <span className="code-lang">
+                  {activeTab === 'tailwind' && 'Tailwind CSS v3/v4'}
+                  {activeTab === 'react' && 'React Component'}
+                  {activeTab === 'tokens' && 'Design Tokens'}
+                </span>
+                <button
+                  type="button"
+                  className="copy-snippet-btn"
+                  onClick={() => {
+                    const snippet = activeTab === 'tailwind' ? tailwindCss : activeTab === 'react' ? reactFramer : designTokens;
+                    handleCopy(snippet, activeTab);
+                  }}
+                >
+                  {copiedType === activeTab ? <Check size={14} /> : <Copy size={14} />}
+                  <span>{copiedType === activeTab ? tr('copied', 'Copié !') : 'Copier le code'}</span>
+                </button>
+              </div>
+              <pre className="code-content">
+                {activeTab === 'tailwind' && tailwindCss}
+                {activeTab === 'react' && reactFramer}
+                {activeTab === 'tokens' && designTokens}
+              </pre>
             </div>
-            <pre className="code-content">{currentSnippet}</pre>
-          </div>
+          )}
         </div>
       </div>
     </div>

@@ -10,6 +10,9 @@ import {
   FloppyDisk,
   Copy,
   Check,
+  MagnifyingGlass,
+  CaretUp,
+  CaretDown,
 } from '@phosphor-icons/react';
 import { AVAILABLE_ICONS } from './ControlsBar';
 import CustomColorPicker from './CustomColorPicker';
@@ -65,6 +68,16 @@ export default function FocusSandbox({ effect, config, onClose, onOpenCode, t })
   const tr = (key, fallback) => (t ? t(key) : fallback);
 
   const homeCardBg = config.cardBgColor || (config.canvasTheme === 'dark' ? '#111111' : '#eeeeee');
+  const homeCardBgLower = (homeCardBg || '').toLowerCase().trim();
+
+  let defaultBackdropId = 'light';
+  if (homeCardBgLower === '#111111' || (!config.cardBgColor && config.canvasTheme === 'dark')) {
+    defaultBackdropId = 'dark';
+  } else if (homeCardBgLower === '#eeeeee' || (!config.cardBgColor && config.canvasTheme === 'light')) {
+    defaultBackdropId = 'light';
+  } else {
+    defaultBackdropId = 'custom';
+  }
 
   // Load saved state from localStorage if available
   const savedCss = effect?.id ? localStorage.getItem(`hoverlab_studio_css_${effect.id}`) : null;
@@ -78,7 +91,7 @@ export default function FocusSandbox({ effect, config, onClose, onOpenCode, t })
   const [activeSidebarTab, setActiveSidebarTab] = useState('controls'); // 'controls' | 'css'
   const [animSpeed, setAnimSpeed] = useState(initialSpeed);
   const [speedInputText, setSpeedInputText] = useState(String(initialSpeed));
-  const [backdropId, setBackdropId] = useState('light');
+  const [backdropId, setBackdropId] = useState(defaultBackdropId);
   const [studioCustomBg, setStudioCustomBg] = useState(homeCardBg);
   const [customButtonText, setCustomButtonText] = useState(config.buttonText || tr('default_button_text', 'HoverLab'));
   const [studioButtonColor, setStudioButtonColor] = useState(initialColor);
@@ -89,6 +102,80 @@ export default function FocusSandbox({ effect, config, onClose, onOpenCode, t })
   const [hoverCount, setHoverCount] = useState(0);
   const btnRef = useRef(null);
   const [dimensions, setDimensions] = useState({ width: 160, height: 48 });
+
+  // Cmd+F Search in Live CSS Editor
+  const [showSearch, setShowSearch] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [currentMatchIdx, setCurrentMatchIdx] = useState(0);
+  const searchInputRef = useRef(null);
+  const textareaRef = useRef(null);
+
+  // Compute matches
+  const searchMatches = React.useMemo(() => {
+    if (!searchQuery || !customCssCode) return [];
+    const queryLower = searchQuery.toLowerCase();
+    const codeLower = customCssCode.toLowerCase();
+    const result = [];
+    let pos = 0;
+    while ((pos = codeLower.indexOf(queryLower, pos)) !== -1) {
+      result.push({ start: pos, end: pos + searchQuery.length });
+      pos += searchQuery.length || 1;
+    }
+    return result;
+  }, [searchQuery, customCssCode]);
+
+  const highlightMatch = (index, matchesList = searchMatches, shouldFocus = false) => {
+    if (!textareaRef.current || matchesList.length === 0) return;
+    const match = matchesList[index];
+    if (!match) return;
+    const el = textareaRef.current;
+    if (shouldFocus) {
+      el.focus();
+    }
+    el.setSelectionRange(match.start, match.end);
+
+    const linesBefore = customCssCode.substring(0, match.start).split('\n').length;
+    const approxLineHeight = 19;
+    el.scrollTop = Math.max(0, (linesBefore - 4) * approxLineHeight);
+  };
+
+  const handleNextMatch = (shouldFocus = false) => {
+    if (searchMatches.length === 0) return;
+    const nextIdx = (currentMatchIdx + 1) % searchMatches.length;
+    setCurrentMatchIdx(nextIdx);
+    highlightMatch(nextIdx, searchMatches, shouldFocus);
+  };
+
+  const handlePrevMatch = (shouldFocus = false) => {
+    if (searchMatches.length === 0) return;
+    const prevIdx = (currentMatchIdx - 1 + searchMatches.length) % searchMatches.length;
+    setCurrentMatchIdx(prevIdx);
+    highlightMatch(prevIdx, searchMatches, shouldFocus);
+  };
+
+  // Keyboard shortcut listener for Cmd+F / Ctrl+F
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if ((e.metaKey || e.ctrlKey) && (e.key === 'f' || e.key === 'F')) {
+        e.preventDefault();
+        e.stopPropagation();
+        setActiveSidebarTab('css');
+        setShowSearch(true);
+        setTimeout(() => {
+          if (searchInputRef.current) {
+            searchInputRef.current.focus();
+            searchInputRef.current.select();
+          }
+        }, 50);
+      } else if (e.key === 'Escape' && showSearch) {
+        setShowSearch(false);
+        if (textareaRef.current) textareaRef.current.focus();
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [showSearch]);
 
   // Sync text input with slider value
   useEffect(() => {
@@ -274,11 +361,11 @@ export default function FocusSandbox({ effect, config, onClose, onOpenCode, t })
     transitionDuration: `${animSpeed}s`,
   };
 
+  const isIconOnly = config.iconPosition === 'only';
   const sizeClass = `btn-size-${config.buttonSize}`;
   const fontClass = config.fontFamily;
-  const fullClassName = `specimen-btn ${fontClass} ${sizeClass} ${currentEffect.className}`;
+  const fullClassName = `specimen-btn ${fontClass} ${sizeClass} ${isIconOnly ? 'btn-icon-only' : ''} ${currentEffect.className}`;
 
-  const isIconOnly = config.iconPosition === 'only';
   const isIconLeft = config.iconPosition === 'left';
   const isIconRight = config.iconPosition === 'right';
   const hasIcon = config.iconPosition !== 'none';
@@ -455,6 +542,24 @@ export default function FocusSandbox({ effect, config, onClose, onOpenCode, t })
                     <div className="css-header-actions">
                       <button
                         type="button"
+                        className={`css-action-btn ${showSearch ? 'is-active' : ''}`}
+                        onClick={() => {
+                          setShowSearch((prev) => !prev);
+                          if (!showSearch) {
+                            setTimeout(() => {
+                              if (searchInputRef.current) {
+                                searchInputRef.current.focus();
+                                searchInputRef.current.select();
+                              }
+                            }, 50);
+                          }
+                        }}
+                        title="Rechercher (⌘F)"
+                      >
+                        <MagnifyingGlass size={14} />
+                      </button>
+                      <button
+                        type="button"
                         className={`css-action-btn ${isSaved ? 'is-saved' : ''}`}
                         onClick={handleSaveCss}
                         title={isSaved ? tr('saved', 'Enregistré !') : tr('save_css', 'Enregistrer le CSS')}
@@ -486,8 +591,92 @@ export default function FocusSandbox({ effect, config, onClose, onOpenCode, t })
                     </div>
                   )}
 
+                  {showSearch && (
+                    <div className="css-search-bar">
+                      <div className="css-search-input-wrap">
+                        <MagnifyingGlass size={13} className="css-search-icon" />
+                        <input
+                          ref={searchInputRef}
+                          type="text"
+                          className="css-search-input"
+                          placeholder="Rechercher (Entrée = suivant)..."
+                          value={searchQuery}
+                          onChange={(e) => {
+                            const val = e.target.value;
+                            setSearchQuery(val);
+                            setCurrentMatchIdx(0);
+                            if (val) {
+                              // Compute immediate matches for smooth instant highlight
+                              const queryLower = val.toLowerCase();
+                              const codeLower = customCssCode.toLowerCase();
+                              const immediateMatches = [];
+                              let pos = 0;
+                              while ((pos = codeLower.indexOf(queryLower, pos)) !== -1) {
+                                immediateMatches.push({ start: pos, end: pos + val.length });
+                                pos += val.length || 1;
+                              }
+                              if (immediateMatches.length > 0) {
+                                highlightMatch(0, immediateMatches);
+                              }
+                            }
+                          }}
+                          onKeyDown={(e) => {
+                            if (e.key === 'Enter') {
+                              e.preventDefault();
+                              if (e.shiftKey) handlePrevMatch();
+                              else handleNextMatch();
+                            } else if (e.key === 'Escape') {
+                              e.preventDefault();
+                              setShowSearch(false);
+                              if (textareaRef.current) textareaRef.current.focus();
+                            }
+                          }}
+                        />
+                      </div>
+                      <div className="css-search-right">
+                        {searchQuery && (
+                          <span className="css-search-counter">
+                            {searchMatches.length > 0 ? `${currentMatchIdx + 1}/${searchMatches.length}` : '0/0'}
+                          </span>
+                        )}
+                        <div className="css-search-nav">
+                          <button
+                            type="button"
+                            className="css-search-btn"
+                            onClick={handlePrevMatch}
+                            disabled={searchMatches.length === 0}
+                            title="Précédent (Shift+Entrée)"
+                          >
+                            <CaretUp size={13} weight="bold" />
+                          </button>
+                          <button
+                            type="button"
+                            className="css-search-btn"
+                            onClick={handleNextMatch}
+                            disabled={searchMatches.length === 0}
+                            title="Suivant (Entrée)"
+                          >
+                            <CaretDown size={13} weight="bold" />
+                          </button>
+                          <button
+                            type="button"
+                            className="css-search-btn close-search"
+                            onClick={() => {
+                              setShowSearch(false);
+                              if (textareaRef.current) textareaRef.current.focus();
+                            }}
+                            title="Fermer (Échap)"
+                          >
+                            <X size={13} weight="bold" />
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  )}
+
                   <div className="css-editor-wrapper">
                     <textarea
+                      ref={textareaRef}
                       className="live-css-editor full-height"
                       value={customCssCode}
                       onChange={(e) => handleCssCodeChange(e.target.value)}
