@@ -104,16 +104,16 @@ export const TRANSLATIONS = {
     effect_2_desc: 'Subtle button elevation with dynamic rightward icon slide.',
     effect_2_cat: 'Monochrome B&W',
     // Effect 3
-    effect_3_name: '03. Ultra-Juicy Laser Sweep',
-    effect_3_desc: 'An ultra-bright laser beam sweeps the surface with a dynamic spring bounce, tactile button lift, and icon pulse.',
+    effect_3_name: '03. Shimmer Sheen Sweep',
+    effect_3_desc: 'A single sleek light reflection sweeps across the button surface from left to right on hover.',
     effect_3_cat: 'Monochrome B&W',
     // Effect 4
     effect_4_name: '04. 3D Pressed Block',
     effect_4_desc: 'Solid 3D extruded block effect with sharp shadow that depresses on hover and click.',
     effect_4_cat: 'Monochrome B&W',
     // Effect 5
-    effect_5_name: '05. Geometric Morph & Frame',
-    effect_5_desc: 'Pulsing geometric frame aura with tracking expansion, icon impulse, and tactile lift.',
+    effect_5_name: '05. Geometric Shape Morph',
+    effect_5_desc: 'Fluid border-radius morphing (rounded to sharp square, or square to pill) with contrasted color inversion and tactile lift.',
     effect_5_cat: 'Slide & Motion',
     // Effect 6
     effect_6_name: '06. Luminous Ambient Glow',
@@ -156,8 +156,8 @@ export const TRANSLATIONS = {
     effect_15_desc: 'A second inner concentric ring collapses onto the outer border.',
     effect_15_cat: 'Transformations Outline',
     // Effect 16
-    effect_16_name: '16. Corner Brackets Frame',
-    effect_16_desc: 'Four geometric corner brackets frame the button on hover.',
+    effect_16_name: '16. Tech Corner Brackets',
+    effect_16_desc: 'Four geometric framing brackets snap onto the corners to lock the button on hover.',
     effect_16_cat: 'Transformations Outline',
     // Effect 17
     effect_17_name: '17. SVG Revolving Circuit',
@@ -314,8 +314,8 @@ export const TRANSLATIONS = {
     effect_2_desc: 'Élévation subtile du bouton avec glissement dynamique de l’icône vers la droite.',
     effect_2_cat: 'Monochrome B&W',
     // Effect 3
-    effect_3_name: '03. Balayage Laser Ultra-Juicy',
-    effect_3_desc: 'Un faisceau laser ultra-brillant balaie la surface avec un élan ressort dynamique, accompagnant une surélévation tactile du bouton et une impulsion de l’icône.',
+    effect_3_name: '03. Reflet Éclat',
+    effect_3_desc: 'Un reflet lumineux élégant balaie la surface de gauche à droite au survol.',
     effect_3_cat: 'Monochrome B&W',
     // Effect 4
     effect_4_name: '04. Bloc 3D Pressé',
@@ -323,7 +323,7 @@ export const TRANSLATIONS = {
     effect_4_cat: 'Monochrome B&W',
     // Effect 5
     effect_5_name: '05. Métamorphose Géométrique',
-    effect_5_desc: 'Cadre géométrique dynamique en pulsation avec expansion du tracking, impulsion d\'icône et surélévation tactile.',
+    effect_5_desc: 'Métamorphose fluide des angles (arrondi vers carré brut ou carré vers pilule) avec inversion contrastée et surélévation tactile.',
     effect_5_cat: 'Glissements & Mouvements',
     // Effect 6
     effect_6_name: '06. Halo Lumineux',
@@ -366,8 +366,8 @@ export const TRANSLATIONS = {
     effect_15_desc: 'Un second anneau concentrique intérieur se rétracte et se colle au contour.',
     effect_15_cat: 'Transformations Outline',
     // Effect 16
-    effect_16_name: '16. Encoches d’Angles',
-    effect_16_desc: 'Quatre crochets d’angles géométriques (cadre d’angles) viennent encadrer le bouton au survol.',
+    effect_16_name: '16. Viseur Tech (Corner Brackets)',
+    effect_16_desc: 'Quatre crochets de cadrage géométriques apparaissent aux angles et se verrouillent avec précision au survol.',
     effect_16_cat: 'Transformations Outline',
     // Effect 17
     effect_17_name: '17. Tracé Outline SVG (Loop & Close)',
@@ -520,8 +520,8 @@ export const TRANSLATIONS = {
     effect_2_desc: 'Elevación sutil del botón con deslizamiento dinámico del icono a la derecha.',
     effect_2_cat: 'Monochrome B&W',
     // Effect 3
-    effect_3_name: '03. Barrido Láser Ultra-Juicy',
-    effect_3_desc: 'Un haz láser ultrabrillante barre la superficie con un rebote de resorte dinámico, elevación táctil e impulso del icono.',
+    effect_3_name: '03. Reflejo Brillo',
+    effect_3_desc: 'Un elegante reflejo de luz barre la superficie del botón de izquierda a derecha al pasar el cursor.',
     effect_3_cat: 'Monochrome B&W',
     // Effect 4
     effect_4_name: '04. Bloque 3D Presionado',
@@ -529,7 +529,7 @@ export const TRANSLATIONS = {
     effect_4_cat: 'Monochrome B&W',
     // Effect 5
     effect_5_name: '05. Metamorfosis Geométrica',
-    effect_5_desc: 'Marco geométrico dinámico en pulsación con expansión de espaciado, impulso del icono y elevación táctil.',
+    effect_5_desc: 'Metamorfosis fluida de esquinas (redondeado a cuadrado, o cuadrado a píldora) con inversión de color y elevación táctil.',
     effect_5_cat: 'Deslizamiento y Movimiento',
     // Effect 6
     effect_6_name: '06. Halo Luminoso',
@@ -572,8 +572,8 @@ export const TRANSLATIONS = {
     effect_15_desc: 'Un segundo anillo concéntrico interior se contrae y se une al contorno.',
     effect_15_cat: 'Transformations Outline',
     // Effect 16
-    effect_16_name: '16. Corchetes de Esquina',
-    effect_16_desc: 'Cuatro corchetes geométricos de esquina enmarcan el botón al pasar el ratón.',
+    effect_16_name: '16. Brackets de Esquina Tech',
+    effect_16_desc: 'Cuatro corchetes geométricos aparecen en las esquinas y se bloquean con precisión al pasar el cursor.',
     effect_16_cat: 'Transformations Outline',
     // Effect 17
     effect_17_name: '17. Trazado SVG Circuito',
@@ -726,8 +726,8 @@ export const TRANSLATIONS = {
     effect_2_desc: 'Subtile Anhebung der Schaltfläche mit dynamischem Gleiten des Icons nach rechts.',
     effect_2_cat: 'Monochrome B&W',
     // Effect 3
-    effect_3_name: '03. Ultra-Juicy Laser-Sweep',
-    effect_3_desc: 'Ein extrem heller Laserstrahl streift die Oberfläche mit dynamischem Federschwung, taktiler Anhebung und Icon-Impuls.',
+    effect_3_name: '03. Glanz-Reflexion',
+    effect_3_desc: 'Eine elegante Lichtreflexion streift die Button-Oberfläche beim Hover von links nach rechts.',
     effect_3_cat: 'Monochrome B&W',
     // Effect 4
     effect_4_name: '04. Gepresster 3D-Block',
@@ -735,7 +735,7 @@ export const TRANSLATIONS = {
     effect_4_cat: 'Monochrome B&W',
     // Effect 5
     effect_5_name: '05. Geometrisches Morphing',
-    effect_5_desc: 'Pulsierender geometrischer Rahmen mit Zeichenabstand-Erweiterung, Icon-Impuls und taktilem Anheben.',
+    effect_5_desc: 'Fließende Ecken-Metamorphose (abgerundet zu eckig oder eckig zu Pillenform) mit Farbinversion und taktilem Anheben.',
     effect_5_cat: 'Gleiten & Bewegung',
     // Effect 6
     effect_6_name: '06. Leuchtender Halo-Glow',
@@ -778,8 +778,8 @@ export const TRANSLATIONS = {
     effect_15_desc: 'Ein zweiter innerer konzentrischer Ring zieht sich zusammen und schmiegt sich an den Rahmen.',
     effect_15_cat: 'Transformations Outline',
     // Effect 16
-    effect_16_name: '16. Ecken-Klammern',
-    effect_16_desc: 'Vier geometrische Eckklammern rahmen die Schaltfläche beim Hovern ein.',
+    effect_16_name: '16. Tech Eck-Klammern',
+    effect_16_desc: 'Vier geometrische Eck-Klammern erscheinen an den Winkeln und rasten beim Hover präzise ein.',
     effect_16_cat: 'Transformations Outline',
     // Effect 17
     effect_17_name: '17. SVG-Umlaufender Rahmen',

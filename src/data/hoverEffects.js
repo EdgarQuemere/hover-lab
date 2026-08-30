@@ -69,47 +69,64 @@ export const HOVER_EFFECTS = [
   },
   {
     id: 3,
-    name: '03. Balayage Laser Ultra-Juicy',
+    name: '03. Reflet Éclat',
     category: 'Monochrome B&W',
     className: 'btn-hover-shimmer',
-    description: 'Un faisceau laser ultra-brillant balaie la surface avec un élan ressort dynamique, accompagnant une surélévation tactile du bouton et une impulsion de l’icône.',
+    description: 'Un reflet lumineux élégant balaie la surface de gauche à droite au survol.',
     cssCode: `.btn-hover-shimmer {
   position: relative;
   overflow: hidden;
-  transition: transform var(--anim-speed, 0.3s) cubic-bezier(0.34, 1.56, 0.64, 1),
-              background-color var(--anim-speed, 0.3s) ease,
-              box-shadow var(--anim-speed, 0.3s) ease;
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1),
+              background-color 0.25s ease,
+              box-shadow 0.25s ease;
 }
 
 .btn-hover-shimmer::before {
   content: '';
   position: absolute;
-  top: -60%;
-  left: -80%;
-  width: 260%;
-  height: 220%;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
   background: linear-gradient(
     115deg,
-    transparent 20%,
-    #ffffffe6 50%,
-    transparent 80%
+    transparent 30%,
+    #ffffff00 40%,
+    #ffffff4d 48%,
+    #ffffffff 50%,
+    #ffffff4d 52%,
+    #ffffff00 60%,
+    transparent 70%
   );
-  transform: translateX(-120%) rotate(25deg);
-  transition: transform var(--anim-speed, 0.75s) cubic-bezier(0.19, 1, 0.22, 1);
+  transform: translateX(-100%) rotate(25deg);
+  transition: transform 0s;
+  pointer-events: none;
+  z-index: 3;
 }
 
-.btn-hover-shimmer:hover::before {
-  transform: translateX(120%) rotate(25deg);
+.btn-hover-shimmer:hover::before,
+.btn-hover-shimmer.is-auto-hovered::before {
+  transform: translateX(100%) rotate(25deg);
+  transition: transform var(--anim-speed, 1.5s) cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.btn-hover-shimmer:hover {
-  transform: translateY(-2.5px) scale(1.02);
-  background-color: #18181b0d;
-  box-shadow: 0 6px 20px #18181b14;
+.btn-hover-shimmer:hover,
+.btn-hover-shimmer.is-auto-hovered {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px #00000014;
 }
 
-.btn-hover-shimmer:hover .btn-icon {
-  transform: translateX(4px) scale(1.15);
+.btn-hover-shimmer:active {
+  transform: translateY(0);
+}
+
+.btn-hover-shimmer .btn-icon {
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.btn-hover-shimmer:hover .btn-icon,
+.btn-hover-shimmer.is-auto-hovered .btn-icon {
+  transform: translateX(3px);
 }`
   },
   {
@@ -134,64 +151,49 @@ export const HOVER_EFFECTS = [
     name: '05. Métamorphose Géométrique',
     category: 'Monochrome B&W',
     className: 'btn-hover-corner-brackets',
-    description: 'Cadre géométrique dynamique en pulsation avec expansion du tracking, impulsion d\'icône et surélévation tactile.',
+    description: 'Métamorphose fluide des angles (arrondi vers carré brut ou carré vers pilule) avec inversion contrastée et surélévation tactile.',
     cssCode: `.btn-hover-corner-brackets {
   position: relative;
-  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1),
-              box-shadow 0.3s cubic-bezier(0.16, 1, 0.3, 1),
-              background-color 0.3s ease,
-              border-color 0.3s ease,
-              letter-spacing 0.3s ease;
+  transition: border-radius var(--anim-speed, 0.4s) cubic-bezier(0.34, 1.56, 0.64, 1),
+              transform var(--anim-speed, 0.3s) cubic-bezier(0.16, 1, 0.3, 1),
+              background-color var(--anim-speed, 0.3s) ease,
+              color var(--anim-speed, 0.3s) ease,
+              box-shadow var(--anim-speed, 0.3s) ease;
 }
 
-.btn-hover-corner-brackets::before,
-.btn-hover-corner-brackets::after {
-  content: '';
-  position: absolute;
-  border-radius: inherit;
-  pointer-events: none;
-  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1),
-              opacity 0.35s ease;
-}
-
-.btn-hover-corner-brackets::before {
-  inset: -5px;
-  border: 1px dashed var(--btn-color, #18181b);
-  opacity: 0;
-  transform: scale(0.92);
-}
-
-.btn-hover-corner-brackets::after {
-  inset: 0;
+.btn-hover-corner-brackets:hover,
+.btn-hover-corner-brackets.is-auto-hovered {
+  border-radius: 0px !important;
+  transform: translateY(-2px) scale(1.02);
   background-color: var(--btn-color, #18181b);
-  opacity: 0;
-  transform: scale(0.6);
-  z-index: -1;
+  color: var(--btn-bg, #ffffff) !important;
+  box-shadow: 0 8px 24px -4px #0000002e;
+}
+
+.btn-hover-corner-brackets[style*="border-radius: 0px"] {
+  transition: border-radius var(--anim-speed, 0.45s) cubic-bezier(0.16, 1, 0.3, 1),
+              transform var(--anim-speed, 0.3s) cubic-bezier(0.16, 1, 0.3, 1),
+              background-color var(--anim-speed, 0.3s) ease,
+              color var(--anim-speed, 0.3s) ease,
+              box-shadow var(--anim-speed, 0.3s) ease;
+}
+
+.btn-hover-corner-brackets[style*="border-radius: 0px"]:hover,
+.btn-hover-corner-brackets[style*="border-radius: 0px"].is-auto-hovered {
+  border-radius: 30px !important;
+}
+
+.btn-hover-corner-brackets:active {
+  transform: translateY(0) scale(0.98);
 }
 
 .btn-hover-corner-brackets .btn-icon {
-  transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+  transition: transform var(--anim-speed, 0.3s) cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
-.btn-hover-corner-brackets:hover {
-  transform: translateY(-3px) scale(1.02);
-  letter-spacing: 0.02em;
-  box-shadow: 0 10px 24px -6px #0000001f,
-              0 0 0 1px var(--btn-color, #18181b);
-}
-
-.btn-hover-corner-brackets:hover::before {
-  opacity: 0.7;
-  transform: scale(1.08);
-}
-
-.btn-hover-corner-brackets:hover::after {
-  opacity: 0.08;
-  transform: scale(1);
-}
-
-.btn-hover-corner-brackets:hover .btn-icon {
-  transform: translateX(4px) scale(1.15);
+.btn-hover-corner-brackets:hover .btn-icon,
+.btn-hover-corner-brackets.is-auto-hovered .btn-icon {
+  transform: translateX(4px);
 }`
   },
   {
@@ -498,50 +500,84 @@ export const HOVER_EFFECTS = [
   },
   {
     id: 16,
-    name: '16. Encoches d’Angles',
+    name: '16. Viseur Tech (Corner Brackets)',
     category: 'Transformations Outline',
     className: 'btn-hover-outline-notches',
-    description: 'Quatre crochets d’angles géométriques (cadre d’angles) viennent encadrer le bouton au survol.',
+    description: 'Quatre crochets de cadrage géométriques apparaissent aux angles et se verrouillent avec précision au survol.',
     cssCode: `.btn-hover-outline-notches {
   position: relative;
-  transition: transform var(--anim-speed, 0.25s) ease,
+  transition: transform var(--anim-speed, 0.3s) cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow var(--anim-speed, 0.3s) ease,
               background-color var(--anim-speed, 0.3s) ease;
 }
 
-.btn-hover-outline-notches::before,
-.btn-hover-outline-notches::after {
+.btn-hover-outline-notches::before {
   content: '';
   position: absolute;
-  width: 10px;
-  height: 10px;
-  border: 2px solid var(--btn-color, #18181b);
+  inset: -6px;
+  background:
+    /* Top Left */
+    linear-gradient(to right, var(--btn-color, #18181b) 2px, transparent 2px) top left / 10px 10px no-repeat,
+    linear-gradient(to bottom, var(--btn-color, #18181b) 2px, transparent 2px) top left / 10px 10px no-repeat,
+    /* Top Right */
+    linear-gradient(to left, var(--btn-color, #18181b) 2px, transparent 2px) top right / 10px 10px no-repeat,
+    linear-gradient(to bottom, var(--btn-color, #18181b) 2px, transparent 2px) top right / 10px 10px no-repeat,
+    /* Bottom Left */
+    linear-gradient(to right, var(--btn-color, #18181b) 2px, transparent 2px) bottom left / 10px 10px no-repeat,
+    linear-gradient(to top, var(--btn-color, #18181b) 2px, transparent 2px) bottom left / 10px 10px no-repeat,
+    /* Bottom Right */
+    linear-gradient(to left, var(--btn-color, #18181b) 2px, transparent 2px) bottom right / 10px 10px no-repeat,
+    linear-gradient(to top, var(--btn-color, #18181b) 2px, transparent 2px) bottom right / 10px 10px no-repeat;
   opacity: 0;
-  transition: opacity var(--anim-speed, 0.3s) ease,
-              transform var(--anim-speed, 0.35s) cubic-bezier(0.16, 1, 0.3, 1);
+  transform: scale(1.22);
+  transition: transform var(--anim-speed, 0.35s) cubic-bezier(0.16, 1, 0.3, 1),
+              opacity var(--anim-speed, 0.35s) cubic-bezier(0.16, 1, 0.3, 1);
   pointer-events: none;
 }
 
-.btn-hover-outline-notches::before {
-  top: -4px; left: -4px;
-  border-right: none; border-bottom: none;
-  transform: translate(-4px, -4px);
-}
-
 .btn-hover-outline-notches::after {
-  bottom: -4px; right: -4px;
-  border-left: none; border-top: none;
-  transform: translate(4px, 4px);
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background-color: var(--btn-color, #18181b);
+  opacity: 0;
+  transform: scale(0.96);
+  transition: transform var(--anim-speed, 0.3s) cubic-bezier(0.16, 1, 0.3, 1),
+              opacity var(--anim-speed, 0.3s) ease;
+  pointer-events: none;
+  z-index: -1;
 }
 
 .btn-hover-outline-notches:hover::before,
-.btn-hover-outline-notches:hover::after {
+.btn-hover-outline-notches.is-auto-hovered::before {
   opacity: 1;
-  transform: translate(0, 0);
+  transform: scale(1);
 }
 
-.btn-hover-outline-notches:hover {
+.btn-hover-outline-notches:hover::after,
+.btn-hover-outline-notches.is-auto-hovered::after {
+  opacity: 0.08;
+  transform: scale(1);
+}
+
+.btn-hover-outline-notches:hover,
+.btn-hover-outline-notches.is-auto-hovered {
   transform: translateY(-2px);
-  background-color: #18181b0f;
+  box-shadow: 0 8px 24px -4px #0000001f;
+}
+
+.btn-hover-outline-notches:active {
+  transform: translateY(0);
+}
+
+.btn-hover-outline-notches .btn-icon {
+  transition: transform var(--anim-speed, 0.3s) cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.btn-hover-outline-notches:hover .btn-icon,
+.btn-hover-outline-notches.is-auto-hovered .btn-icon {
+  transform: translateX(4px);
 }`
   },
   {

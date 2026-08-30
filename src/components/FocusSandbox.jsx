@@ -33,18 +33,26 @@ function isColorDark(hex) {
 function updateDurationsInCss(cssText, newDuration) {
   if (!cssText) return cssText;
   const durationStr = `${newDuration}s`;
-  if (/--anim-speed:\s*[\d.]+s/i.test(cssText)) {
-    return cssText.replace(/--anim-speed:\s*[\d.]+s/gi, `--anim-speed: ${durationStr}`);
+  let updated = cssText;
+  if (/var\(--anim-speed,\s*[\d.]+s\)/i.test(updated)) {
+    updated = updated.replace(/var\(--anim-speed,\s*[\d.]+s\)/gi, `var(--anim-speed, ${durationStr})`);
   }
-  return cssText.replace(
-    /((?:transition(?:-duration)?|animation(?:-duration)?)[^;:]*?:\s*[^;]*?)([\d.]+)s/gi,
-    (match, prefix) => `${prefix}${durationStr}`
-  );
+  if (/--anim-speed:\s*[\d.]+s/i.test(updated)) {
+    updated = updated.replace(/--anim-speed:\s*[\d.]+s/gi, `--anim-speed: ${durationStr}`);
+  }
+  return updated;
 }
 
 // Extracts duration from CSS text
 function extractDurationFromCss(cssText) {
   if (!cssText) return null;
+  const fallbackMatches = [...cssText.matchAll(/var\(--anim-speed,\s*([\d.]+)s\)/gi)];
+  if (fallbackMatches.length > 0) {
+    const values = fallbackMatches.map((m) => parseFloat(m[1])).filter((v) => !isNaN(v) && v > 0);
+    if (values.length > 0) {
+      return Math.max(...values);
+    }
+  }
   const varMatch = cssText.match(/--anim-speed:\s*([\d.]+)s/i);
   if (varMatch && !isNaN(parseFloat(varMatch[1]))) {
     return parseFloat(varMatch[1]);
@@ -99,9 +107,10 @@ export default function FocusSandbox({ effect, config, onClose, onOpenCode, t })
   const savedSpeed = effect?.id ? localStorage.getItem(`hoverlab_studio_speed_${effect.id}`) : null;
   const savedColor = effect?.id ? localStorage.getItem(`hoverlab_studio_color_${effect.id}`) : null;
 
-  const initialSpeed = savedSpeed ? parseFloat(savedSpeed) : 0.35;
+  const defaultEffectDuration = extractDurationFromCss(effect?.cssCode) || 0.35;
+  const initialSpeed = savedSpeed ? parseFloat(savedSpeed) : defaultEffectDuration;
   const initialColor = savedColor || config.buttonColor || '#e6332a';
-  const initialCss = savedCss || updateColorsInCss(updateDurationsInCss(effect?.cssCode || '', initialSpeed), initialColor);
+  const initialCss = savedCss || (effect?.cssCode ? updateColorsInCss(effect.cssCode, initialColor) : '');
 
   const [activeSidebarTab, setActiveSidebarTab] = useState('controls'); // 'controls' | 'css'
   const [animSpeed, setAnimSpeed] = useState(initialSpeed);
@@ -281,8 +290,8 @@ export default function FocusSandbox({ effect, config, onClose, onOpenCode, t })
       localStorage.removeItem(`hoverlab_studio_speed_${effect.id}`);
       localStorage.removeItem(`hoverlab_studio_color_${effect.id}`);
       const resetColor = config.buttonColor || '#e6332a';
-      const resetSpeed = 0.35;
-      const resetCss = updateColorsInCss(updateDurationsInCss(effect?.cssCode || '', resetSpeed), resetColor);
+      const resetSpeed = extractDurationFromCss(effect?.cssCode) || 0.35;
+      const resetCss = effect?.cssCode ? updateColorsInCss(effect.cssCode, resetColor) : '';
       setCustomCssCode(resetCss);
       setAnimSpeed(resetSpeed);
       setStudioButtonColor(resetColor);
@@ -316,14 +325,6 @@ export default function FocusSandbox({ effect, config, onClose, onOpenCode, t })
     styleEl.innerHTML = `
       :root {
         --anim-speed: ${animSpeed}s;
-      }
-      .${currentEffect.className} {
-        transition-duration: ${animSpeed}s !important;
-        animation-duration: ${animSpeed}s !important;
-      }
-      .${currentEffect.className}::before, .${currentEffect.className}::after {
-        transition-duration: ${animSpeed}s !important;
-        animation-duration: ${animSpeed}s !important;
       }
       ${customCssCode}
     `;
