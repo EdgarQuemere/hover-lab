@@ -3,19 +3,20 @@
   position: relative;
   overflow: hidden;
   z-index: 1;
-  transition: color 0.3s ease, border-color 0.3s ease, transform 0.25s ease;
+  transition: color var(--anim-speed, 0.3s) ease,
+              border-color var(--anim-speed, 0.3s) ease,
+              transform var(--anim-speed, 0.25s) ease;
 }
 
 .btn-hover-color-acid::before {
   content: '';
   position: absolute;
-  inset: 0;
+  inset: -1px;
   background-color: #CCFF00;
   transform: scaleY(0);
   transform-origin: bottom center;
-  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: transform var(--anim-speed, 0.35s) cubic-bezier(0.16, 1, 0.3, 1);
   z-index: -1;
-  border-radius: inherit;
 }
 
 .btn-hover-color-acid:hover::before,
@@ -30,3 +31,4 @@
   transform: scale(1.03);
   box-shadow: 0 0 20px rgba(204, 255, 0, 0.4);
 }
+

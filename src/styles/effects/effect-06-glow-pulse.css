@@ -1,16 +1,15 @@
 /* 06. Halo Lumineux (Ambient Glow) */
 .btn-hover-glow-pulse {
-  transition: box-shadow 0.35s ease, transform 0.25s ease, background-color 0.25s ease;
+  transition: box-shadow var(--anim-speed, 0.35s) ease,
+              transform var(--anim-speed, 0.25s) ease,
+              background-color var(--anim-speed, 0.25s) ease;
 }
 
 .btn-hover-glow-pulse:hover,
 .btn-hover-glow-pulse.is-auto-hovered {
   transform: scale(1.03);
-  box-shadow: 0 0 20px rgba(24, 24, 27, 0.2), 0 0 40px rgba(24, 24, 27, 0.1);
-  background-color: rgba(24, 24, 27, 0.03);
+  box-shadow: 0 0 24px color-mix(in srgb, var(--btn-color, #18181b) 35%, transparent),
+              0 0 48px color-mix(in srgb, var(--btn-color, #18181b) 20%, transparent);
+  background-color: color-mix(in srgb, var(--btn-color, #18181b) 5%, transparent);
 }
 
-.canvas-dark .btn-hover-glow-pulse:hover,
-.canvas-dark .btn-hover-glow-pulse.is-auto-hovered {
-  box-shadow: 0 0 25px rgba(255, 255, 255, 0.4), 0 0 50px rgba(255, 255, 255, 0.15);
-}

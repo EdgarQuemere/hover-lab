@@ -1,7 +1,8 @@
 /* 16. Encoches d'Angles (Corner Bracket Frame) */
 .btn-hover-outline-notches {
   position: relative;
-  transition: transform 0.25s ease, background-color 0.3s ease;
+  transition: transform var(--anim-speed, 0.25s) ease,
+              background-color var(--anim-speed, 0.3s) ease;
 }
 
 .btn-hover-outline-notches::before,
@@ -12,7 +13,8 @@
   height: 10px;
   border: 2px solid var(--btn-color, #18181b);
   opacity: 0;
-  transition: opacity 0.3s ease, transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: opacity var(--anim-speed, 0.3s) ease,
+              transform var(--anim-speed, 0.35s) cubic-bezier(0.16, 1, 0.3, 1);
   pointer-events: none;
 }
 
@@ -45,10 +47,6 @@
 .btn-hover-outline-notches:hover,
 .btn-hover-outline-notches.is-auto-hovered {
   transform: translateY(-2px);
-  background-color: rgba(24, 24, 27, 0.04);
+  background-color: color-mix(in srgb, var(--btn-color, #18181b) 6%, transparent);
 }
 
-.canvas-dark .btn-hover-outline-notches::before,
-.canvas-dark .btn-hover-outline-notches::after {
-  border-color: #ffffff;
-}

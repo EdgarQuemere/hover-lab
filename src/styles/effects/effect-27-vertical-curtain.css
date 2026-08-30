@@ -3,32 +3,30 @@
   position: relative;
   overflow: hidden;
   z-index: 1;
-  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: transform var(--anim-speed, 0.3s) cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .btn-hover-vertical-curtain::before,
 .btn-hover-vertical-curtain::after {
   content: '';
   position: absolute;
-  left: 0;
-  width: 100%;
+  left: -1px;
+  width: calc(100% + 2px);
   height: 55%;
   background-color: var(--btn-color, #18181b);
   z-index: -1;
-  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: transform var(--anim-speed, 0.4s) cubic-bezier(0.16, 1, 0.3, 1);
   pointer-events: none;
 }
 
 .btn-hover-vertical-curtain::before {
   top: 0;
   transform: translateY(-100%);
-  border-radius: inherit;
 }
 
 .btn-hover-vertical-curtain::after {
   bottom: 0;
   transform: translateY(100%);
-  border-radius: inherit;
 }
 
 .btn-hover-vertical-curtain:hover::before,
@@ -44,5 +42,7 @@
 .btn-hover-vertical-curtain:hover,
 .btn-hover-vertical-curtain.is-auto-hovered {
   color: var(--btn-bg, #ffffff) !important;
+  border-color: var(--btn-color, #18181b) !important;
   transform: translateY(-2px);
 }
+

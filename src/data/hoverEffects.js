@@ -39,20 +39,31 @@ export const HOVER_EFFECTS = [
     className: 'btn-hover-icon-push',
     description: 'Élévation subtile du bouton avec glissement dynamique de l’icône vers la droite.',
     cssCode: `.btn-hover-icon-push {
-  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s ease;
+  transition: transform var(--anim-speed, 0.25s) cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow var(--anim-speed, 0.25s) ease,
+              background-color var(--anim-speed, 0.25s) ease;
 }
 
 .btn-hover-icon-push .btn-icon {
-  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  transition: transform var(--anim-speed, 0.3s) cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
 .btn-hover-icon-push:hover {
   transform: translateY(-3px);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+  background-color: color-mix(in srgb, var(--btn-color, #18181b) 6%, transparent);
+  box-shadow: 0 8px 24px -4px color-mix(in srgb, var(--btn-color, #18181b) 18%, transparent);
 }
 
 .btn-hover-icon-push:hover .btn-icon-right {
   transform: translateX(6px);
+}
+
+.btn-hover-icon-push:hover .btn-icon-left {
+  transform: translateX(-6px);
+}
+
+.btn-hover-icon-push.btn-icon-only:hover .btn-icon {
+  transform: translateX(4px);
 }`
   },
   {
@@ -188,12 +199,16 @@ export const HOVER_EFFECTS = [
     className: 'btn-hover-glow-pulse',
     description: 'Halo lumineux monochrome qui se déploie avec un léger grossissement.',
     cssCode: `.btn-hover-glow-pulse {
-  transition: box-shadow 0.35s ease, transform 0.25s ease;
+  transition: box-shadow var(--anim-speed, 0.35s) ease,
+              transform var(--anim-speed, 0.25s) ease,
+              background-color var(--anim-speed, 0.25s) ease;
 }
 
 .btn-hover-glow-pulse:hover {
   transform: scale(1.03);
-  box-shadow: 0 0 20px rgba(24, 24, 27, 0.2), 0 0 40px rgba(24, 24, 27, 0.1);
+  box-shadow: 0 0 24px color-mix(in srgb, var(--btn-color, #18181b) 35%, transparent),
+              0 0 48px color-mix(in srgb, var(--btn-color, #18181b) 20%, transparent);
+  background-color: color-mix(in srgb, var(--btn-color, #18181b) 5%, transparent);
 }`
   },
   {
@@ -315,29 +330,26 @@ export const HOVER_EFFECTS = [
   position: relative;
   overflow: hidden;
   z-index: 1;
-  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  transition: transform var(--anim-speed, 0.3s) cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
 .btn-hover-lens::before {
   content: '';
   position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 100%;
-  height: 100%;
+  inset: -1px;
   background-color: var(--btn-color, #18181b);
-  border-radius: inherit;
-  transform: translate(-50%, -50%) scale(0);
-  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  transform: scale(0);
+  transition: transform var(--anim-speed, 0.4s) cubic-bezier(0.16, 1, 0.3, 1);
   z-index: -1;
 }
 
 .btn-hover-lens:hover::before {
-  transform: translate(-50%, -50%) scale(1);
+  transform: scale(1);
 }
 
 .btn-hover-lens:hover {
   color: var(--btn-bg, #ffffff) !important;
+  border-color: var(--btn-color, #18181b) !important;
   transform: scale(1.03);
 }`
   },
@@ -393,18 +405,20 @@ export const HOVER_EFFECTS = [
   position: relative;
   overflow: hidden;
   z-index: 1;
+  transition: color var(--anim-speed, 0.3s) ease,
+              border-color var(--anim-speed, 0.3s) ease,
+              transform var(--anim-speed, 0.25s) ease;
 }
 
 .btn-hover-color-acid::before {
   content: '';
   position: absolute;
-  inset: 0;
+  inset: -1px;
   background-color: #CCFF00;
   transform: scaleY(0);
   transform-origin: bottom center;
-  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: transform var(--anim-speed, 0.35s) cubic-bezier(0.16, 1, 0.3, 1);
   z-index: -1;
-  border-radius: inherit;
 }
 
 .btn-hover-color-acid:hover::before {
@@ -414,6 +428,7 @@ export const HOVER_EFFECTS = [
 .btn-hover-color-acid:hover {
   color: #000000 !important;
   border-color: #CCFF00 !important;
+  transform: scale(1.03);
   box-shadow: 0 0 20px rgba(204, 255, 0, 0.4);
 }`
   },
@@ -486,7 +501,8 @@ export const HOVER_EFFECTS = [
     description: 'Quatre crochets d’angles géométriques (cadre d’angles) viennent encadrer le bouton au survol.',
     cssCode: `.btn-hover-outline-notches {
   position: relative;
-  transition: transform 0.25s ease, background-color 0.3s ease;
+  transition: transform var(--anim-speed, 0.25s) ease,
+              background-color var(--anim-speed, 0.3s) ease;
 }
 
 .btn-hover-outline-notches::before,
@@ -497,7 +513,8 @@ export const HOVER_EFFECTS = [
   height: 10px;
   border: 2px solid var(--btn-color, #18181b);
   opacity: 0;
-  transition: opacity 0.3s ease, transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: opacity var(--anim-speed, 0.3s) ease,
+              transform var(--anim-speed, 0.35s) cubic-bezier(0.16, 1, 0.3, 1);
   pointer-events: none;
 }
 
@@ -517,6 +534,11 @@ export const HOVER_EFFECTS = [
 .btn-hover-outline-notches:hover::after {
   opacity: 1;
   transform: translate(0, 0);
+}
+
+.btn-hover-outline-notches:hover {
+  transform: translateY(-2px);
+  background-color: color-mix(in srgb, var(--btn-color, #18181b) 6%, transparent);
 }`
   },
   {
@@ -919,32 +941,30 @@ export const HOVER_EFFECTS = [
   position: relative;
   overflow: hidden;
   z-index: 1;
-  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: transform var(--anim-speed, 0.3s) cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .btn-hover-vertical-curtain::before,
 .btn-hover-vertical-curtain::after {
   content: '';
   position: absolute;
-  left: 0;
-  width: 100%;
+  left: -1px;
+  width: calc(100% + 2px);
   height: 55%;
   background-color: var(--btn-color, #18181b);
   z-index: -1;
-  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: transform var(--anim-speed, 0.4s) cubic-bezier(0.16, 1, 0.3, 1);
   pointer-events: none;
 }
 
 .btn-hover-vertical-curtain::before {
   top: 0;
   transform: translateY(-100%);
-  border-radius: inherit;
 }
 
 .btn-hover-vertical-curtain::after {
   bottom: 0;
   transform: translateY(100%);
-  border-radius: inherit;
 }
 
 .btn-hover-vertical-curtain:hover::before {
@@ -957,6 +977,7 @@ export const HOVER_EFFECTS = [
 
 .btn-hover-vertical-curtain:hover {
   color: var(--btn-bg, #ffffff) !important;
+  border-color: var(--btn-color, #18181b) !important;
   transform: translateY(-2px);
 }`
   },
@@ -1003,8 +1024,8 @@ export const HOVER_EFFECTS = [
   position: relative;
   overflow: hidden;
   z-index: 1;
-  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1),
-              box-shadow 0.3s ease;
+  transition: transform var(--anim-speed, 0.3s) cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow var(--anim-speed, 0.3s) ease;
 }
 
 .btn-hover-mist-fade::before {
@@ -1022,10 +1043,9 @@ export const HOVER_EFFECTS = [
   );
   opacity: 0;
   transform: translateX(-60%);
-  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1),
-              opacity 0.4s ease;
+  transition: transform var(--anim-speed, 0.5s) cubic-bezier(0.16, 1, 0.3, 1),
+              opacity var(--anim-speed, 0.4s) ease;
   z-index: -1;
-  border-radius: inherit;
   filter: blur(6px);
 }
 
@@ -1037,8 +1057,9 @@ export const HOVER_EFFECTS = [
 
 .btn-hover-mist-fade:hover {
   color: var(--btn-bg, #ffffff) !important;
+  border-color: var(--btn-color, #18181b) !important;
   transform: translateY(-2px);
-  box-shadow: 0 8px 24px -4px rgba(0, 0, 0, 0.12);
+  box-shadow: 0 8px 24px -4px color-mix(in srgb, var(--btn-color, #18181b) 20%, transparent);
 }`
   },
   {

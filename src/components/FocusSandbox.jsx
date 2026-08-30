@@ -56,11 +56,13 @@ function extractDurationFromCss(cssText) {
   return null;
 }
 
-// Extracts button color from CSS text
+// Extracts button color from CSS text (both declarations and var fallbacks)
 function extractColorFromCss(cssText) {
   if (!cssText) return null;
-  const match = cssText.match(/--btn-color:\s*(#[0-9a-fA-F]{3,8})/i);
-  if (match) return match[1];
+  const varDeclMatch = cssText.match(/--btn-color:\s*(#[0-9a-fA-F]{3,8})/i);
+  if (varDeclMatch) return varDeclMatch[1];
+  const varFallbackMatch = cssText.match(/var\(--btn-color,\s*(#[0-9a-fA-F]{3,8})\)/i);
+  if (varFallbackMatch) return varFallbackMatch[1];
   return null;
 }
 
@@ -97,7 +99,6 @@ export default function FocusSandbox({ effect, config, onClose, onOpenCode, t })
   const [studioButtonColor, setStudioButtonColor] = useState(initialColor);
   const [customCssCode, setCustomCssCode] = useState(initialCss);
   const [isSaved, setIsSaved] = useState(false);
-  const [isCopiedCss, setIsCopiedCss] = useState(false);
   const [feedbackToast, setFeedbackToast] = useState(null);
   const [hoverCount, setHoverCount] = useState(0);
   const btnRef = useRef(null);
@@ -224,14 +225,18 @@ export default function FocusSandbox({ effect, config, onClose, onOpenCode, t })
     }
   };
 
-  // When Button Color changes from Settings, update CSS if needed
+  // When Button Color changes from Settings, update CSS in real-time
   const handleColorChange = (newColor) => {
     setStudioButtonColor(newColor);
     setCustomCssCode((prevCss) => {
-      if (/--btn-color:\s*#[0-9a-fA-F]{3,8}/i.test(prevCss)) {
-        return prevCss.replace(/--btn-color:\s*#[0-9a-fA-F]{3,8}/gi, `--btn-color: ${newColor}`);
+      let updated = prevCss;
+      if (/--btn-color:\s*#[0-9a-fA-F]{3,8}/i.test(updated)) {
+        updated = updated.replace(/--btn-color:\s*#[0-9a-fA-F]{3,8}/gi, `--btn-color: ${newColor}`);
       }
-      return prevCss;
+      if (/var\(--btn-color,\s*#[0-9a-fA-F]{3,8}\)/i.test(updated)) {
+        updated = updated.replace(/var\(--btn-color,\s*#[0-9a-fA-F]{3,8}\)/gi, `var(--btn-color, ${newColor})`);
+      }
+      return updated;
     });
   };
 
@@ -278,14 +283,6 @@ export default function FocusSandbox({ effect, config, onClose, onOpenCode, t })
       setTimeout(() => setFeedbackToast(null), 2500);
     } catch (e) {
       console.error(e);
-    }
-  };
-
-  const handleCopyCss = () => {
-    if (navigator.clipboard) {
-      navigator.clipboard.writeText(customCssCode);
-      setIsCopiedCss(true);
-      setTimeout(() => setIsCopiedCss(false), 2000);
     }
   };
 
@@ -370,6 +367,47 @@ export default function FocusSandbox({ effect, config, onClose, onOpenCode, t })
   const isIconRight = config.iconPosition === 'right';
   const hasIcon = config.iconPosition !== 'none';
   const isSvgTrace = currentEffect.className.includes('btn-hover-outline-revolving');
+  const isSvgDualPulse = currentEffect.className.includes('btn-hover-outline-dual-pulse');
+  const isSvgDrawGlow = currentEffect.className.includes('btn-hover-outline-draw-glow');
+  const isSwapMorph = currentEffect.className.includes('btn-hover-icon-swap-morph');
+  const isStaggerLiquid = currentEffect.className.includes('btn-hover-stagger-liquid');
+  const isRollingEffect = currentEffect.className.includes('btn-hover-rolling-magic');
+
+  // Max radius for pill mode SVG rect
+  const maxPillRadius = Math.max((dimensions.height - 1.5) / 2, 0);
+  const svgRx = config.borderRadiusValue === 999
+    ? maxPillRadius
+    : Math.min(config.borderRadiusValue, maxPillRadius);
+
+  const iconElement = (positionClass = '') => (
+    <SelectedIconComp
+      className={`btn-icon ${positionClass}`}
+      size={config.buttonSize === 'sm' ? 14 : config.buttonSize === 'lg' ? 20 : 17}
+      weight={config.iconWeight}
+    />
+  );
+
+  const renderRollingText = (text) => {
+    const letters = Array.from(text || 'HoverLab');
+    return (
+      <span className="btn-rolling-text">
+        <span className="btn-rolling-line original">
+          {letters.map((char, i) => (
+            <span key={i} className="btn-rolling-char" style={{ '--char-i': i }}>
+              {char === ' ' ? '\u00A0' : char}
+            </span>
+          ))}
+        </span>
+        <span className="btn-rolling-line duplicate" aria-hidden="true">
+          {letters.map((char, i) => (
+            <span key={i} className="btn-rolling-char" style={{ '--char-i': i }}>
+              {char === ' ' ? '\u00A0' : char}
+            </span>
+          ))}
+        </span>
+      </span>
+    );
+  };
 
   const cleanTitle = (currentEffect.name || '').replace(/^\d+\.\s*/, '');
 
@@ -574,14 +612,6 @@ export default function FocusSandbox({ effect, config, onClose, onOpenCode, t })
                       >
                         <ArrowCounterClockwise size={14} />
                       </button>
-                      <button
-                        type="button"
-                        className={`css-action-btn ${isCopiedCss ? 'is-copied' : ''}`}
-                        onClick={handleCopyCss}
-                        title={isCopiedCss ? 'Copié !' : 'Copier le CSS'}
-                      >
-                        {isCopiedCss ? <Check size={14} weight="bold" /> : <Copy size={14} />}
-                      </button>
                     </div>
                   </div>
 
@@ -717,30 +747,104 @@ export default function FocusSandbox({ effect, config, onClose, onOpenCode, t })
                         y="0.75"
                         width={Math.max(dimensions.width - 1.5, 10)}
                         height={Math.max(dimensions.height - 1.5, 10)}
-                        rx={config.borderRadiusValue === 999 ? dimensions.height / 2 : config.borderRadiusValue}
-                        ry={config.borderRadiusValue === 999 ? dimensions.height / 2 : config.borderRadiusValue}
+                        rx={svgRx}
+                        ry={svgRx}
                         pathLength="100"
                       />
                     </svg>
                   )}
-                  {currentEffect.className.includes('card-flip') ? (
+
+                  {isSvgDualPulse && dimensions.width > 0 && (
+                    <svg className="btn-svg-border" width="100%" height="100%">
+                      <rect
+                        className="btn-svg-rect-pulse-1"
+                        x="0.75"
+                        y="0.75"
+                        width={Math.max(dimensions.width - 1.5, 10)}
+                        height={Math.max(dimensions.height - 1.5, 10)}
+                        rx={svgRx}
+                        ry={svgRx}
+                        pathLength="100"
+                      />
+                      <rect
+                        className="btn-svg-rect-pulse-2"
+                        x="0.75"
+                        y="0.75"
+                        width={Math.max(dimensions.width - 1.5, 10)}
+                        height={Math.max(dimensions.height - 1.5, 10)}
+                        rx={svgRx}
+                        ry={svgRx}
+                        pathLength="100"
+                      />
+                    </svg>
+                  )}
+
+                  {isSvgDrawGlow && dimensions.width > 0 && (
+                    <svg className="btn-svg-border" width="100%" height="100%">
+                      <rect
+                        className="btn-svg-rect-draw"
+                        x="0.75"
+                        y="0.75"
+                        width={Math.max(dimensions.width - 1.5, 10)}
+                        height={Math.max(dimensions.height - 1.5, 10)}
+                        rx={svgRx}
+                        ry={svgRx}
+                        pathLength="100"
+                      />
+                    </svg>
+                  )}
+
+                  {isStaggerLiquid && (
+                    <>
+                      <span className="btn-stagger-drop" style={{ '--delay': 1 }} />
+                      <span className="btn-stagger-drop" style={{ '--delay': 2 }} />
+                      <span className="btn-stagger-drop" style={{ '--delay': 3 }} />
+                      <span className="btn-stagger-drop" style={{ '--delay': 4 }} />
+                    </>
+                  )}
+
+                  {isSwapMorph ? (
+                    <>
+                      {iconElement('btn-icon-swap-left')}
+                      <span className="btn-content-wrap">{customButtonText || 'HoverLab'}</span>
+                    </>
+                  ) : isRollingEffect ? (
+                    <>
+                      {hasIcon && (isIconLeft || isIconOnly) && iconElement('btn-icon-left')}
+                      {!isIconOnly && renderRollingText(customButtonText || 'HoverLab')}
+                      {hasIcon && isIconRight && !isIconOnly && iconElement('btn-icon-right')}
+                    </>
+                  ) : currentEffect.className.includes('hover-text-elevator') ? (
+                    <>
+                      <div className="btn-content-wrap">
+                        {hasIcon && (isIconLeft || isIconOnly) && iconElement('btn-icon-left')}
+                        {!isIconOnly && <span>{customButtonText || 'HoverLab'}</span>}
+                        {hasIcon && isIconRight && !isIconOnly && iconElement('btn-icon-right')}
+                      </div>
+                      <div className="btn-content-duplicate">
+                        {hasIcon && (isIconLeft || isIconOnly) && iconElement('btn-icon-left')}
+                        {!isIconOnly && <span>{customButtonText || 'HoverLab'}</span>}
+                        {hasIcon && isIconRight && !isIconOnly && iconElement('btn-icon-right')}
+                      </div>
+                    </>
+                  ) : currentEffect.className.includes('hover-card-flip') ? (
                     <div className="card-inner">
                       <div className="card-front">
-                        {hasIcon && (isIconLeft || isIconOnly) && <SelectedIconComp className="btn-icon" size={18} weight={config.iconWeight} />}
-                        {!isIconOnly && <span>{customButtonText || 'Button'}</span>}
-                        {hasIcon && isIconRight && !isIconOnly && <SelectedIconComp className="btn-icon" size={18} weight={config.iconWeight} />}
+                        {hasIcon && (isIconLeft || isIconOnly) && iconElement('btn-icon-left')}
+                        {!isIconOnly && <span>{customButtonText || 'HoverLab'}</span>}
+                        {hasIcon && isIconRight && !isIconOnly && iconElement('btn-icon-right')}
                       </div>
                       <div className="card-back">
-                        {hasIcon && (isIconLeft || isIconOnly) && <SelectedIconComp className="btn-icon" size={18} weight={config.iconWeight} />}
-                        {!isIconOnly && <span>{customButtonText || 'Button'}</span>}
-                        {hasIcon && isIconRight && !isIconOnly && <SelectedIconComp className="btn-icon" size={18} weight={config.iconWeight} />}
+                        {hasIcon && (isIconLeft || isIconOnly) && iconElement('btn-icon-left')}
+                        {!isIconOnly && <span>{customButtonText || 'HoverLab'}</span>}
+                        {hasIcon && isIconRight && !isIconOnly && iconElement('btn-icon-right')}
                       </div>
                     </div>
                   ) : (
                     <>
-                      {hasIcon && (isIconLeft || isIconOnly) && <SelectedIconComp className="btn-icon" size={18} weight={config.iconWeight} />}
-                      {!isIconOnly && <span>{customButtonText || 'Button'}</span>}
-                      {hasIcon && isIconRight && !isIconOnly && <SelectedIconComp className="btn-icon" size={18} weight={config.iconWeight} />}
+                      {hasIcon && (isIconLeft || isIconOnly) && iconElement('btn-icon-left')}
+                      {!isIconOnly && <span>{customButtonText || 'HoverLab'}</span>}
+                      {hasIcon && isIconRight && !isIconOnly && iconElement('btn-icon-right')}
                     </>
                   )}
                 </button>

@@ -70,15 +70,7 @@
   border-color: var(--btn-color, #18181b) !important;
 }
 
-.canvas-dark .btn-hover-icon-swap-morph:hover,
-.canvas-dark .btn-hover-icon-swap-morph.is-auto-hovered {
-  color: #18181b !important;
-}
-
-.canvas-dark .btn-hover-icon-swap-morph::before {
-  background-color: #ffffff;
-}
-
 .btn-hover-icon-swap-morph:active {
   transform: scale(0.96);
 }
+

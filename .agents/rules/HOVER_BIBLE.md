@@ -175,7 +175,7 @@ Le Studio est l'espace de prototypage avancé ouvert au clic sur **"Studio"** :
    * **Synchronisation bidirectionnelle** : Modifier le slider ajuste la durée dans le CSS, et modifier la durée dans le code met à jour le slider en direct.
    * 💾 **Sauvegarder** : Mémorise le CSS personnalisé dans `localStorage` pour cet effet.
    * 🔄 **Réinitialiser** : Restaure le CSS officiel d'origine.
-   * 📋 **Copier** : Copie dans le presse-papier avec feedback visuel.
+   * 📦 **Exportation** : Accessible exclusivement via le bouton principal "Exporter le code".
 
 ---
 

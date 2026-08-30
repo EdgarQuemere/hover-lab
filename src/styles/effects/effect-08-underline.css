@@ -27,7 +27,7 @@
   position: relative;
   display: inline-flex;
   border-radius: inherit;
-  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: transform var(--anim-speed, 0.6s) cubic-bezier(0.16, 1, 0.3, 1);
   transform-style: preserve-3d;
 }
 
@@ -83,4 +83,29 @@
 .btn-hover-card-flip.btn-size-lg .card-back {
   padding: 16px 36px;
   font-size: 1.0625rem;
+}
+
+/* Icon-only mode support */
+.btn-hover-card-flip.btn-icon-only .card-front,
+.btn-hover-card-flip.btn-icon-only .card-back {
+  padding: 0 !important;
+  aspect-ratio: 1 / 1;
+}
+
+.btn-hover-card-flip.btn-icon-only.btn-size-sm .card-front,
+.btn-hover-card-flip.btn-icon-only.btn-size-sm .card-back {
+  width: 36px;
+  height: 36px;
+}
+
+.btn-hover-card-flip.btn-icon-only.btn-size-md .card-front,
+.btn-hover-card-flip.btn-icon-only.btn-size-md .card-back {
+  width: 44px;
+  height: 44px;
+}
+
+.btn-hover-card-flip.btn-icon-only.btn-size-lg .card-front,
+.btn-hover-card-flip.btn-icon-only.btn-size-lg .card-back {
+  width: 54px;
+  height: 54px;
 }
