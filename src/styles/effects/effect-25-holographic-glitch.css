@@ -19,13 +19,13 @@
   background: linear-gradient(
     115deg,
     transparent 20%,
-    rgba(0, 240, 255, 0.45) 38%,
-    rgba(255, 0, 128, 0.45) 50%,
-    rgba(204, 255, 0, 0.45) 62%,
+    #00f0ff73 38%,
+    #ff008073 50%,
+    #ccff0073 62%,
     transparent 80%
   );
   transform: rotate(25deg);
-  transition: transform 0.75s cubic-bezier(0.19, 1, 0.22, 1);
+  transition: transform var(--anim-speed, 0.75s) cubic-bezier(0.19, 1, 0.22, 1);
   pointer-events: none;
   z-index: 1;
 }
@@ -38,8 +38,8 @@
 .btn-hover-holographic-glitch:hover,
 .btn-hover-holographic-glitch.is-auto-hovered {
   transform: translateY(-3px) scale(1.025);
-  box-shadow: 0 8px 24px rgba(0, 240, 255, 0.25), 0 2px 10px rgba(255, 0, 128, 0.2);
-  border-color: rgba(0, 240, 255, 0.6) !important;
+  box-shadow: 0 8px 24px #00f0ff40, 0 2px 10px #ff008033;
+  border-color: #00f0ff99 !important;
 }
 
 .btn-hover-holographic-glitch .btn-icon {

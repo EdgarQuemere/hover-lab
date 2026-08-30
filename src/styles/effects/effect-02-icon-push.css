@@ -12,8 +12,8 @@
 .btn-hover-icon-push:hover,
 .btn-hover-icon-push.is-auto-hovered {
   transform: translateY(-3px);
-  background-color: color-mix(in srgb, var(--btn-color, #18181b) 6%, transparent);
-  box-shadow: 0 8px 24px -4px color-mix(in srgb, var(--btn-color, #18181b) 18%, transparent);
+  background-color: #18181b0f;
+  box-shadow: 0 8px 24px -4px #18181b2e;
 }
 
 .btn-hover-icon-push:hover .btn-icon-right,

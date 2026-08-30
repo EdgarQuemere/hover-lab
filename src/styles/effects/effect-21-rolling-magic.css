@@ -11,14 +11,14 @@
 .btn-hover-rolling-magic:hover,
 .btn-hover-rolling-magic.is-auto-hovered {
   transform: translateY(-2px);
-  background-color: rgba(24, 24, 27, 0.05);
-  box-shadow: 0 4px 20px rgba(24, 24, 27, 0.08);
+  background-color: #18181b0d;
+  box-shadow: 0 4px 20px #18181b14;
 }
 
 .canvas-dark .btn-hover-rolling-magic:hover,
 .canvas-dark .btn-hover-rolling-magic.is-auto-hovered {
-  background-color: rgba(255, 255, 255, 0.08);
-  box-shadow: 0 4px 25px rgba(255, 255, 255, 0.12);
+  background-color: #ffffff14;
+  box-shadow: 0 4px 25px #ffffff1f;
 }
 
 /* Magic Icon Transformation (Révolution 360° + Glow Aura) */

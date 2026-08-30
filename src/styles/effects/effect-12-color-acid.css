@@ -29,6 +29,6 @@
   color: #000000 !important;
   border-color: #CCFF00 !important;
   transform: scale(1.03);
-  box-shadow: 0 0 20px rgba(204, 255, 0, 0.4);
+  box-shadow: 0 0 20px #ccff0066;
 }
 

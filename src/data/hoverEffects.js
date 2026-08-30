@@ -50,8 +50,8 @@ export const HOVER_EFFECTS = [
 
 .btn-hover-icon-push:hover {
   transform: translateY(-3px);
-  background-color: color-mix(in srgb, var(--btn-color, #18181b) 6%, transparent);
-  box-shadow: 0 8px 24px -4px color-mix(in srgb, var(--btn-color, #18181b) 18%, transparent);
+  background-color: #18181b0f;
+  box-shadow: 0 8px 24px -4px #18181b2e;
 }
 
 .btn-hover-icon-push:hover .btn-icon-right {
@@ -75,9 +75,9 @@ export const HOVER_EFFECTS = [
     cssCode: `.btn-hover-shimmer {
   position: relative;
   overflow: hidden;
-  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1),
-              background-color 0.3s ease,
-              box-shadow 0.3s ease;
+  transition: transform var(--anim-speed, 0.3s) cubic-bezier(0.34, 1.56, 0.64, 1),
+              background-color var(--anim-speed, 0.3s) ease,
+              box-shadow var(--anim-speed, 0.3s) ease;
 }
 
 .btn-hover-shimmer::before {
@@ -90,11 +90,11 @@ export const HOVER_EFFECTS = [
   background: linear-gradient(
     115deg,
     transparent 20%,
-    rgba(255, 255, 255, 0.9) 50%,
+    #ffffffe6 50%,
     transparent 80%
   );
   transform: translateX(-120%) rotate(25deg);
-  transition: transform 1.4s cubic-bezier(0.19, 1, 0.22, 1);
+  transition: transform var(--anim-speed, 0.75s) cubic-bezier(0.19, 1, 0.22, 1);
 }
 
 .btn-hover-shimmer:hover::before {
@@ -103,7 +103,8 @@ export const HOVER_EFFECTS = [
 
 .btn-hover-shimmer:hover {
   transform: translateY(-2.5px) scale(1.02);
-  box-shadow: 0 6px 20px rgba(24, 24, 27, 0.08);
+  background-color: #18181b0d;
+  box-shadow: 0 6px 20px #18181b14;
 }
 
 .btn-hover-shimmer:hover .btn-icon {
@@ -174,7 +175,7 @@ export const HOVER_EFFECTS = [
 .btn-hover-corner-brackets:hover {
   transform: translateY(-3px) scale(1.02);
   letter-spacing: 0.02em;
-  box-shadow: 0 10px 24px -6px rgba(0, 0, 0, 0.12),
+  box-shadow: 0 10px 24px -6px #0000001f,
               0 0 0 1px var(--btn-color, #18181b);
 }
 
@@ -206,9 +207,9 @@ export const HOVER_EFFECTS = [
 
 .btn-hover-glow-pulse:hover {
   transform: scale(1.03);
-  box-shadow: 0 0 24px color-mix(in srgb, var(--btn-color, #18181b) 35%, transparent),
-              0 0 48px color-mix(in srgb, var(--btn-color, #18181b) 20%, transparent);
-  background-color: color-mix(in srgb, var(--btn-color, #18181b) 5%, transparent);
+  box-shadow: 0 0 24px #18181b59,
+              0 0 48px #18181b33;
+  background-color: #18181b0d;
 }`
   },
   {
@@ -313,7 +314,8 @@ export const HOVER_EFFECTS = [
 
 .btn-hover-magnetic:hover {
   transform: translateY(-4px) scale(1.02);
-  box-shadow: 0 12px 24px -6px rgba(0, 0, 0, 0.12);
+  box-shadow: 0 12px 24px -6px #0000001f;
+  background-color: #18181b0a;
 }
 
 .btn-hover-magnetic:hover .btn-icon {
@@ -429,7 +431,7 @@ export const HOVER_EFFECTS = [
   color: #000000 !important;
   border-color: #CCFF00 !important;
   transform: scale(1.03);
-  box-shadow: 0 0 20px rgba(204, 255, 0, 0.4);
+  box-shadow: 0 0 20px #ccff0066;
 }`
   },
   {
@@ -462,7 +464,7 @@ export const HOVER_EFFECTS = [
   border-style: dashed;
   border-width: 1.5px;
   transform: scale(1.02);
-  background-color: rgba(24, 24, 27, 0.04);
+  background-color: #18181b0a;
 }`
   },
   {
@@ -538,7 +540,7 @@ export const HOVER_EFFECTS = [
 
 .btn-hover-outline-notches:hover {
   transform: translateY(-2px);
-  background-color: color-mix(in srgb, var(--btn-color, #18181b) 6%, transparent);
+  background-color: #18181b0f;
 }`
   },
   {
@@ -584,7 +586,7 @@ export const HOVER_EFFECTS = [
 }
 
 .btn-hover-outline-revolving:hover .btn-svg-rect {
-  fill: rgba(24, 24, 27, 0.05);
+  fill: #18181b0d;
   animation: svgBorderCircuitComplete 0.95s cubic-bezier(0.4, 0, 0.2, 1) forwards;
 }
 
@@ -705,7 +707,7 @@ export const HOVER_EFFECTS = [
 
 .btn-hover-rolling-magic:hover {
   transform: translateY(-2px);
-  background-color: rgba(24, 24, 27, 0.05);
+  background-color: #18181b0d;
 }
 
 .btn-hover-rolling-magic:hover .btn-icon {
@@ -736,7 +738,7 @@ export const HOVER_EFFECTS = [
 }
 
 .btn-hover-outline-dual-pulse:hover .btn-svg-rect-pulse-1 {
-  fill: rgba(24, 24, 27, 0.05);
+  fill: #18181b0d;
   animation: svgDualPulseCW 0.85s cubic-bezier(0.25, 1, 0.5, 1) forwards;
 }
 
@@ -773,7 +775,7 @@ export const HOVER_EFFECTS = [
 }
 
 .btn-hover-outline-draw-glow:hover .btn-svg-rect-draw {
-  fill: rgba(24, 24, 27, 0.05);
+  fill: #18181b0d;
   animation: svgCleanCircuitSweep 0.85s cubic-bezier(0.25, 1, 0.5, 1) forwards;
 }
 
@@ -828,8 +830,9 @@ export const HOVER_EFFECTS = [
 
 .btn-hover-diagonal-shutter:hover {
   color: var(--btn-bg, #ffffff) !important;
+  border-color: var(--btn-color, #18181b) !important;
   transform: translateY(-3px) scale(1.02);
-  box-shadow: 0 10px 24px -4px rgba(24, 24, 27, 0.18);
+  box-shadow: 0 10px 24px -4px #18181b2e;
 }`
   },
   {
@@ -854,9 +857,9 @@ export const HOVER_EFFECTS = [
   background: linear-gradient(
     115deg,
     transparent 20%,
-    rgba(0, 240, 255, 0.45) 38%,
-    rgba(255, 0, 128, 0.45) 50%,
-    rgba(204, 255, 0, 0.45) 62%,
+    #00f0ff73 38%,
+    #ff008073 50%,
+    #ccff0073 62%,
     transparent 80%
   );
   transform: rotate(25deg);
@@ -871,8 +874,8 @@ export const HOVER_EFFECTS = [
 
 .btn-hover-holographic-glitch:hover {
   transform: translateY(-3px) scale(1.025);
-  box-shadow: 0 8px 24px rgba(0, 240, 255, 0.25), 0 2px 10px rgba(255, 0, 128, 0.2);
-  border-color: rgba(0, 240, 255, 0.6) !important;
+  box-shadow: 0 8px 24px #00f0ff40, 0 2px 10px #ff008033;
+  border-color: #00f0ff99 !important;
 }
 
 .btn-hover-holographic-glitch .btn-icon {
@@ -929,7 +932,7 @@ export const HOVER_EFFECTS = [
   0% { opacity: 0; transform: scale(0.95); }
   40% { opacity: 0.6; transform: scale(1.08); }
   100% { opacity: 0; transform: scale(1.2); }
-}`
+} `
   },
   {
     id: 27,
@@ -998,7 +1001,7 @@ export const HOVER_EFFECTS = [
 
 .btn-hover-elastic-bounce:hover {
   animation: elasticBounce 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) both;
-  box-shadow: 0 10px 28px -6px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 10px 28px -6px #00000026;
 }
 
 .btn-hover-elastic-bounce:hover .btn-icon {
@@ -1059,7 +1062,7 @@ export const HOVER_EFFECTS = [
   color: var(--btn-bg, #ffffff) !important;
   border-color: var(--btn-color, #18181b) !important;
   transform: translateY(-2px);
-  box-shadow: 0 8px 24px -4px color-mix(in srgb, var(--btn-color, #18181b) 20%, transparent);
+  box-shadow: 0 8px 24px -4px #18181b33;
 }`
   },
   {
@@ -1107,7 +1110,7 @@ export const HOVER_EFFECTS = [
 
 .btn-hover-conic-radar:hover {
   transform: translateY(-2.5px) scale(1.02);
-  box-shadow: 0 10px 24px -4px rgba(0, 0, 0, 0.12),
+  box-shadow: 0 10px 24px -4px #0000001f,
               0 0 16px -4px var(--btn-color, #18181b);
 }
 

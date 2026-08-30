@@ -40,6 +40,6 @@
   color: var(--btn-bg, #ffffff) !important;
   border-color: var(--btn-color, #18181b) !important;
   transform: translateY(-2px);
-  box-shadow: 0 8px 24px -4px color-mix(in srgb, var(--btn-color, #18181b) 20%, transparent);
+  box-shadow: 0 8px 24px -4px #18181b33;
 }
 

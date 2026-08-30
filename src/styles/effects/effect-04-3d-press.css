@@ -9,7 +9,7 @@
 .btn-hover-3d-press.is-auto-hovered {
   transform: translate(2px, 2px);
   box-shadow: 2px 2px 0px var(--btn-color, #18181b);
-  background-color: rgba(24, 24, 27, 0.03);
+  background-color: #18181b08;
 }
 
 .btn-hover-3d-press:active {

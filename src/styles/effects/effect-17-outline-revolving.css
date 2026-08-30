@@ -47,8 +47,8 @@
 
 .btn-hover-outline-revolving:hover .btn-svg-rect,
 .btn-hover-outline-revolving.is-auto-hovered .btn-svg-rect {
-  fill: rgba(24, 24, 27, 0.05);
-  animation: svgBorderCircuitComplete 0.95s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  fill: #18181b0d;
+  animation: svgBorderCircuitComplete var(--anim-speed, 0.95s) cubic-bezier(0.4, 0, 0.2, 1) forwards;
 }
 
 .btn-hover-outline-revolving:hover,
@@ -58,5 +58,5 @@
 
 .canvas-dark .btn-hover-outline-revolving:hover .btn-svg-rect,
 .canvas-dark .btn-hover-outline-revolving.is-auto-hovered .btn-svg-rect {
-  fill: rgba(255, 255, 255, 0.08);
+  fill: #ffffff14;
 }

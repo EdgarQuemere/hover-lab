@@ -8,8 +8,8 @@
 .btn-hover-glow-pulse:hover,
 .btn-hover-glow-pulse.is-auto-hovered {
   transform: scale(1.03);
-  box-shadow: 0 0 24px color-mix(in srgb, var(--btn-color, #18181b) 35%, transparent),
-              0 0 48px color-mix(in srgb, var(--btn-color, #18181b) 20%, transparent);
-  background-color: color-mix(in srgb, var(--btn-color, #18181b) 5%, transparent);
+  box-shadow: 0 0 24px #18181b59,
+              0 0 48px #18181b33;
+  background-color: #18181b0d;
 }
 

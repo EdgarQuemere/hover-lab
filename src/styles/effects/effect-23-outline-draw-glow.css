@@ -47,13 +47,13 @@
 
 .btn-hover-outline-draw-glow:hover .btn-svg-rect-draw,
 .btn-hover-outline-draw-glow.is-auto-hovered .btn-svg-rect-draw {
-  fill: rgba(24, 24, 27, 0.05);
-  animation: svgCleanCircuitSweep 0.85s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+  fill: #18181b0d;
+  animation: svgCleanCircuitSweep var(--anim-speed, 0.85s) cubic-bezier(0.25, 1, 0.5, 1) forwards;
 }
 
 .canvas-dark .btn-hover-outline-draw-glow:hover .btn-svg-rect-draw,
 .canvas-dark .btn-hover-outline-draw-glow.is-auto-hovered .btn-svg-rect-draw {
-  fill: rgba(255, 255, 255, 0.08);
+  fill: #ffffff14;
 }
 
 .btn-hover-outline-draw-glow:hover,

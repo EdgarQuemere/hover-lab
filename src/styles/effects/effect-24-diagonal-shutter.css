@@ -47,6 +47,7 @@
 .btn-hover-diagonal-shutter:hover,
 .btn-hover-diagonal-shutter.is-auto-hovered {
   color: var(--btn-bg, #ffffff) !important;
+  border-color: var(--btn-color, #18181b) !important;
   transform: translateY(-3px) scale(1.02);
-  box-shadow: 0 10px 24px -4px rgba(24, 24, 27, 0.18);
+  box-shadow: 0 10px 24px -4px #18181b2e;
 }

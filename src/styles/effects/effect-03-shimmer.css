@@ -18,15 +18,15 @@
   background: linear-gradient(
     115deg,
     transparent 20%,
-    rgba(24, 24, 27, 0.03) 38%,
-    rgba(24, 24, 27, 0.25) 48%,
-    rgba(255, 255, 255, 0.9) 50%,
-    rgba(24, 24, 27, 0.25) 52%,
-    rgba(24, 24, 27, 0.03) 62%,
+    #18181b08 38%,
+    #18181b40 48%,
+    #ffffffe6 50%,
+    #18181b40 52%,
+    #18181b08 62%,
     transparent 80%
   );
   transform: translateX(-120%) rotate(25deg);
-  transition: transform 1.4s cubic-bezier(0.19, 1, 0.22, 1);
+  transition: transform var(--anim-speed, 0.75s) cubic-bezier(0.19, 1, 0.22, 1);
   pointer-events: none;
   z-index: 1;
 }
@@ -35,11 +35,11 @@
   background: linear-gradient(
     115deg,
     transparent 20%,
-    rgba(255, 255, 255, 0.05) 38%,
-    rgba(255, 255, 255, 0.45) 48%,
-    rgba(255, 255, 255, 0.95) 50%,
-    rgba(255, 255, 255, 0.45) 52%,
-    rgba(255, 255, 255, 0.05) 62%,
+    #ffffff0d 38%,
+    #ffffff73 48%,
+    #fffffff2 50%,
+    #ffffff73 52%,
+    #ffffff0d 62%,
     transparent 80%
   );
 }
@@ -51,20 +51,20 @@
 
 .btn-hover-shimmer:hover,
 .btn-hover-shimmer.is-auto-hovered {
-  transform: translateY(-2px) scale(1.015);
-  background-color: rgba(24, 24, 27, 0.05);
-  box-shadow: 0 6px 20px rgba(24, 24, 27, 0.08);
+  transform: translateY(-2.5px) scale(1.02);
+  background-color: #18181b0d;
+  box-shadow: 0 6px 20px #18181b14;
 }
 
 .canvas-dark .btn-hover-shimmer:hover,
 .canvas-dark .btn-hover-shimmer.is-auto-hovered {
-  background-color: rgba(255, 255, 255, 0.08);
-  box-shadow: 0 6px 25px rgba(255, 255, 255, 0.14);
+  background-color: #ffffff14;
+  box-shadow: 0 6px 25px #ffffff24;
 }
 
 .btn-hover-shimmer:active {
-  transform: translateY(0) scale(0.97);
-  box-shadow: 0 2px 8px rgba(24, 24, 27, 0.04);
+  transform: translateY(-1px) scale(0.99);
+  box-shadow: 0 2px 8px #18181b0a;
 }
 
 .btn-hover-shimmer .btn-icon,

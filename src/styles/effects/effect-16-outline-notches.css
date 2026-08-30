@@ -47,6 +47,6 @@
 .btn-hover-outline-notches:hover,
 .btn-hover-outline-notches.is-auto-hovered {
   transform: translateY(-2px);
-  background-color: color-mix(in srgb, var(--btn-color, #18181b) 6%, transparent);
+  background-color: #18181b0f;
 }
 

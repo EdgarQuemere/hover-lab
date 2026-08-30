@@ -40,7 +40,7 @@
 .btn-hover-conic-radar:hover,
 .btn-hover-conic-radar.is-auto-hovered {
   transform: translateY(-2.5px) scale(1.02);
-  box-shadow: 0 10px 24px -4px rgba(0, 0, 0, 0.12),
+  box-shadow: 0 10px 24px -4px #0000001f,
               0 0 16px -4px var(--btn-color, #18181b);
 }
 

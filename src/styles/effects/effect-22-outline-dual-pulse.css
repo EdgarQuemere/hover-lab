@@ -41,7 +41,7 @@
 
 .btn-hover-outline-dual-pulse:hover .btn-svg-rect-pulse-1,
 .btn-hover-outline-dual-pulse.is-auto-hovered .btn-svg-rect-pulse-1 {
-  fill: rgba(24, 24, 27, 0.05);
+  fill: #18181b0d;
   animation: svgDualPulseCW 0.85s cubic-bezier(0.25, 1, 0.5, 1) forwards;
 }
 
@@ -57,5 +57,5 @@
 
 .canvas-dark .btn-hover-outline-dual-pulse:hover .btn-svg-rect-pulse-1,
 .canvas-dark .btn-hover-outline-dual-pulse.is-auto-hovered .btn-svg-rect-pulse-1 {
-  fill: rgba(255, 255, 255, 0.08);
+  fill: #ffffff14;
 }

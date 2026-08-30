@@ -87,5 +87,6 @@
 
 .btn-hover-confetti-burst:hover,
 .btn-hover-confetti-burst.is-auto-hovered {
-  background-color: rgba(24, 24, 27, 0.04);
+  transform: translateY(-2px);
+  background-color: #18181b0a;
 }

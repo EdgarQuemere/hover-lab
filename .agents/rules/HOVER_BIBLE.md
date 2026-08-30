@@ -248,6 +248,14 @@ Si un effet nécessite une structure HTML interne spécifique, celle-ci doit êt
 
 ## 12. Erreurs Fréquentes à Éviter Absolument
 
+### 2. Norme de Couleurs & Thèmes
+- 🎨 **Format Strictement Hexadécimal (#RRGGBB / #RRGGBBAA)** :
+  * Toutes les couleurs et nuances de transparence dans les effets et codes exportés doivent être **exclusivement au format Hex** (ex: `#18181b`, `#ffffff`, `#e6332a`, ou avec canal alpha `#18181b0d`, `#0000001f`, `#ffffffe6`).
+  * Ne jamais utiliser `rgb()`, `rgba()`, `hsl()`, `color-mix()` ou des noms de couleurs en dur (`red`, `blue`, etc.) dans les templates CSS.
+- Toujours utiliser `var(--btn-color, #18181b)` pour la couleur active principale (texte, bordure, éléments dynamiques).
+- Toujours utiliser `var(--btn-bg, #ffffff)` pour la couleur de fond contrastée en hover ou inversion.
+- **Règle absolue** : Ne jamais coder en dur de couleur statique (`#18181b` ou `#ffffff`) en écrasant les variables de thème, afin que les palettes personnalisées (Rouge, Bleu, Vert, Jaune...) s'appliquent fidèlement.
+
 | ❌ Erreur | ✅ Bon réflexe |
 |---|---|
 | Écrire une couleur hex en dur dans le CSS de base | Toujours utiliser `var(--btn-color, #18181b)` avec fallback |

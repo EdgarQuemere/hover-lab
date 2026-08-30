@@ -10,8 +10,8 @@
 .btn-hover-magnetic:hover,
 .btn-hover-magnetic.is-auto-hovered {
   transform: translateY(-4px) scale(1.02);
-  box-shadow: 0 12px 24px -6px rgba(0, 0, 0, 0.12);
-  background-color: rgba(24, 24, 27, 0.04);
+  box-shadow: 0 12px 24px -6px #0000001f;
+  background-color: #18181b0a;
 }
 
 .btn-hover-magnetic:hover .btn-icon,

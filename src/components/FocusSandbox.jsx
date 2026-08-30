@@ -56,6 +56,19 @@ function extractDurationFromCss(cssText) {
   return null;
 }
 
+// Replaces color variables and fallbacks in CSS text
+function updateColorsInCss(cssText, newColor) {
+  if (!cssText || !newColor) return cssText;
+  let updated = cssText;
+  if (/--btn-color:\s*#[0-9a-fA-F]{3,8}/i.test(updated)) {
+    updated = updated.replace(/--btn-color:\s*#[0-9a-fA-F]{3,8}/gi, `--btn-color: ${newColor}`);
+  }
+  if (/var\(--btn-color,\s*#[0-9a-fA-F]{3,8}\)/i.test(updated)) {
+    updated = updated.replace(/var\(--btn-color,\s*#[0-9a-fA-F]{3,8}\)/gi, `var(--btn-color, ${newColor})`);
+  }
+  return updated;
+}
+
 // Extracts button color from CSS text (both declarations and var fallbacks)
 function extractColorFromCss(cssText) {
   if (!cssText) return null;
@@ -88,7 +101,7 @@ export default function FocusSandbox({ effect, config, onClose, onOpenCode, t })
 
   const initialSpeed = savedSpeed ? parseFloat(savedSpeed) : 0.35;
   const initialColor = savedColor || config.buttonColor || '#e6332a';
-  const initialCss = savedCss || effect?.cssCode || '';
+  const initialCss = savedCss || updateColorsInCss(updateDurationsInCss(effect?.cssCode || '', initialSpeed), initialColor);
 
   const [activeSidebarTab, setActiveSidebarTab] = useState('controls'); // 'controls' | 'css'
   const [animSpeed, setAnimSpeed] = useState(initialSpeed);
@@ -228,16 +241,7 @@ export default function FocusSandbox({ effect, config, onClose, onOpenCode, t })
   // When Button Color changes from Settings, update CSS in real-time
   const handleColorChange = (newColor) => {
     setStudioButtonColor(newColor);
-    setCustomCssCode((prevCss) => {
-      let updated = prevCss;
-      if (/--btn-color:\s*#[0-9a-fA-F]{3,8}/i.test(updated)) {
-        updated = updated.replace(/--btn-color:\s*#[0-9a-fA-F]{3,8}/gi, `--btn-color: ${newColor}`);
-      }
-      if (/var\(--btn-color,\s*#[0-9a-fA-F]{3,8}\)/i.test(updated)) {
-        updated = updated.replace(/var\(--btn-color,\s*#[0-9a-fA-F]{3,8}\)/gi, `var(--btn-color, ${newColor})`);
-      }
-      return updated;
-    });
+    setCustomCssCode((prevCss) => updateColorsInCss(prevCss, newColor));
   };
 
   // When CSS code is typed in the Editor, parse speed and color to update settings in real-time
@@ -276,9 +280,12 @@ export default function FocusSandbox({ effect, config, onClose, onOpenCode, t })
       localStorage.removeItem(`hoverlab_studio_css_${effect.id}`);
       localStorage.removeItem(`hoverlab_studio_speed_${effect.id}`);
       localStorage.removeItem(`hoverlab_studio_color_${effect.id}`);
-      setCustomCssCode(effect?.cssCode || '');
-      setAnimSpeed(0.35);
-      setStudioButtonColor(config.buttonColor || '#e6332a');
+      const resetColor = config.buttonColor || '#e6332a';
+      const resetSpeed = 0.35;
+      const resetCss = updateColorsInCss(updateDurationsInCss(effect?.cssCode || '', resetSpeed), resetColor);
+      setCustomCssCode(resetCss);
+      setAnimSpeed(resetSpeed);
+      setStudioButtonColor(resetColor);
       setFeedbackToast({ type: 'info', text: tr('css_reset_toast', 'CSS réinitialisé par défaut') });
       setTimeout(() => setFeedbackToast(null), 2500);
     } catch (e) {
