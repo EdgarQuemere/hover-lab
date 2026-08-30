@@ -26,23 +26,31 @@ export function generateHtmlSnippet(effect, config = {}) {
   const text = config.buttonText || 'HoverLab';
   const iconPos = config.iconPosition || 'right';
   const iconName = config.iconName || 'ArrowRight';
-  const iconSvg = SVG_ICONS[iconName] || SVG_ICONS.ArrowRight;
-
+  
   const isIconOnly = iconPos === 'only';
   const isIconLeft = iconPos === 'left';
   const isIconRight = iconPos === 'right';
   const hasIcon = iconPos !== 'none';
   const className = `hover-btn ${effect.className}${isIconOnly ? ' btn-icon-only' : ''}`;
 
+  const getIconSvg = (posClass = '') => {
+    const raw = SVG_ICONS[iconName] || SVG_ICONS.ArrowRight;
+    if (!posClass) return raw;
+    return raw.replace('class="btn-icon"', `class="btn-icon ${posClass}"`);
+  };
+
+  const leftSvg = hasIcon && (isIconLeft || isIconOnly) ? getIconSvg(isIconLeft ? 'btn-icon-left' : '') : '';
+  const rightSvg = hasIcon && isIconRight && !isIconOnly ? getIconSvg('btn-icon-right') : '';
+
   // Special DOM handling for special effects
   if (effect.className.includes('card-flip')) {
     return `<button class="${className}">
   <div class="card-inner">
     <div class="card-front">
-      ${hasIcon && (isIconLeft || isIconOnly) ? `${iconSvg}\n      ` : ''}${!isIconOnly ? `<span>${text}</span>` : ''}${hasIcon && isIconRight && !isIconOnly ? `\n      ${iconSvg}` : ''}
+      ${leftSvg ? `${leftSvg}\n      ` : ''}${!isIconOnly ? `<span>${text}</span>` : ''}${rightSvg ? `\n      ${rightSvg}` : ''}
     </div>
     <div class="card-back">
-      ${hasIcon && (isIconLeft || isIconOnly) ? `${iconSvg}\n      ` : ''}${!isIconOnly ? `<span>${text}</span>` : ''}${hasIcon && isIconRight && !isIconOnly ? `\n      ${iconSvg}` : ''}
+      ${leftSvg ? `${leftSvg}\n      ` : ''}${!isIconOnly ? `<span>${text}</span>` : ''}${rightSvg ? `\n      ${rightSvg}` : ''}
     </div>
   </div>
 </button>`;
@@ -51,13 +59,15 @@ export function generateHtmlSnippet(effect, config = {}) {
   if (effect.className.includes('hover-text-elevator')) {
     return `<button class="${className}">
   <div class="btn-content-wrap">
-    ${hasIcon && (isIconLeft || isIconOnly) ? `${iconSvg}\n    ` : ''}${!isIconOnly ? `<span>${text}</span>` : ''}${hasIcon && isIconRight && !isIconOnly ? `\n    ${iconSvg}` : ''}
+    ${leftSvg ? `${leftSvg}\n    ` : ''}${!isIconOnly ? `<span>${text}</span>` : ''}${rightSvg ? `\n    ${rightSvg}` : ''}
   </div>
   <div class="btn-content-duplicate">
-    ${hasIcon && (isIconLeft || isIconOnly) ? `${iconSvg}\n    ` : ''}${!isIconOnly ? `<span>${text}</span>` : ''}${hasIcon && isIconRight && !isIconOnly ? `\n    ${iconSvg}` : ''}
+    ${leftSvg ? `${leftSvg}\n    ` : ''}${!isIconOnly ? `<span>${text}</span>` : ''}${rightSvg ? `\n    ${rightSvg}` : ''}
   </div>
 </button>`;
   }
+
+  const radius = config.borderRadiusValue === 999 ? '24' : `${config.borderRadiusValue ?? 12}`;
 
   if (effect.className.includes('btn-hover-stagger-liquid')) {
     return `<button class="${className}">
@@ -65,12 +75,59 @@ export function generateHtmlSnippet(effect, config = {}) {
   <span class="btn-stagger-drop" style="--delay: 2"></span>
   <span class="btn-stagger-drop" style="--delay: 3"></span>
   <span class="btn-stagger-drop" style="--delay: 4"></span>
-  ${hasIcon && (isIconLeft || isIconOnly) ? `${iconSvg}\n  ` : ''}${!isIconOnly ? `<span>${text}</span>` : ''}${hasIcon && isIconRight && !isIconOnly ? `\n  ${iconSvg}` : ''}
+  ${leftSvg ? `${leftSvg}\n  ` : ''}${!isIconOnly ? `<span>${text}</span>` : ''}${rightSvg ? `\n  ${rightSvg}` : ''}
+</button>`;
+  }
+
+  if (effect.className.includes('btn-hover-icon-swap-morph')) {
+    const swapIcon = getIconSvg('btn-icon-swap-left');
+    return `<button class="${className}">
+  ${swapIcon}
+  <span class="btn-content-wrap">${text}</span>
+</button>`;
+  }
+
+  if (effect.className.includes('btn-hover-rolling-magic')) {
+    const letters = Array.from(text);
+    const renderChars = letters.map((char, i) => `<span class="btn-rolling-char" style="--char-i: ${i}">${char === ' ' ? '&nbsp;' : char}</span>`).join('');
+    return `<button class="${className}">
+  ${leftSvg ? `${leftSvg}\n  ` : ''}<span class="btn-rolling-text">
+    <span class="btn-rolling-line original">${renderChars}</span>
+    <span class="btn-rolling-line duplicate" aria-hidden="true">${renderChars}</span>
+  </span>${rightSvg ? `\n  ${rightSvg}` : ''}
+</button>`;
+  }
+
+  if (effect.className.includes('btn-hover-outline-revolving')) {
+    return `<button class="${className}">
+  <svg class="btn-svg-border" width="100%" height="100%">
+    <rect class="btn-svg-rect" x="0.75" y="0.75" width="calc(100% - 1.5px)" height="calc(100% - 1.5px)" rx="${radius}" ry="${radius}" pathLength="100"/>
+  </svg>
+  ${leftSvg ? `${leftSvg}\n  ` : ''}${!isIconOnly ? `<span>${text}</span>` : ''}${rightSvg ? `\n  ${rightSvg}` : ''}
+</button>`;
+  }
+
+  if (effect.className.includes('btn-hover-outline-dual-pulse')) {
+    return `<button class="${className}">
+  <svg class="btn-svg-border" width="100%" height="100%">
+    <rect class="btn-svg-rect-pulse-1" x="0.75" y="0.75" width="calc(100% - 1.5px)" height="calc(100% - 1.5px)" rx="${radius}" ry="${radius}" pathLength="100"/>
+    <rect class="btn-svg-rect-pulse-2" x="0.75" y="0.75" width="calc(100% - 1.5px)" height="calc(100% - 1.5px)" rx="${radius}" ry="${radius}" pathLength="100"/>
+  </svg>
+  ${leftSvg ? `${leftSvg}\n  ` : ''}${!isIconOnly ? `<span>${text}</span>` : ''}${rightSvg ? `\n  ${rightSvg}` : ''}
+</button>`;
+  }
+
+  if (effect.className.includes('btn-hover-outline-draw-glow')) {
+    return `<button class="${className}">
+  <svg class="btn-svg-border" width="100%" height="100%">
+    <rect class="btn-svg-rect-draw" x="0.75" y="0.75" width="calc(100% - 1.5px)" height="calc(100% - 1.5px)" rx="${radius}" ry="${radius}" pathLength="100"/>
+  </svg>
+  ${leftSvg ? `${leftSvg}\n  ` : ''}${!isIconOnly ? `<span>${text}</span>` : ''}${rightSvg ? `\n  ${rightSvg}` : ''}
 </button>`;
   }
 
   return `<button class="${className}">
-  ${hasIcon && (isIconLeft || isIconOnly) ? `${iconSvg}\n  ` : ''}${!isIconOnly ? `<span>${text}</span>` : ''}${hasIcon && isIconRight && !isIconOnly ? `\n  ${iconSvg}` : ''}
+  ${leftSvg ? `${leftSvg}\n  ` : ''}${!isIconOnly ? `<span>${text}</span>` : ''}${rightSvg ? `\n  ${rightSvg}` : ''}
 </button>`;
 }
 

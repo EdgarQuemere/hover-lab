@@ -2,7 +2,7 @@
 .btn-hover-text-elevator {
   position: relative;
   overflow: hidden !important;
-  transition: background-color 0.3s ease, border-color 0.3s ease;
+  transition: background-color var(--anim-speed, 0.3s) ease, border-color var(--anim-speed, 0.3s) ease;
 }
 
 .btn-hover-text-elevator .btn-content-wrap {
@@ -10,7 +10,7 @@
   align-items: center;
   justify-content: center;
   gap: 8px;
-  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: transform var(--anim-speed, 0.35s) cubic-bezier(0.16, 1, 0.3, 1);
   height: 100%;
   width: 100%;
 }
@@ -28,7 +28,7 @@
   justify-content: center;
   gap: 8px;
   transform: translateY(160%);
-  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: transform var(--anim-speed, 0.35s) cubic-bezier(0.16, 1, 0.3, 1);
   height: 100%;
   width: 100%;
 }

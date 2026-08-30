@@ -54,6 +54,7 @@ export const HOVER_EFFECTS = [
   box-shadow: 0 8px 24px -4px #18181b2e;
 }
 
+.btn-hover-icon-push:hover .btn-icon,
 .btn-hover-icon-push:hover .btn-icon-right {
   transform: translateX(6px);
 }
@@ -371,7 +372,7 @@ export const HOVER_EFFECTS = [
   align-items: center;
   justify-content: center;
   gap: 8px;
-  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: transform var(--anim-speed, 0.35s) cubic-bezier(0.16, 1, 0.3, 1);
   height: 100%;
   width: 100%;
 }
@@ -388,7 +389,7 @@ export const HOVER_EFFECTS = [
   justify-content: center;
   gap: 8px;
   transform: translateY(160%);
-  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: transform var(--anim-speed, 0.35s) cubic-bezier(0.16, 1, 0.3, 1);
   height: 100%;
   width: 100%;
 }
@@ -553,7 +554,17 @@ export const HOVER_EFFECTS = [
   position: relative;
   border: none !important;
   background-color: transparent !important;
-  transition: transform 0.25s ease;
+  transition: transform var(--anim-speed, 0.25s) ease;
+}
+
+.btn-hover-outline-revolving .btn-svg-border {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  overflow: visible;
+  border-radius: inherit;
 }
 
 .btn-hover-outline-revolving .btn-svg-rect {
@@ -587,7 +598,7 @@ export const HOVER_EFFECTS = [
 
 .btn-hover-outline-revolving:hover .btn-svg-rect {
   fill: #18181b0d;
-  animation: svgBorderCircuitComplete 0.95s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  animation: svgBorderCircuitComplete var(--anim-speed, 0.95s) cubic-bezier(0.4, 0, 0.2, 1) forwards;
 }
 
 .btn-hover-outline-revolving:hover {
@@ -702,7 +713,10 @@ export const HOVER_EFFECTS = [
     cssCode: `.btn-hover-rolling-magic {
   position: relative;
   overflow: hidden;
-  transition: transform 0.25s ease, background-color 0.3s ease;
+  transition: transform var(--anim-speed, 0.25s) ease,
+              background-color var(--anim-speed, 0.3s) ease,
+              border-color var(--anim-speed, 0.3s) ease,
+              box-shadow var(--anim-speed, 0.35s) ease;
 }
 
 .btn-hover-rolling-magic:hover {
@@ -710,9 +724,53 @@ export const HOVER_EFFECTS = [
   background-color: #18181b0d;
 }
 
+.btn-hover-rolling-magic .btn-icon {
+  position: relative;
+  z-index: 2;
+  transition: transform var(--anim-speed, 0.6s) cubic-bezier(0.34, 1.56, 0.64, 1), filter var(--anim-speed, 0.4s) ease;
+}
+
 .btn-hover-rolling-magic:hover .btn-icon {
   transform: translateX(4px) rotate(360deg) scale(1.25);
   filter: drop-shadow(0 0 8px var(--btn-color, #18181b));
+}
+
+.btn-hover-rolling-magic .btn-rolling-text {
+  position: relative;
+  display: inline-block;
+  overflow: hidden;
+  line-height: 1.2;
+  vertical-align: middle;
+}
+
+.btn-hover-rolling-magic .btn-rolling-line {
+  display: inline-flex;
+  white-space: pre;
+}
+
+.btn-hover-rolling-magic .btn-rolling-line.duplicate {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+}
+
+.btn-hover-rolling-magic .btn-rolling-char {
+  display: inline-block;
+  transition: transform var(--anim-speed, 0.45s) cubic-bezier(0.34, 1.56, 0.64, 1), opacity var(--anim-speed, 0.3s) ease;
+  transition-delay: calc(var(--char-i) * (var(--anim-speed, 0.35s) * 0.1));
+  transform-origin: 50% 100%;
+  backface-visibility: hidden;
+}
+
+.btn-hover-rolling-magic .btn-rolling-line.original .btn-rolling-char {
+  transform: translateY(0) rotateX(0);
+  opacity: 1;
+}
+
+.btn-hover-rolling-magic .btn-rolling-line.duplicate .btn-rolling-char {
+  transform: translateY(120%) rotateX(-90deg);
+  opacity: 0;
 }
 
 .btn-hover-rolling-magic:hover .btn-rolling-line.original .btn-rolling-char {
@@ -734,16 +792,50 @@ export const HOVER_EFFECTS = [
     cssCode: `.btn-hover-outline-dual-pulse {
   position: relative;
   border: none !important;
-  transition: transform 0.3s ease;
+  background-color: transparent !important;
+  transition: transform var(--anim-speed, 0.3s) ease;
+}
+
+.btn-hover-outline-dual-pulse .btn-svg-border {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  overflow: visible;
+  border-radius: inherit;
+}
+
+.btn-hover-outline-dual-pulse .btn-svg-rect-pulse-1,
+.btn-hover-outline-dual-pulse .btn-svg-rect-pulse-2 {
+  fill: transparent;
+  stroke: var(--btn-color, #18181b);
+  stroke-width: 1.5;
+  pathLength: 100;
+  stroke-dasharray: 100 0;
+  stroke-dashoffset: 0;
+  transition: fill 0.35s ease;
+}
+
+@keyframes svgDualPulseCW {
+  0% { stroke-dasharray: 0 100; stroke-dashoffset: 0; }
+  50% { stroke-dasharray: 25 75; stroke-dashoffset: -25; }
+  100% { stroke-dasharray: 100 0; stroke-dashoffset: -50; }
+}
+
+@keyframes svgDualPulseCCW {
+  0% { stroke-dasharray: 0 100; stroke-dashoffset: 0; }
+  50% { stroke-dasharray: 25 75; stroke-dashoffset: 25; }
+  100% { stroke-dasharray: 100 0; stroke-dashoffset: 50; }
 }
 
 .btn-hover-outline-dual-pulse:hover .btn-svg-rect-pulse-1 {
   fill: #18181b0d;
-  animation: svgDualPulseCW 0.85s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+  animation: svgDualPulseCW var(--anim-speed, 0.85s) cubic-bezier(0.25, 1, 0.5, 1) forwards;
 }
 
 .btn-hover-outline-dual-pulse:hover .btn-svg-rect-pulse-2 {
-  animation: svgDualPulseCCW 0.85s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+  animation: svgDualPulseCCW var(--anim-speed, 0.85s) cubic-bezier(0.25, 1, 0.5, 1) forwards;
 }
 
 .btn-hover-outline-dual-pulse:hover {
@@ -759,10 +851,25 @@ export const HOVER_EFFECTS = [
     cssCode: `.btn-hover-outline-draw-glow {
   position: relative;
   border: none !important;
-  transition: transform 0.25s ease;
+  background-color: transparent !important;
+  transition: transform var(--anim-speed, 0.25s) ease;
+}
+
+.btn-hover-outline-draw-glow .btn-svg-border {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  overflow: visible;
+  border-radius: inherit;
 }
 
 .btn-hover-outline-draw-glow .btn-svg-rect-draw {
+  fill: transparent;
+  stroke: var(--btn-color, #18181b);
+  stroke-width: 1.5;
+  pathLength: 100;
   stroke-dasharray: 100 0;
   transition: fill 0.3s ease;
 }
@@ -776,7 +883,7 @@ export const HOVER_EFFECTS = [
 
 .btn-hover-outline-draw-glow:hover .btn-svg-rect-draw {
   fill: #18181b0d;
-  animation: svgCleanCircuitSweep 0.85s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+  animation: svgCleanCircuitSweep var(--anim-speed, 0.85s) cubic-bezier(0.25, 1, 0.5, 1) forwards;
 }
 
 .btn-hover-outline-draw-glow:hover {

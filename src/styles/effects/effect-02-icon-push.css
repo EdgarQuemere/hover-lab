@@ -16,6 +16,8 @@
   box-shadow: 0 8px 24px -4px #18181b2e;
 }
 
+.btn-hover-icon-push:hover .btn-icon,
+.btn-hover-icon-push.is-auto-hovered .btn-icon,
 .btn-hover-icon-push:hover .btn-icon-right,
 .btn-hover-icon-push.is-auto-hovered .btn-icon-right {
   transform: translateX(6px);
