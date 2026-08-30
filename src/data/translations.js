@@ -116,8 +116,8 @@ export const TRANSLATIONS = {
     effect_5_desc: 'Fluid border-radius morphing (rounded to sharp square, or square to pill) with contrasted color inversion and tactile lift.',
     effect_5_cat: 'Slide & Motion',
     // Effect 6
-    effect_6_name: '06. Luminous Ambient Glow',
-    effect_6_desc: 'Monochrome luminous halo expanding outward with slight scaling.',
+    effect_6_name: '06. Breathing Ambient Aura',
+    effect_6_desc: 'Soft atmospheric luminous aura that gently pulses and breathes continuously around the button.',
     effect_6_cat: 'Monochrome B&W',
     // Effect 7
     effect_7_name: '07. Radial Expansion Ripple',
@@ -132,16 +132,16 @@ export const TRANSLATIONS = {
     effect_9_desc: 'Upward floating motion with a smooth 45° icon rotation.',
     effect_9_cat: 'Monochrome B&W',
     // Effect 10
-    effect_10_name: '10. Contrast Lens Focus',
-    effect_10_desc: 'Lens focus effect with central expansion and sharp contrast inversion.',
+    effect_10_name: '10. Bi-Directional Split Shutter',
+    effect_10_desc: 'Two symmetrical shutters slide in from top and bottom to lock at the center with instant color inversion.',
     effect_10_cat: 'Monochrome B&W',
     // Effect 11
     effect_11_name: '11. Text Elevator Roll',
     effect_11_desc: 'Text rolls upward out of the button with strict overflow masking.',
     effect_11_cat: 'Monochrome B&W',
     // Effect 12
-    effect_12_name: '12. Neon Acid Lime Shift',
-    effect_12_desc: 'Dynamic high-intensity neon acid green (#CCFF00) fill.',
+    effect_12_name: '12. Neon Tube',
+    effect_12_desc: 'Instant electric neon ignition with high-voltage glow aura and luminous glowing text.',
     effect_12_cat: 'Accent Couleur',
     // Effect 13
     effect_13_name: '13. Outline Border Weight',
@@ -326,8 +326,8 @@ export const TRANSLATIONS = {
     effect_5_desc: 'Métamorphose fluide des angles (arrondi vers carré brut ou carré vers pilule) avec inversion contrastée et surélévation tactile.',
     effect_5_cat: 'Glissements & Mouvements',
     // Effect 6
-    effect_6_name: '06. Halo Lumineux',
-    effect_6_desc: 'Halo lumineux monochrome qui se déploie avec un léger grossissement.',
+    effect_6_name: '06. Halo Respirant',
+    effect_6_desc: 'Aura lumineuse atmosphérique qui pulse doucement en continu autour du bouton.',
     effect_6_cat: 'Monochrome B&W',
     // Effect 7
     effect_7_name: '07. Expansion Radiale',
@@ -342,16 +342,16 @@ export const TRANSLATIONS = {
     effect_9_desc: 'Flottement vers le haut avec rotation fluide de 45° de l’icône.',
     effect_9_cat: 'Monochrome B&W',
     // Effect 10
-    effect_10_name: '10. Loupe Contrastée',
-    effect_10_desc: 'Effet loupe/objectif avec expansion du centre et inversion nette du contraste.',
+    effect_10_name: '10. Double Volet Split',
+    effect_10_desc: 'Deux volets symétriques glissent depuis le haut et le bas pour se rejoindre au centre avec inversion instantanée des couleurs.',
     effect_10_cat: 'Monochrome B&W',
     // Effect 11
     effect_11_name: '11. Ascenseur Texte',
     effect_11_desc: 'Le texte monte hors du bouton avec un masquage strict pour éviter tout débordement.',
     effect_11_cat: 'Monochrome B&W',
     // Effect 12
-    effect_12_name: '12. Vert Acide Néon',
-    effect_12_desc: 'Remplissage dynamique en vert acide néon (#CCFF00) haute intensité.',
+    effect_12_name: '12. Néon',
+    effect_12_desc: 'Allumage électrique instantané façon tube néon avec halo haute tension et rayonnement du texte.',
     effect_12_cat: 'Accent Couleur',
     // Effect 13
     effect_13_name: '13. Épaississement Bordure',
@@ -532,8 +532,8 @@ export const TRANSLATIONS = {
     effect_5_desc: 'Metamorfosis fluida de esquinas (redondeado a cuadrado, o cuadrado a píldora) con inversión de color y elevación táctil.',
     effect_5_cat: 'Deslizamiento y Movimiento',
     // Effect 6
-    effect_6_name: '06. Halo Luminoso',
-    effect_6_desc: 'Halo luminoso monocromo que se despliega con un ligero aumento de tamaño.',
+    effect_6_name: '06. Halo Respiratorio',
+    effect_6_desc: 'Aura luminosa atmosférica que pulsa suavemente de forma continua alrededor del botón.',
     effect_6_cat: 'Monochrome B&W',
     // Effect 7
     effect_7_name: '07. Expansión Radial',
@@ -548,16 +548,16 @@ export const TRANSLATIONS = {
     effect_9_desc: 'Movimiento flotante hacia arriba con rotación suave de 45° del icono.',
     effect_9_cat: 'Monochrome B&W',
     // Effect 10
-    effect_10_name: '10. Lente de Contraste',
-    effect_10_desc: 'Efecto de lente con expansión central e inversión de contraste definida.',
+    effect_10_name: '10. Doble Obturador Split',
+    effect_10_desc: 'Dos paneles simétricos se deslizan desde arriba y abajo uniéndose en el centro con inversión de color instantánea.',
     effect_10_cat: 'Monochrome B&W',
     // Effect 11
     effect_11_name: '11. Ascensor de Texto',
     effect_11_desc: 'El texto sube fuera del botón con enmascaramiento estricto para evitar desbordamiento.',
     effect_11_cat: 'Monochrome B&W',
     // Effect 12
-    effect_12_name: '12. Verde Ácido Neón',
-    effect_12_desc: 'Relleno dinámico en verde ácido neón (#CCFF00) de alta intensidad.',
+    effect_12_name: '12. Neón',
+    effect_12_desc: 'Encendido eléctrico instantáneo tipo tubo de neón con halo de alto voltaje y texto luminoso.',
     effect_12_cat: 'Accent Couleur',
     // Effect 13
     effect_13_name: '13. Grosor de Borde',
@@ -738,8 +738,8 @@ export const TRANSLATIONS = {
     effect_5_desc: 'Fließende Ecken-Metamorphose (abgerundet zu eckig oder eckig zu Pillenform) mit Farbinversion und taktilem Anheben.',
     effect_5_cat: 'Gleiten & Bewegung',
     // Effect 6
-    effect_6_name: '06. Leuchtender Halo-Glow',
-    effect_6_desc: 'Monochromer leuchtender Halo, der sich mit leichter Vergrößerung ausbreitet.',
+    effect_6_name: '06. Atmendes Halo',
+    effect_6_desc: 'Sanfte atmosphärische Leuchtaura, die kontinuierlich und ruhig um den Button pulsiert.',
     effect_6_cat: 'Monochrome B&W',
     // Effect 7
     effect_7_name: '07. Radiale Wellenexpansion',
@@ -754,16 +754,16 @@ export const TRANSLATIONS = {
     effect_9_desc: 'Schweben nach oben mit flüssiger 45°-Drehung des Icons.',
     effect_9_cat: 'Monochrome B&W',
     // Effect 10
-    effect_10_name: '10. Kontrast-Linse',
-    effect_10_desc: 'Linseneffekt mit zentraler Expansion und scharfer Kontrastinversion.',
+    effect_10_name: '10. Bi-Direktionaler Split-Verschluss',
+    effect_10_desc: 'Zwei symmetrische Lamellen gleiten von oben und unten zusammen und schließen in der Mitte mit Farbinversion.',
     effect_10_cat: 'Monochrome B&W',
     // Effect 11
     effect_11_name: '11. Text-Aufzug',
     effect_11_desc: 'Der Text rollt mit strikter Maskierung nach oben aus der Schaltfläche heraus.',
     effect_11_cat: 'Monochrome B&W',
     // Effect 12
-    effect_12_name: '12. Neon-Säure-Grün',
-    effect_12_desc: 'Dynamische Füllung in hochintensivem Neon-Säure-Grün (#CCFF00).',
+    effect_12_name: '12. Neon-Röhre',
+    effect_12_desc: 'Sofortige elektrische Neon-Zündung mit Hochspannungs-Aura und leuchtendem Text.',
     effect_12_cat: 'Accent Couleur',
     // Effect 13
     effect_13_name: '13. Rahmenverstärkung',

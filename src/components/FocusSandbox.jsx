@@ -360,10 +360,15 @@ export default function FocusSandbox({ effect, config, onClose, onOpenCode, t })
     (backdropId === 'custom' && (studioCustomBg.toLowerCase() === '#111111' || isColorDark(studioCustomBg)));
   const canvasThemeClass = isDarkCanvas ? 'canvas-dark' : 'canvas-light';
 
+  // Max radius for pill mode
+  const maxPillRadius = Math.max((dimensions.height - 1.5) / 2, 0);
+  const svgRx = config.borderRadiusValue === 999
+    ? maxPillRadius
+    : Math.min(config.borderRadiusValue, maxPillRadius);
+
   const radiusStyle = {
-    borderRadius: config.borderRadiusValue === 999 ? '9999px' : `${config.borderRadiusValue}px`,
+    borderRadius: config.borderRadiusValue === 999 ? `${Math.round(maxPillRadius || 24)}px` : `${config.borderRadiusValue}px`,
     '--btn-color': studioButtonColor,
-    transitionDuration: `${animSpeed}s`,
   };
 
   const isIconOnly = config.iconPosition === 'only';
@@ -380,12 +385,6 @@ export default function FocusSandbox({ effect, config, onClose, onOpenCode, t })
   const isSwapMorph = currentEffect.className.includes('btn-hover-icon-swap-morph');
   const isStaggerLiquid = currentEffect.className.includes('btn-hover-stagger-liquid');
   const isRollingEffect = currentEffect.className.includes('btn-hover-rolling-magic');
-
-  // Max radius for pill mode SVG rect
-  const maxPillRadius = Math.max((dimensions.height - 1.5) / 2, 0);
-  const svgRx = config.borderRadiusValue === 999
-    ? maxPillRadius
-    : Math.min(config.borderRadiusValue, maxPillRadius);
 
   const iconElement = (positionClass = '') => (
     <SelectedIconComp

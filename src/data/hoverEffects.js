@@ -198,21 +198,47 @@ export const HOVER_EFFECTS = [
   },
   {
     id: 6,
-    name: '06. Halo Lumineux',
+    name: '06. Halo Respirant',
     category: 'Monochrome B&W',
     className: 'btn-hover-glow-pulse',
-    description: 'Halo lumineux monochrome qui se déploie avec un léger grossissement.',
-    cssCode: `.btn-hover-glow-pulse {
-  transition: box-shadow var(--anim-speed, 0.35s) ease,
-              transform var(--anim-speed, 0.25s) ease,
-              background-color var(--anim-speed, 0.25s) ease;
+    description: 'Aura lumineuse atmosphérique qui pulse doucement en continu autour du bouton.',
+    cssCode: `@keyframes ambientAuraBreathing {
+  0%, 100% {
+    box-shadow: 0 0 16px var(--btn-color, #18181b),
+                0 0 32px var(--btn-color, #18181b);
+    transform: translateY(-2px) scale(1.02);
+  }
+  50% {
+    box-shadow: 0 0 28px var(--btn-color, #18181b),
+                0 0 56px var(--btn-color, #18181b);
+    transform: translateY(-3px) scale(1.03);
+  }
 }
 
-.btn-hover-glow-pulse:hover {
-  transform: scale(1.03);
-  box-shadow: 0 0 24px #18181b59,
-              0 0 48px #18181b33;
-  background-color: #18181b0d;
+.btn-hover-glow-pulse {
+  transition: transform var(--anim-speed, 0.3s) cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow var(--anim-speed, 0.3s) ease,
+              background-color var(--anim-speed, 0.3s) ease;
+}
+
+.btn-hover-glow-pulse:hover,
+.btn-hover-glow-pulse.is-auto-hovered {
+  animation: ambientAuraBreathing var(--anim-speed, 2s) ease-in-out infinite;
+  background-color: #18181b0a;
+}
+
+.btn-hover-glow-pulse:active {
+  animation: none;
+  transform: translateY(0) scale(0.99);
+}
+
+.btn-hover-glow-pulse .btn-icon {
+  transition: transform var(--anim-speed, 0.3s) cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.btn-hover-glow-pulse:hover .btn-icon,
+.btn-hover-glow-pulse.is-auto-hovered .btn-icon {
+  transform: scale(1.15);
 }`
   },
   {
@@ -327,35 +353,69 @@ export const HOVER_EFFECTS = [
   },
   {
     id: 10,
-    name: '10. Loupe Contrastée',
+    name: '10. Double Volet Split',
     category: 'Monochrome B&W',
     className: 'btn-hover-lens',
-    description: 'Effet loupe/objectif avec expansion du centre et inversion nette du contraste.',
+    description: 'Deux volets symétriques glissent depuis le haut et le bas pour se rejoindre au centre avec inversion instantanée des couleurs.',
     cssCode: `.btn-hover-lens {
   position: relative;
   overflow: hidden;
   z-index: 1;
-  transition: transform var(--anim-speed, 0.3s) cubic-bezier(0.34, 1.56, 0.64, 1);
+  transition: transform var(--anim-speed, 0.3s) cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow var(--anim-speed, 0.3s) ease;
 }
 
 .btn-hover-lens::before {
   content: '';
   position: absolute;
-  inset: -1px;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  height: 58%;
   background-color: var(--btn-color, #18181b);
-  transform: scale(0);
-  transition: transform var(--anim-speed, 0.4s) cubic-bezier(0.16, 1, 0.3, 1);
+  transform: translateY(-105%);
+  transition: transform var(--anim-speed, 0.35s) cubic-bezier(0.16, 1, 0.3, 1);
   z-index: -1;
 }
 
-.btn-hover-lens:hover::before {
-  transform: scale(1);
+.btn-hover-lens::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: -2px;
+  right: -2px;
+  height: 58%;
+  background-color: var(--btn-color, #18181b);
+  transform: translateY(105%);
+  transition: transform var(--anim-speed, 0.35s) cubic-bezier(0.16, 1, 0.3, 1);
+  z-index: -1;
 }
 
-.btn-hover-lens:hover {
+.btn-hover-lens:hover::before,
+.btn-hover-lens.is-auto-hovered::before,
+.btn-hover-lens:hover::after,
+.btn-hover-lens.is-auto-hovered::after {
+  transform: translateY(0);
+}
+
+.btn-hover-lens:hover,
+.btn-hover-lens.is-auto-hovered {
   color: var(--btn-bg, #ffffff) !important;
-  border-color: var(--btn-color, #18181b) !important;
-  transform: scale(1.03);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px -4px #00000029;
+}
+
+.btn-hover-lens:active {
+  transform: translateY(0);
+}
+
+.btn-hover-lens .btn-icon {
+  transition: transform var(--anim-speed, 0.3s) cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.btn-hover-lens:hover .btn-icon,
+.btn-hover-lens.is-auto-hovered .btn-icon {
+  transform: translateX(4px) scale(1.1);
 }`
   },
   {
@@ -402,39 +462,73 @@ export const HOVER_EFFECTS = [
   },
   {
     id: 12,
-    name: '12. Vert Acide Néon',
+    name: '12. Néon',
     category: 'Accent Couleur',
     className: 'btn-hover-color-acid',
-    description: 'Remplissage dynamique en vert acide néon (#CCFF00) haute intensité.',
-    cssCode: `.btn-hover-color-acid {
+    description: 'Allumage électrique instantané façon tube néon avec halo haute tension et rayonnement du texte.',
+    cssCode: `@keyframes neonFlickerIgnition {
+  0% {
+    opacity: 0.8;
+    box-shadow: 0 0 4px var(--btn-color, #ccff00);
+  }
+  15% {
+    opacity: 0.4;
+    box-shadow: none;
+  }
+  30% {
+    opacity: 1;
+    box-shadow: 0 0 15px var(--btn-color, #ccff00),
+                0 0 35px var(--btn-color, #ccff00);
+  }
+  45% {
+    opacity: 0.7;
+    box-shadow: 0 0 6px var(--btn-color, #ccff00);
+  }
+  60% {
+    opacity: 1;
+    box-shadow: 0 0 20px var(--btn-color, #ccff00),
+                0 0 45px var(--btn-color, #ccff00),
+                inset 0 0 12px var(--btn-color, #ccff00);
+  }
+  100% {
+    opacity: 1;
+    box-shadow: 0 0 20px var(--btn-color, #ccff00),
+                0 0 45px var(--btn-color, #ccff00),
+                inset 0 0 12px var(--btn-color, #ccff00);
+  }
+}
+
+.btn-hover-color-acid {
   position: relative;
-  overflow: hidden;
-  z-index: 1;
-  transition: color var(--anim-speed, 0.3s) ease,
-              border-color var(--anim-speed, 0.3s) ease,
-              transform var(--anim-speed, 0.25s) ease;
+  transition: color var(--anim-speed, 0.2s) ease,
+              border-color var(--anim-speed, 0.2s) ease,
+              transform var(--anim-speed, 0.25s) ease,
+              box-shadow var(--anim-speed, 0.25s) ease,
+              text-shadow var(--anim-speed, 0.25s) ease;
 }
 
-.btn-hover-color-acid::before {
-  content: '';
-  position: absolute;
-  inset: -1px;
-  background-color: #CCFF00;
-  transform: scaleY(0);
-  transform-origin: bottom center;
-  transition: transform var(--anim-speed, 0.35s) cubic-bezier(0.16, 1, 0.3, 1);
-  z-index: -1;
+.btn-hover-color-acid:hover,
+.btn-hover-color-acid.is-auto-hovered {
+  animation: neonFlickerIgnition 0.4s ease-out forwards;
+  color: var(--btn-color, #ccff00) !important;
+  border-color: var(--btn-color, #ccff00) !important;
+  text-shadow: 0 0 8px var(--btn-color, #ccff00),
+               0 0 18px var(--btn-color, #ccff00);
+  transform: translateY(-2px) scale(1.02);
+  background-color: #00000033;
 }
 
-.btn-hover-color-acid:hover::before {
-  transform: scaleY(1);
+.btn-hover-color-acid:active {
+  transform: translateY(0) scale(0.99);
 }
 
-.btn-hover-color-acid:hover {
-  color: #000000 !important;
-  border-color: #CCFF00 !important;
-  transform: scale(1.03);
-  box-shadow: 0 0 20px #ccff0066;
+.btn-hover-color-acid .btn-icon {
+  transition: transform var(--anim-speed, 0.25s) cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.btn-hover-color-acid:hover .btn-icon,
+.btn-hover-color-acid.is-auto-hovered .btn-icon {
+  transform: scale(1.2);
 }`
   },
   {
