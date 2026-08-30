@@ -1,62 +1,91 @@
-/* 23. Tracé SVG Circuit Élégant (Clean Single Line Circuit Sweep) */
-.btn-hover-outline-draw-glow {
-  position: relative;
-  border: none !important;
-  background-color: transparent !important;
-  transition: transform 0.25s ease;
-}
-
-.btn-hover-outline-draw-glow .btn-svg-border {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-  overflow: visible;
-  border-radius: inherit;
-}
-
-.btn-hover-outline-draw-glow .btn-svg-rect-draw {
-  fill: transparent;
-  stroke: var(--btn-color, #18181b);
-  stroke-width: 1.5;
-  pathLength: 100;
-  stroke-dasharray: 100 0;
-  stroke-dashoffset: 0;
-  transition: fill 0.3s ease, stroke-dasharray 0.35s ease, stroke-dashoffset 0.35s ease;
-}
-
-@keyframes svgCleanCircuitSweep {
+/* 23. Scanner Laser Holographique (Cyber Scanline Sweep) */
+@keyframes cyberLaserScan {
   0% {
-    stroke-dasharray: 100 0;
-    stroke-dashoffset: 0;
+    top: -20%;
+    opacity: 0;
   }
-  20% {
-    stroke-dasharray: 25 75;
-    stroke-dashoffset: -5;
+  15% {
+    opacity: 1;
   }
-  80% {
-    stroke-dasharray: 25 75;
-    stroke-dashoffset: -75;
+  85% {
+    opacity: 1;
   }
   100% {
-    stroke-dasharray: 100 0;
-    stroke-dashoffset: -100;
+    top: 120%;
+    opacity: 0;
   }
 }
 
-.btn-hover-outline-draw-glow:hover .btn-svg-rect-draw,
-.btn-hover-outline-draw-glow.is-auto-hovered .btn-svg-rect-draw {
-  fill: #18181b0d;
-  animation: svgCleanCircuitSweep var(--anim-speed, 0.85s) cubic-bezier(0.25, 1, 0.5, 1) forwards;
+.btn-hover-outline-draw-glow {
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+  transition: transform var(--anim-speed, 0.3s) cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow var(--anim-speed, 0.3s) ease,
+              border-color var(--anim-speed, 0.3s) ease,
+              color var(--anim-speed, 0.3s) ease;
 }
 
-.canvas-dark .btn-hover-outline-draw-glow:hover .btn-svg-rect-draw,
-.canvas-dark .btn-hover-outline-draw-glow.is-auto-hovered .btn-svg-rect-draw {
-  fill: #ffffff14;
+/* Background luminous beam / trail */
+.btn-hover-outline-draw-glow::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  background: linear-gradient(
+    180deg,
+    transparent 0%,
+    var(--btn-color, #18181b) 50%,
+    transparent 100%
+  );
+  opacity: 0;
+  transform: translateY(-100%);
+  transition: transform var(--anim-speed, 0.6s) ease, opacity var(--anim-speed, 0.3s) ease;
+  z-index: -1;
+}
+
+/* Sharp Laser Line */
+.btn-hover-outline-draw-glow::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background-color: var(--btn-color, #18181b);
+  box-shadow: 0 0 12px var(--btn-color, #18181b),
+              0 0 24px var(--btn-color, #18181b);
+  opacity: 0;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.btn-hover-outline-draw-glow:hover::before,
+.btn-hover-outline-draw-glow.is-auto-hovered::before {
+  opacity: 0.12;
+  transform: translateY(0);
+}
+
+.btn-hover-outline-draw-glow:hover::after,
+.btn-hover-outline-draw-glow.is-auto-hovered::after {
+  animation: cyberLaserScan var(--anim-speed, 1s) cubic-bezier(0.4, 0, 0.2, 1) infinite;
 }
 
 .btn-hover-outline-draw-glow:hover,
 .btn-hover-outline-draw-glow.is-auto-hovered {
   transform: translateY(-2px);
+  box-shadow: 0 8px 24px -4px #00000029,
+              0 0 15px var(--btn-color, #18181b);
 }
+
+.btn-hover-outline-draw-glow:active {
+  transform: translateY(0);
+}
+
+.btn-hover-outline-draw-glow .btn-icon {
+  transition: transform var(--anim-speed, 0.3s) cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.btn-hover-outline-draw-glow:hover .btn-icon,
+.btn-hover-outline-draw-glow.is-auto-hovered .btn-icon {
+  transform: translateX(4px);
+}
+

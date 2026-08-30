@@ -1,53 +1,65 @@
-/* ==========================================================================
-   Effect 24: Volet Diagonal Bicolore (Diagonal Shutter Fill)
-   Category: Fills & Sweeps
-   ========================================================================== */
-
+/* 24. Volet Diagonal (Diagonal Blade Shutter) */
 .btn-hover-diagonal-shutter {
   position: relative;
   overflow: hidden;
   z-index: 1;
-  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease;
+  transition: transform var(--anim-speed, 0.3s) cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow var(--anim-speed, 0.3s) ease;
 }
 
-.btn-hover-diagonal-shutter::before,
+/* Top-Left Diagonal Blade */
+.btn-hover-diagonal-shutter::before {
+  content: '';
+  position: absolute;
+  top: -4px;
+  bottom: -4px;
+  left: -25%;
+  width: 80%;
+  background-color: var(--btn-color, #18181b);
+  transform: skewX(-30deg) translateX(-150%);
+  transition: transform var(--anim-speed, 0.38s) cubic-bezier(0.16, 1, 0.3, 1);
+  z-index: -1;
+}
+
+/* Bottom-Right Diagonal Blade */
 .btn-hover-diagonal-shutter::after {
   content: '';
   position: absolute;
-  width: 130%;
-  height: 130%;
+  top: -4px;
+  bottom: -4px;
+  right: -25%;
+  width: 80%;
   background-color: var(--btn-color, #18181b);
-  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  transform: skewX(-30deg) translateX(150%);
+  transition: transform var(--anim-speed, 0.38s) cubic-bezier(0.16, 1, 0.3, 1);
   z-index: -1;
-  pointer-events: none;
-}
-
-.btn-hover-diagonal-shutter::before {
-  top: -130%;
-  left: -130%;
-  transform: rotate(25deg);
-}
-
-.btn-hover-diagonal-shutter::after {
-  bottom: -130%;
-  right: -130%;
-  transform: rotate(25deg);
 }
 
 .btn-hover-diagonal-shutter:hover::before,
-.btn-hover-diagonal-shutter.is-auto-hovered::before {
-  transform: translate(65%, 65%) rotate(25deg);
-}
-
+.btn-hover-diagonal-shutter.is-auto-hovered::before,
 .btn-hover-diagonal-shutter:hover::after,
 .btn-hover-diagonal-shutter.is-auto-hovered::after {
-  transform: translate(-65%, -65%) rotate(25deg);
+  transform: skewX(-30deg) translateX(0);
 }
 
 .btn-hover-diagonal-shutter:hover,
 .btn-hover-diagonal-shutter.is-auto-hovered {
   color: var(--btn-bg, #ffffff) !important;
   border-color: var(--btn-color, #18181b) !important;
-  transform: translateY(-3px) scale(1.02);
-  box-shadow: 0 10px 24px -4px #18181b2e;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px -4px #00000029;
 }
+
+.btn-hover-diagonal-shutter:active {
+  transform: translateY(0);
+}
+
+.btn-hover-diagonal-shutter .btn-icon {
+  transition: transform var(--anim-speed, 0.3s) cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.btn-hover-diagonal-shutter:hover .btn-icon,
+.btn-hover-diagonal-shutter.is-auto-hovered .btn-icon {
+  transform: translateX(4px) scale(1.1);
+}
+

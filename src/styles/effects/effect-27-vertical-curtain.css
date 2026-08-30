@@ -1,42 +1,45 @@
-/* 27. Rideau Vertical (Vertical Curtain) */
+/* 27. Rideau de Scène Horizontal (Horizontal Theatre Curtain) */
 .btn-hover-vertical-curtain {
   position: relative;
   overflow: hidden;
   z-index: 1;
-  transition: transform var(--anim-speed, 0.3s) cubic-bezier(0.16, 1, 0.3, 1);
+  transition: transform var(--anim-speed, 0.3s) cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow var(--anim-speed, 0.3s) ease;
 }
 
-.btn-hover-vertical-curtain::before,
+/* Left Curtain Panel */
+.btn-hover-vertical-curtain::before {
+  content: '';
+  position: absolute;
+  top: -2px;
+  bottom: -2px;
+  left: -2px;
+  width: 56%;
+  background-color: var(--btn-color, #18181b);
+  transform: translateX(-105%);
+  transition: transform var(--anim-speed, 0.35s) cubic-bezier(0.16, 1, 0.3, 1);
+  z-index: -1;
+}
+
+/* Right Curtain Panel */
 .btn-hover-vertical-curtain::after {
   content: '';
   position: absolute;
-  left: -1px;
-  width: calc(100% + 2px);
-  height: 55%;
+  top: -2px;
+  bottom: -2px;
+  right: -2px;
+  width: 56%;
   background-color: var(--btn-color, #18181b);
+  transform: translateX(105%);
+  transition: transform var(--anim-speed, 0.35s) cubic-bezier(0.16, 1, 0.3, 1);
   z-index: -1;
-  transition: transform var(--anim-speed, 0.4s) cubic-bezier(0.16, 1, 0.3, 1);
-  pointer-events: none;
-}
-
-.btn-hover-vertical-curtain::before {
-  top: 0;
-  transform: translateY(-100%);
-}
-
-.btn-hover-vertical-curtain::after {
-  bottom: 0;
-  transform: translateY(100%);
 }
 
 .btn-hover-vertical-curtain:hover::before,
-.btn-hover-vertical-curtain.is-auto-hovered::before {
-  transform: translateY(0);
-}
-
+.btn-hover-vertical-curtain.is-auto-hovered::before,
 .btn-hover-vertical-curtain:hover::after,
 .btn-hover-vertical-curtain.is-auto-hovered::after {
-  transform: translateY(0);
+  transform: translateX(0);
 }
 
 .btn-hover-vertical-curtain:hover,
@@ -44,5 +47,20 @@
   color: var(--btn-bg, #ffffff) !important;
   border-color: var(--btn-color, #18181b) !important;
   transform: translateY(-2px);
+  box-shadow: 0 8px 24px -4px #00000029;
 }
+
+.btn-hover-vertical-curtain:active {
+  transform: translateY(0);
+}
+
+.btn-hover-vertical-curtain .btn-icon {
+  transition: transform var(--anim-speed, 0.3s) cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.btn-hover-vertical-curtain:hover .btn-icon,
+.btn-hover-vertical-curtain.is-auto-hovered .btn-icon {
+  transform: translateX(4px) scale(1.1);
+}
+
 

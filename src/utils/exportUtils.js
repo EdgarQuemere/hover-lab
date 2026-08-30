@@ -80,6 +80,13 @@ export function generateHtmlSnippet(effect, config = {}) {
   }
 
   if (effect.className.includes('btn-hover-icon-swap-morph')) {
+    if (config.iconPosition === 'right') {
+      const swapIcon = getIconSvg('btn-icon-swap-right');
+      return `<button class="${className} swap-from-right">
+  <span class="btn-content-wrap">${text}</span>
+  ${swapIcon}
+</button>`;
+    }
     const swapIcon = getIconSvg('btn-icon-swap-left');
     return `<button class="${className}">
   ${swapIcon}
@@ -102,25 +109,6 @@ export function generateHtmlSnippet(effect, config = {}) {
     return `<button class="${className}">
   <svg class="btn-svg-border" width="100%" height="100%">
     <rect class="btn-svg-rect" x="0.75" y="0.75" width="calc(100% - 1.5px)" height="calc(100% - 1.5px)" rx="${radius}" ry="${radius}" pathLength="100"/>
-  </svg>
-  ${leftSvg ? `${leftSvg}\n  ` : ''}${!isIconOnly ? `<span>${text}</span>` : ''}${rightSvg ? `\n  ${rightSvg}` : ''}
-</button>`;
-  }
-
-  if (effect.className.includes('btn-hover-outline-dual-pulse')) {
-    return `<button class="${className}">
-  <svg class="btn-svg-border" width="100%" height="100%">
-    <rect class="btn-svg-rect-pulse-1" x="0.75" y="0.75" width="calc(100% - 1.5px)" height="calc(100% - 1.5px)" rx="${radius}" ry="${radius}" pathLength="100"/>
-    <rect class="btn-svg-rect-pulse-2" x="0.75" y="0.75" width="calc(100% - 1.5px)" height="calc(100% - 1.5px)" rx="${radius}" ry="${radius}" pathLength="100"/>
-  </svg>
-  ${leftSvg ? `${leftSvg}\n  ` : ''}${!isIconOnly ? `<span>${text}</span>` : ''}${rightSvg ? `\n  ${rightSvg}` : ''}
-</button>`;
-  }
-
-  if (effect.className.includes('btn-hover-outline-draw-glow')) {
-    return `<button class="${className}">
-  <svg class="btn-svg-border" width="100%" height="100%">
-    <rect class="btn-svg-rect-draw" x="0.75" y="0.75" width="calc(100% - 1.5px)" height="calc(100% - 1.5px)" rx="${radius}" ry="${radius}" pathLength="100"/>
   </svg>
   ${leftSvg ? `${leftSvg}\n  ` : ''}${!isIconOnly ? `<span>${text}</span>` : ''}${rightSvg ? `\n  ${rightSvg}` : ''}
 </button>`;

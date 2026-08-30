@@ -1,52 +1,125 @@
-/* ==========================================================================
-   Effect 25: Réfraction Holographique (Holographic Prism Glitch)
-   Category: Special FX & Particles
-   ========================================================================== */
+/* 25. Glitch Holographique (Cyber Chromatic Glitch) */
+@keyframes cyberChromaticJitter {
+  0% {
+    transform: translateX(0);
+    text-shadow: -2px 0 #00ffff, 2px 0 #ff0055;
+  }
+  15% {
+    transform: translateX(-2px) skewX(-2deg);
+    text-shadow: 3px -1px #00ffff, -3px 1px #ff0055;
+  }
+  30% {
+    transform: translateX(2px) skewX(2deg);
+    text-shadow: -3px 1px #00ffff, 3px -1px #ff0055;
+  }
+  45% {
+    transform: translateX(-1px);
+    text-shadow: 2px 0 #00ffff, -2px 0 #ff0055;
+  }
+  60% {
+    transform: translateX(1px);
+    text-shadow: -1.5px 0 #00ffff, 1.5px 0 #ff0055;
+  }
+  75% {
+    transform: translateX(0);
+    text-shadow: 1px 0 #00ffff, -1px 0 #ff0055;
+  }
+  100% {
+    transform: translateX(0);
+    text-shadow: -1px 0 #00ffff, 1px 0 #ff0055;
+  }
+}
 
 .btn-hover-holographic-glitch {
   position: relative;
   overflow: hidden;
-  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease, border-color 0.3s ease;
+  z-index: 1;
+  transition: transform var(--anim-speed, 0.3s) cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow var(--anim-speed, 0.3s) ease,
+              border-color var(--anim-speed, 0.3s) ease,
+              color var(--anim-speed, 0.3s) ease,
+              background-color var(--anim-speed, 0.3s) ease;
 }
 
+/* Hologram Prism Laser Band */
 .btn-hover-holographic-glitch::before {
   content: '';
   position: absolute;
   top: -50%;
-  left: -150%;
-  width: 220%;
+  left: -100%;
+  width: 60%;
   height: 200%;
   background: linear-gradient(
-    115deg,
-    transparent 20%,
-    #00f0ff73 38%,
-    #ff008073 50%,
-    #ccff0073 62%,
-    transparent 80%
+    90deg,
+    transparent 0%,
+    rgba(0, 255, 255, 0.35) 40%,
+    rgba(255, 0, 128, 0.4) 50%,
+    rgba(0, 255, 255, 0.35) 60%,
+    transparent 100%
   );
   transform: rotate(25deg);
-  transition: transform var(--anim-speed, 0.75s) cubic-bezier(0.19, 1, 0.22, 1);
+  transition: transform 0s ease;
   pointer-events: none;
-  z-index: 1;
+  z-index: -1;
+}
+
+/* CRT Holo Scanlines */
+.btn-hover-holographic-glitch::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    rgba(0, 255, 255, 0.05) 0px,
+    rgba(0, 255, 255, 0.05) 1px,
+    transparent 1px,
+    transparent 3px
+  );
+  opacity: 0;
+  transition: opacity var(--anim-speed, 0.3s) ease;
+  pointer-events: none;
+  z-index: -1;
 }
 
 .btn-hover-holographic-glitch:hover::before,
 .btn-hover-holographic-glitch.is-auto-hovered::before {
-  transform: translateX(180%) rotate(25deg);
+  transform: translateX(450%) rotate(25deg);
+  transition: transform var(--anim-speed, 0.7s) cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.btn-hover-holographic-glitch:hover::after,
+.btn-hover-holographic-glitch.is-auto-hovered::after {
+  opacity: 1;
 }
 
 .btn-hover-holographic-glitch:hover,
 .btn-hover-holographic-glitch.is-auto-hovered {
-  transform: translateY(-3px) scale(1.025);
-  box-shadow: 0 8px 24px #00f0ff40, 0 2px 10px #ff008033;
-  border-color: #00f0ff99 !important;
+  border-color: #00ffff !important;
+  color: #00ffff !important;
+  background-color: rgba(0, 255, 255, 0.08);
+  transform: translateY(-2px);
+  box-shadow: 0 0 20px rgba(0, 255, 255, 0.4),
+              0 0 45px rgba(255, 0, 128, 0.25);
 }
 
+.btn-hover-holographic-glitch:active {
+  transform: translateY(0);
+}
+
+.btn-hover-holographic-glitch span,
 .btn-hover-holographic-glitch .btn-icon {
-  transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+  display: inline-flex;
+  align-items: center;
+  position: relative;
+  z-index: 2;
+  transition: transform var(--anim-speed, 0.3s) ease, text-shadow var(--anim-speed, 0.3s) ease;
 }
 
+.btn-hover-holographic-glitch:hover span,
+.btn-hover-holographic-glitch.is-auto-hovered span,
 .btn-hover-holographic-glitch:hover .btn-icon,
 .btn-hover-holographic-glitch.is-auto-hovered .btn-icon {
-  transform: scale(1.2) rotate(-12deg);
+  animation: cyberChromaticJitter 0.45s ease-out;
 }
+
+

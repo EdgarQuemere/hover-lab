@@ -201,39 +201,55 @@ export const HOVER_EFFECTS = [
     name: '06. Halo Respirant',
     category: 'Monochrome B&W',
     className: 'btn-hover-glow-pulse',
-    description: 'Aura lumineuse atmosphérique qui pulse doucement en continu autour du bouton.',
+    description: 'Aura lumineuse atmosphérique avec apparition et disparition en fondu progressif ultra-doux.',
     cssCode: `@keyframes ambientAuraBreathing {
   0%, 100% {
     box-shadow: 0 0 16px var(--btn-color, #18181b),
                 0 0 32px var(--btn-color, #18181b);
-    transform: translateY(-2px) scale(1.02);
+    transform: scale(1);
   }
   50% {
     box-shadow: 0 0 28px var(--btn-color, #18181b),
-                0 0 56px var(--btn-color, #18181b);
-    transform: translateY(-3px) scale(1.03);
+                0 0 52px var(--btn-color, #18181b);
+    transform: scale(1.02);
   }
 }
 
 .btn-hover-glow-pulse {
-  transition: transform var(--anim-speed, 0.3s) cubic-bezier(0.16, 1, 0.3, 1),
-              box-shadow var(--anim-speed, 0.3s) ease,
-              background-color var(--anim-speed, 0.3s) ease;
+  position: relative;
+  transition: transform var(--anim-speed, 0.4s) cubic-bezier(0.16, 1, 0.3, 1),
+              background-color var(--anim-speed, 0.4s) ease;
+}
+
+.btn-hover-glow-pulse::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity var(--anim-speed, 0.45s) ease;
+  z-index: -1;
+}
+
+.btn-hover-glow-pulse:hover::before,
+.btn-hover-glow-pulse.is-auto-hovered::before {
+  opacity: 1;
+  animation: ambientAuraBreathing 2.2s ease-in-out infinite;
 }
 
 .btn-hover-glow-pulse:hover,
 .btn-hover-glow-pulse.is-auto-hovered {
-  animation: ambientAuraBreathing var(--anim-speed, 2s) ease-in-out infinite;
+  transform: translateY(-2px);
   background-color: #18181b0a;
 }
 
 .btn-hover-glow-pulse:active {
-  animation: none;
   transform: translateY(0) scale(0.99);
 }
 
 .btn-hover-glow-pulse .btn-icon {
-  transition: transform var(--anim-speed, 0.3s) cubic-bezier(0.34, 1.56, 0.64, 1);
+  transition: transform var(--anim-speed, 0.4s) cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
 .btn-hover-glow-pulse:hover .btn-icon,
@@ -754,10 +770,10 @@ export const HOVER_EFFECTS = [
   },
   {
     id: 19,
-    name: '19. Permutation Icône & Mot',
+    name: '19. Permutation Icône & Texte',
     category: 'Effets Spéciaux',
     className: 'btn-hover-icon-swap-morph',
-    description: 'Au survol, le mot et le picto permutent exactement leurs positions tout en conservant le même border-radius qu’à l’entrée avec un remplissage expansif.',
+    description: 'Au survol, le mot et l’icône permutent harmonieusement leurs positions avec remplissage contrasté.',
     cssCode: `.btn-hover-icon-swap-morph {
   position: relative;
   overflow: hidden;
@@ -765,51 +781,69 @@ export const HOVER_EFFECTS = [
   align-items: center;
   justify-content: center;
   gap: 8px;
-  --swap-text-x: -25px;
-  --swap-icon-x: 56px;
-  transition: transform 0.25s ease,
-              background-color 0.3s ease,
-              color 0.3s ease;
+  z-index: 1;
+  --swap-text-x: -26px;
+  --swap-icon-x: 76px;
+  transition: transform var(--anim-speed, 0.3s) cubic-bezier(0.16, 1, 0.3, 1),
+              background-color var(--anim-speed, 0.3s) ease,
+              border-color var(--anim-speed, 0.3s) ease,
+              color var(--anim-speed, 0.3s) ease,
+              box-shadow var(--anim-speed, 0.3s) ease;
+}
+
+.btn-size-sm.btn-hover-icon-swap-morph {
+  --swap-text-x: -22px;
+  --swap-icon-x: 66px;
+}
+
+.btn-size-lg.btn-hover-icon-swap-morph {
+  --swap-text-x: -29px;
+  --swap-icon-x: 87px;
 }
 
 .btn-hover-icon-swap-morph::before {
-  content: "";
+  content: '';
   position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%) scale(0);
-  width: 100%;
-  height: 100%;
-  min-width: 260px;
-  min-height: 260px;
+  inset: -1px;
   background-color: var(--btn-color, #18181b);
-  border-radius: 50%;
-  opacity: 0;
-  transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1), opacity 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+  transform: scale(0);
+  border-radius: inherit;
+  transition: transform var(--anim-speed, 0.4s) cubic-bezier(0.16, 1, 0.3, 1);
   z-index: -1;
 }
 
-.btn-hover-icon-swap-morph:hover::before {
-  transform: translate(-50%, -50%) scale(1);
-  opacity: 1;
+.btn-hover-icon-swap-morph:hover::before,
+.btn-hover-icon-swap-morph.is-auto-hovered::before {
+  transform: scale(1);
 }
 
 .btn-hover-icon-swap-morph .btn-content-wrap,
 .btn-hover-icon-swap-morph .btn-icon-swap-left {
-  transition: transform 0.55s cubic-bezier(0.23, 1, 0.32, 1);
+  position: relative;
+  z-index: 1;
+  transition: transform var(--anim-speed, 0.45s) cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
-.btn-hover-icon-swap-morph:hover .btn-content-wrap {
+.btn-hover-icon-swap-morph:hover .btn-content-wrap,
+.btn-hover-icon-swap-morph.is-auto-hovered .btn-content-wrap {
   transform: translateX(var(--swap-text-x));
 }
 
-.btn-hover-icon-swap-morph:hover .btn-icon-swap-left {
+.btn-hover-icon-swap-morph:hover .btn-icon-swap-left,
+.btn-hover-icon-swap-morph.is-auto-hovered .btn-icon-swap-left {
   transform: translateX(var(--swap-icon-x));
 }
 
-.btn-hover-icon-swap-morph:hover {
+.btn-hover-icon-swap-morph:hover,
+.btn-hover-icon-swap-morph.is-auto-hovered {
   color: var(--btn-bg, #ffffff) !important;
   border-color: var(--btn-color, #18181b) !important;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px -4px #00000029;
+}
+
+.btn-hover-icon-swap-morph:active {
+  transform: translateY(0) scale(0.98);
 }`
   },
   {
@@ -915,212 +949,369 @@ export const HOVER_EFFECTS = [
   },
   {
     id: 22,
-    name: '22. Double Tracé SVG Opposé (Colliding Circuits)',
-    category: 'Transformations Outline',
+    name: '22. Double Onde Concentrique',
+    category: 'Effets Spéciaux',
     className: 'btn-hover-outline-dual-pulse',
-    description: 'Au survol, deux impulsions SVG s’élancent simultanément depuis des coins opposés (horaire & anti-horaire), se rencontrent avec un flash lumineux et scellent la bordure.',
-    cssCode: `.btn-hover-outline-dual-pulse {
+    description: 'Au survol, deux ondes de choc concentriques se propagent vers l’extérieur avec dissipation progressive de l’aura.',
+    cssCode: `@keyframes concentricWavePulse1 {
+  0% {
+    transform: scale(1);
+    opacity: 0.8;
+  }
+  100% {
+    transform: scale(1.35, 1.6);
+    opacity: 0;
+  }
+}
+
+@keyframes concentricWavePulse2 {
+  0% {
+    transform: scale(1);
+    opacity: 0.6;
+  }
+  100% {
+    transform: scale(1.6, 2.1);
+    opacity: 0;
+  }
+}
+
+.btn-hover-outline-dual-pulse {
   position: relative;
-  border: none !important;
-  background-color: transparent !important;
-  transition: transform var(--anim-speed, 0.3s) ease;
+  transition: transform var(--anim-speed, 0.3s) cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow var(--anim-speed, 0.3s) ease,
+              background-color var(--anim-speed, 0.3s) ease;
 }
 
-.btn-hover-outline-dual-pulse .btn-svg-border {
+.btn-hover-outline-dual-pulse::before,
+.btn-hover-outline-dual-pulse::after {
+  content: '';
   position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-  overflow: visible;
+  inset: -1px;
   border-radius: inherit;
+  border: 1.5px solid var(--btn-color, #18181b);
+  pointer-events: none;
+  opacity: 0;
+  z-index: -1;
 }
 
-.btn-hover-outline-dual-pulse .btn-svg-rect-pulse-1,
-.btn-hover-outline-dual-pulse .btn-svg-rect-pulse-2 {
-  fill: transparent;
-  stroke: var(--btn-color, #18181b);
-  stroke-width: 1.5;
-  pathLength: 100;
-  stroke-dasharray: 100 0;
-  stroke-dashoffset: 0;
-  transition: fill 0.35s ease;
+.btn-hover-outline-dual-pulse:hover::before,
+.btn-hover-outline-dual-pulse.is-auto-hovered::before {
+  animation: concentricWavePulse1 var(--anim-speed, 0.8s) cubic-bezier(0.16, 1, 0.3, 1) infinite;
 }
 
-@keyframes svgDualPulseCW {
-  0% { stroke-dasharray: 0 100; stroke-dashoffset: 0; }
-  50% { stroke-dasharray: 25 75; stroke-dashoffset: -25; }
-  100% { stroke-dasharray: 100 0; stroke-dashoffset: -50; }
+.btn-hover-outline-dual-pulse:hover::after,
+.btn-hover-outline-dual-pulse.is-auto-hovered::after {
+  animation: concentricWavePulse2 var(--anim-speed, 0.8s) cubic-bezier(0.16, 1, 0.3, 1) infinite;
+  animation-delay: 0.18s;
 }
 
-@keyframes svgDualPulseCCW {
-  0% { stroke-dasharray: 0 100; stroke-dashoffset: 0; }
-  50% { stroke-dasharray: 25 75; stroke-dashoffset: 25; }
-  100% { stroke-dasharray: 100 0; stroke-dashoffset: 50; }
+.btn-hover-outline-dual-pulse:hover,
+.btn-hover-outline-dual-pulse.is-auto-hovered {
+  transform: translateY(-2px) scale(1.02);
+  background-color: #18181b0f;
+  box-shadow: 0 0 20px var(--btn-color, #18181b);
 }
 
-.btn-hover-outline-dual-pulse:hover .btn-svg-rect-pulse-1 {
-  fill: #18181b0d;
-  animation: svgDualPulseCW var(--anim-speed, 0.85s) cubic-bezier(0.25, 1, 0.5, 1) forwards;
+.btn-hover-outline-dual-pulse:active {
+  transform: translateY(0) scale(0.98);
 }
 
-.btn-hover-outline-dual-pulse:hover .btn-svg-rect-pulse-2 {
-  animation: svgDualPulseCCW var(--anim-speed, 0.85s) cubic-bezier(0.25, 1, 0.5, 1) forwards;
+.btn-hover-outline-dual-pulse .btn-icon {
+  transition: transform var(--anim-speed, 0.3s) cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
-.btn-hover-outline-dual-pulse:hover {
-  transform: translateY(-2px);
+.btn-hover-outline-dual-pulse:hover .btn-icon,
+.btn-hover-outline-dual-pulse.is-auto-hovered .btn-icon {
+  transform: scale(1.2);
 }`
   },
   {
     id: 23,
-    name: '23. Tracé SVG Circuit Monochromatique',
-    category: 'Transformations Outline',
+    name: '23. Scanner Laser Holographique',
+    category: 'Effets Spéciaux',
     className: 'btn-hover-outline-draw-glow',
-    description: 'Le bouton possède son contour complet au repos. Au survol, une ouverture balaye le circuit à 360° avant de se refermer hermétiquement.',
-    cssCode: `.btn-hover-outline-draw-glow {
+    description: 'Une ligne laser haute intensité balaie verticalement le bouton avec projection lumineuse et aura d’énergie.',
+    cssCode: `@keyframes cyberLaserScan {
+  0% {
+    top: -20%;
+    opacity: 0;
+  }
+  15% {
+    opacity: 1;
+  }
+  85% {
+    opacity: 1;
+  }
+  100% {
+    top: 120%;
+    opacity: 0;
+  }
+}
+
+.btn-hover-outline-draw-glow {
   position: relative;
-  border: none !important;
-  background-color: transparent !important;
-  transition: transform var(--anim-speed, 0.25s) ease;
+  overflow: hidden;
+  z-index: 1;
+  transition: transform var(--anim-speed, 0.3s) cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow var(--anim-speed, 0.3s) ease,
+              border-color var(--anim-speed, 0.3s) ease,
+              color var(--anim-speed, 0.3s) ease;
 }
 
-.btn-hover-outline-draw-glow .btn-svg-border {
+.btn-hover-outline-draw-glow::before {
+  content: '';
   position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
+  inset: -1px;
+  background: linear-gradient(
+    180deg,
+    transparent 0%,
+    var(--btn-color, #18181b) 50%,
+    transparent 100%
+  );
+  opacity: 0;
+  transform: translateY(-100%);
+  transition: transform var(--anim-speed, 0.6s) ease, opacity var(--anim-speed, 0.3s) ease;
+  z-index: -1;
+}
+
+.btn-hover-outline-draw-glow::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background-color: var(--btn-color, #18181b);
+  box-shadow: 0 0 12px var(--btn-color, #18181b),
+              0 0 24px var(--btn-color, #18181b);
+  opacity: 0;
+  z-index: 2;
   pointer-events: none;
-  overflow: visible;
-  border-radius: inherit;
 }
 
-.btn-hover-outline-draw-glow .btn-svg-rect-draw {
-  fill: transparent;
-  stroke: var(--btn-color, #18181b);
-  stroke-width: 1.5;
-  pathLength: 100;
-  stroke-dasharray: 100 0;
-  transition: fill 0.3s ease;
+.btn-hover-outline-draw-glow:hover::before,
+.btn-hover-outline-draw-glow.is-auto-hovered::before {
+  opacity: 0.12;
+  transform: translateY(0);
 }
 
-@keyframes svgCleanCircuitSweep {
-  0% { stroke-dasharray: 100 0; stroke-dashoffset: 0; }
-  20% { stroke-dasharray: 25 75; stroke-dashoffset: -5; }
-  80% { stroke-dasharray: 25 75; stroke-dashoffset: -75; }
-  100% { stroke-dasharray: 100 0; stroke-dashoffset: -100; }
+.btn-hover-outline-draw-glow:hover::after,
+.btn-hover-outline-draw-glow.is-auto-hovered::after {
+  animation: cyberLaserScan var(--anim-speed, 1s) cubic-bezier(0.4, 0, 0.2, 1) infinite;
 }
 
-.btn-hover-outline-draw-glow:hover .btn-svg-rect-draw {
-  fill: #18181b0d;
-  animation: svgCleanCircuitSweep var(--anim-speed, 0.85s) cubic-bezier(0.25, 1, 0.5, 1) forwards;
-}
-
-.btn-hover-outline-draw-glow:hover {
+.btn-hover-outline-draw-glow:hover,
+.btn-hover-outline-draw-glow.is-auto-hovered {
   transform: translateY(-2px);
+  box-shadow: 0 8px 24px -4px #00000029,
+              0 0 15px var(--btn-color, #18181b);
+}
+
+.btn-hover-outline-draw-glow:active {
+  transform: translateY(0);
+}
+
+.btn-hover-outline-draw-glow .btn-icon {
+  transition: transform var(--anim-speed, 0.3s) cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.btn-hover-outline-draw-glow:hover .btn-icon,
+.btn-hover-outline-draw-glow.is-auto-hovered .btn-icon {
+  transform: translateX(4px);
 }`
   },
   {
     id: 24,
-    name: '24. Volet Diagonal Bicolore',
+    name: '24. Volet Diagonal',
     category: 'Remplissages & Dégradés',
     className: 'btn-hover-diagonal-shutter',
-    description: 'Deux volets diagonaux s’unissent depuis des angles opposés avec surélévation tactile.',
+    description: 'Deux lames diagonales symétriques glissent à 30° depuis les coins opposés pour fermer le bouton.',
     cssCode: `.btn-hover-diagonal-shutter {
   position: relative;
   overflow: hidden;
   z-index: 1;
-  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease;
-}
-
-.btn-hover-diagonal-shutter::before,
-.btn-hover-diagonal-shutter::after {
-  content: '';
-  position: absolute;
-  width: 130%;
-  height: 130%;
-  background-color: var(--btn-color, #18181b);
-  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-  z-index: -1;
-  pointer-events: none;
+  transition: transform var(--anim-speed, 0.3s) cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow var(--anim-speed, 0.3s) ease;
 }
 
 .btn-hover-diagonal-shutter::before {
-  top: -130%;
-  left: -130%;
-  transform: rotate(25deg);
+  content: '';
+  position: absolute;
+  top: -4px;
+  bottom: -4px;
+  left: -25%;
+  width: 80%;
+  background-color: var(--btn-color, #18181b);
+  transform: skewX(-30deg) translateX(-150%);
+  transition: transform var(--anim-speed, 0.38s) cubic-bezier(0.16, 1, 0.3, 1);
+  z-index: -1;
 }
 
 .btn-hover-diagonal-shutter::after {
-  bottom: -130%;
-  right: -130%;
-  transform: rotate(25deg);
+  content: '';
+  position: absolute;
+  top: -4px;
+  bottom: -4px;
+  right: -25%;
+  width: 80%;
+  background-color: var(--btn-color, #18181b);
+  transform: skewX(-30deg) translateX(150%);
+  transition: transform var(--anim-speed, 0.38s) cubic-bezier(0.16, 1, 0.3, 1);
+  z-index: -1;
 }
 
-.btn-hover-diagonal-shutter:hover::before {
-  transform: translate(65%, 65%) rotate(25deg);
+.btn-hover-diagonal-shutter:hover::before,
+.btn-hover-diagonal-shutter.is-auto-hovered::before,
+.btn-hover-diagonal-shutter:hover::after,
+.btn-hover-diagonal-shutter.is-auto-hovered::after {
+  transform: skewX(-30deg) translateX(0);
 }
 
-.btn-hover-diagonal-shutter:hover::after {
-  transform: translate(-65%, -65%) rotate(25deg);
-}
-
-.btn-hover-diagonal-shutter:hover {
+.btn-hover-diagonal-shutter:hover,
+.btn-hover-diagonal-shutter.is-auto-hovered {
   color: var(--btn-bg, #ffffff) !important;
   border-color: var(--btn-color, #18181b) !important;
-  transform: translateY(-3px) scale(1.02);
-  box-shadow: 0 10px 24px -4px #18181b2e;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px -4px #00000029;
+}
+
+.btn-hover-diagonal-shutter:active {
+  transform: translateY(0);
+}
+
+.btn-hover-diagonal-shutter .btn-icon {
+  transition: transform var(--anim-speed, 0.3s) cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.btn-hover-diagonal-shutter:hover .btn-icon,
+.btn-hover-diagonal-shutter.is-auto-hovered .btn-icon {
+  transform: translateX(4px) scale(1.1);
 }`
   },
   {
     id: 25,
-    name: '25. Réfraction Holographique',
+    name: '25. Glitch Holographique',
     category: 'Effets Spéciaux',
     className: 'btn-hover-holographic-glitch',
-    description: 'Faisceau prismatique holographique avec balayage néon et inclinaison dynamique de l’icône.',
-    cssCode: `.btn-hover-holographic-glitch {
+    description: 'Effet glitch cyber avec décalage chromatique cyan/magenta, balayage laser et lignes CRT holographiques.',
+    cssCode: `@keyframes cyberChromaticJitter {
+  0% {
+    transform: translateX(0);
+    text-shadow: -2px 0 #00ffff, 2px 0 #ff0055;
+  }
+  15% {
+    transform: translateX(-2px) skewX(-2deg);
+    text-shadow: 3px -1px #00ffff, -3px 1px #ff0055;
+  }
+  30% {
+    transform: translateX(2px) skewX(2deg);
+    text-shadow: -3px 1px #00ffff, 3px -1px #ff0055;
+  }
+  45% {
+    transform: translateX(-1px);
+    text-shadow: 2px 0 #00ffff, -2px 0 #ff0055;
+  }
+  60% {
+    transform: translateX(1px);
+    text-shadow: -1.5px 0 #00ffff, 1.5px 0 #ff0055;
+  }
+  75% {
+    transform: translateX(0);
+    text-shadow: 1px 0 #00ffff, -1px 0 #ff0055;
+  }
+  100% {
+    transform: translateX(0);
+    text-shadow: -1px 0 #00ffff, 1px 0 #ff0055;
+  }
+}
+
+.btn-hover-holographic-glitch {
   position: relative;
   overflow: hidden;
-  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease, border-color 0.3s ease;
+  z-index: 1;
+  transition: transform var(--anim-speed, 0.3s) cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow var(--anim-speed, 0.3s) ease,
+              border-color var(--anim-speed, 0.3s) ease,
+              color var(--anim-speed, 0.3s) ease,
+              background-color var(--anim-speed, 0.3s) ease;
 }
 
 .btn-hover-holographic-glitch::before {
   content: '';
   position: absolute;
   top: -50%;
-  left: -150%;
-  width: 220%;
+  left: -100%;
+  width: 60%;
   height: 200%;
   background: linear-gradient(
-    115deg,
-    transparent 20%,
-    #00f0ff73 38%,
-    #ff008073 50%,
-    #ccff0073 62%,
-    transparent 80%
+    90deg,
+    transparent 0%,
+    rgba(0, 255, 255, 0.35) 40%,
+    rgba(255, 0, 128, 0.4) 50%,
+    rgba(0, 255, 255, 0.35) 60%,
+    transparent 100%
   );
   transform: rotate(25deg);
-  transition: transform 0.75s cubic-bezier(0.19, 1, 0.22, 1);
+  transition: transform 0s ease;
   pointer-events: none;
-  z-index: 1;
+  z-index: -1;
 }
 
-.btn-hover-holographic-glitch:hover::before {
-  transform: translateX(180%) rotate(25deg);
+.btn-hover-holographic-glitch::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    rgba(0, 255, 255, 0.05) 0px,
+    rgba(0, 255, 255, 0.05) 1px,
+    transparent 1px,
+    transparent 3px
+  );
+  opacity: 0;
+  transition: opacity var(--anim-speed, 0.3s) ease;
+  pointer-events: none;
+  z-index: -1;
 }
 
-.btn-hover-holographic-glitch:hover {
-  transform: translateY(-3px) scale(1.025);
-  box-shadow: 0 8px 24px #00f0ff40, 0 2px 10px #ff008033;
-  border-color: #00f0ff99 !important;
+.btn-hover-holographic-glitch:hover::before,
+.btn-hover-holographic-glitch.is-auto-hovered::before {
+  transform: translateX(450%) rotate(25deg);
+  transition: transform var(--anim-speed, 0.7s) cubic-bezier(0.16, 1, 0.3, 1);
 }
 
+.btn-hover-holographic-glitch:hover::after,
+.btn-hover-holographic-glitch.is-auto-hovered::after {
+  opacity: 1;
+}
+
+.btn-hover-holographic-glitch:hover,
+.btn-hover-holographic-glitch.is-auto-hovered {
+  border-color: #00ffff !important;
+  color: #00ffff !important;
+  background-color: rgba(0, 255, 255, 0.08);
+  transform: translateY(-2px);
+  box-shadow: 0 0 20px rgba(0, 255, 255, 0.4),
+              0 0 45px rgba(255, 0, 128, 0.25);
+}
+
+.btn-hover-holographic-glitch:active {
+  transform: translateY(0);
+}
+
+.btn-hover-holographic-glitch span,
 .btn-hover-holographic-glitch .btn-icon {
-  transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+  display: inline-flex;
+  align-items: center;
+  position: relative;
+  z-index: 2;
+  transition: transform var(--anim-speed, 0.3s) ease, text-shadow var(--anim-speed, 0.3s) ease;
 }
 
-.btn-hover-holographic-glitch:hover .btn-icon {
-  transform: scale(1.2) rotate(-12deg);
+.btn-hover-holographic-glitch:hover span,
+.btn-hover-holographic-glitch.is-auto-hovered span,
+.btn-hover-holographic-glitch:hover .btn-icon,
+.btn-hover-holographic-glitch.is-auto-hovered .btn-icon {
+  animation: cyberChromaticJitter 0.45s ease-out;
 }`
   },
   {
@@ -1173,52 +1364,70 @@ export const HOVER_EFFECTS = [
   },
   {
     id: 27,
-    name: '27. Rideau Vertical',
-    category: 'Monochrome B&W',
+    name: '27. Rideau de Scène Horizontal',
+    category: 'Remplissages & Dégradés',
     className: 'btn-hover-vertical-curtain',
-    description: 'Deux rideaux verticaux se referment depuis le haut et le bas avec inversion du texte.',
+    description: 'Deux rideaux latéraux se referment depuis la gauche et la droite au centre avec inversion contrastée des couleurs.',
     cssCode: `.btn-hover-vertical-curtain {
   position: relative;
   overflow: hidden;
   z-index: 1;
-  transition: transform var(--anim-speed, 0.3s) cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.btn-hover-vertical-curtain::before,
-.btn-hover-vertical-curtain::after {
-  content: '';
-  position: absolute;
-  left: -1px;
-  width: calc(100% + 2px);
-  height: 55%;
-  background-color: var(--btn-color, #18181b);
-  z-index: -1;
-  transition: transform var(--anim-speed, 0.4s) cubic-bezier(0.16, 1, 0.3, 1);
-  pointer-events: none;
+  transition: transform var(--anim-speed, 0.3s) cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow var(--anim-speed, 0.3s) ease;
 }
 
 .btn-hover-vertical-curtain::before {
-  top: 0;
-  transform: translateY(-100%);
+  content: '';
+  position: absolute;
+  top: -2px;
+  bottom: -2px;
+  left: -2px;
+  width: 56%;
+  background-color: var(--btn-color, #18181b);
+  transform: translateX(-105%);
+  transition: transform var(--anim-speed, 0.35s) cubic-bezier(0.16, 1, 0.3, 1);
+  z-index: -1;
 }
 
 .btn-hover-vertical-curtain::after {
-  bottom: 0;
-  transform: translateY(100%);
+  content: '';
+  position: absolute;
+  top: -2px;
+  bottom: -2px;
+  right: -2px;
+  width: 56%;
+  background-color: var(--btn-color, #18181b);
+  transform: translateX(105%);
+  transition: transform var(--anim-speed, 0.35s) cubic-bezier(0.16, 1, 0.3, 1);
+  z-index: -1;
 }
 
-.btn-hover-vertical-curtain:hover::before {
-  transform: translateY(0);
+.btn-hover-vertical-curtain:hover::before,
+.btn-hover-vertical-curtain.is-auto-hovered::before,
+.btn-hover-vertical-curtain:hover::after,
+.btn-hover-vertical-curtain.is-auto-hovered::after {
+  transform: translateX(0);
 }
 
-.btn-hover-vertical-curtain:hover::after {
-  transform: translateY(0);
-}
-
-.btn-hover-vertical-curtain:hover {
+.btn-hover-vertical-curtain:hover,
+.btn-hover-vertical-curtain.is-auto-hovered {
   color: var(--btn-bg, #ffffff) !important;
   border-color: var(--btn-color, #18181b) !important;
   transform: translateY(-2px);
+  box-shadow: 0 8px 24px -4px #00000029;
+}
+
+.btn-hover-vertical-curtain:active {
+  transform: translateY(0);
+}
+
+.btn-hover-vertical-curtain .btn-icon {
+  transition: transform var(--anim-speed, 0.3s) cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.btn-hover-vertical-curtain:hover .btn-icon,
+.btn-hover-vertical-curtain.is-auto-hovered .btn-icon {
+  transform: translateX(4px) scale(1.1);
 }`
   },
   {
@@ -1256,50 +1465,81 @@ export const HOVER_EFFECTS = [
   },
   {
     id: 29,
-    name: '29. Fondu Brume',
-    category: 'Monochrome B&W',
+    name: '29. Dégradé Fluide Lumineux',
+    category: 'Remplissages & Dégradés',
     className: 'btn-hover-mist-fade',
-    description: 'Remplissage flou de type brume qui envahit progressivement le bouton depuis la gauche.',
-    cssCode: `.btn-hover-mist-fade {
+    description: 'Dégradé velouté multi-tons avec animation fluide continue et diffusion lumineuse atmosphérique.',
+    cssCode: `@keyframes smoothGradientDrift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.btn-hover-mist-fade {
   position: relative;
   overflow: hidden;
   z-index: 1;
-  transition: transform var(--anim-speed, 0.3s) cubic-bezier(0.16, 1, 0.3, 1),
-              box-shadow var(--anim-speed, 0.3s) ease;
+  transition: transform var(--anim-speed, 0.4s) cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow var(--anim-speed, 0.4s) ease,
+              color var(--anim-speed, 0.35s) ease,
+              border-color var(--anim-speed, 0.35s) ease;
 }
 
 .btn-hover-mist-fade::before {
   content: '';
   position: absolute;
-  top: -10%;
-  left: -10%;
-  width: 130%;
-  height: 130%;
-  background: radial-gradient(
-    ellipse at 20% 50%,
+  inset: -2px;
+  background: linear-gradient(
+    135deg,
     var(--btn-color, #18181b) 0%,
-    var(--btn-color, #18181b) 50%,
-    transparent 72%
+    rgba(99, 102, 241, 0.85) 35%,
+    rgba(236, 72, 153, 0.85) 65%,
+    var(--btn-color, #18181b) 100%
   );
+  background-size: 250% 250%;
+  background-position: 0% 50%;
+  border-radius: inherit;
   opacity: 0;
-  transform: translateX(-60%);
-  transition: transform var(--anim-speed, 0.5s) cubic-bezier(0.16, 1, 0.3, 1),
-              opacity var(--anim-speed, 0.4s) ease;
+  transform: scale(0.96);
+  transition: opacity var(--anim-speed, 0.4s) ease,
+              transform var(--anim-speed, 0.4s) cubic-bezier(0.16, 1, 0.3, 1);
   z-index: -1;
-  filter: blur(6px);
+  pointer-events: none;
 }
 
-.btn-hover-mist-fade:hover::before {
+.btn-hover-mist-fade:hover::before,
+.btn-hover-mist-fade.is-auto-hovered::before {
   opacity: 1;
-  transform: translateX(0);
-  filter: blur(0px);
+  transform: scale(1);
+  animation: smoothGradientDrift 3.5s ease infinite alternate;
 }
 
-.btn-hover-mist-fade:hover {
-  color: var(--btn-bg, #ffffff) !important;
-  border-color: var(--btn-color, #18181b) !important;
+.btn-hover-mist-fade:hover,
+.btn-hover-mist-fade.is-auto-hovered {
+  color: #ffffff !important;
+  border-color: transparent !important;
   transform: translateY(-2px);
-  box-shadow: 0 8px 24px -4px #18181b33;
+  box-shadow: 0 10px 28px -4px rgba(99, 102, 241, 0.35),
+              0 0 20px rgba(236, 72, 153, 0.25);
+}
+
+.btn-hover-mist-fade:active {
+  transform: translateY(0) scale(0.98);
+}
+
+.btn-hover-mist-fade .btn-icon {
+  transition: transform var(--anim-speed, 0.35s) cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.btn-hover-mist-fade:hover .btn-icon,
+.btn-hover-mist-fade.is-auto-hovered .btn-icon {
+  transform: translateX(4px) scale(1.12);
 }`
   },
   {

@@ -137,15 +137,16 @@ export default function HoverCard({
   const fontClass = config.fontFamily;
   const showAutoHover = isAutoHovered && !isUserHovering;
   const isIconOnly = config.iconPosition === 'only';
-  const fullClassName = `specimen-btn ${fontClass} ${sizeClass} ${isIconOnly ? 'btn-icon-only' : ''} ${effect.className} ${showAutoHover ? 'is-auto-hovered' : ''}`;
   const isIconLeft = config.iconPosition === 'left';
   const isIconRight = config.iconPosition === 'right';
   const hasIcon = config.iconPosition !== 'none';
   const isSvgTrace = effect.className.includes('btn-hover-outline-revolving');
-  const isSvgDualPulse = effect.className.includes('btn-hover-outline-dual-pulse');
-  const isSvgDrawGlow = effect.className.includes('btn-hover-outline-draw-glow');
   const isSwapMorph = effect.className.includes('btn-hover-icon-swap-morph');
+  const isSwapUnavailable = isSwapMorph && (config.iconPosition === 'only' || config.iconPosition === 'none');
+  const swapClass = isSwapMorph && isIconRight ? 'swap-from-right' : '';
   const isStaggerLiquid = effect.className.includes('btn-hover-stagger-liquid');
+
+  const fullClassName = `specimen-btn ${fontClass} ${sizeClass} ${isIconOnly ? 'btn-icon-only' : ''} ${effect.className} ${swapClass} ${showAutoHover ? 'is-auto-hovered' : ''}`;
 
   const isRollingEffect = effect.className.includes('btn-hover-rolling-magic');
 
@@ -176,7 +177,7 @@ export default function HoverCard({
   return (
     <article
       id={`effect-${effect.id}`}
-      className={`hover-specimen-card ${isTargeted ? 'is-targeted-highlight' : ''}`}
+      className={`hover-specimen-card ${isTargeted ? 'is-targeted-highlight' : ''} ${isSwapUnavailable ? 'is-card-unavailable' : ''}`}
       aria-labelledby={`effect-title-${effect.id}`}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
@@ -191,7 +192,8 @@ export default function HoverCard({
             type="button"
             className={`share-btn ${isShareCopied ? 'is-copied' : ''}`}
             onClick={handleShareLink}
-            title={isShareCopied ? tr('link_copied') : tr('share_tooltip')}
+            disabled={isSwapUnavailable}
+            title={isSwapUnavailable ? tr('unavailable_badge') : isShareCopied ? tr('link_copied') : tr('share_tooltip')}
           >
             {isShareCopied ? <Check size={13} weight="bold" /> : <ShareNetwork size={13} weight="bold" />}
             <span>{isShareCopied ? tr('link_copied') : tr('share_btn')}</span>
@@ -199,8 +201,9 @@ export default function HoverCard({
           <button
             type="button"
             className="code-btn studio-merge-btn"
-            onClick={() => onOpenStudio(effect)}
-            title="Ouvrir le Mode Studio & Exporter le Code"
+            onClick={() => !isSwapUnavailable && onOpenStudio(effect)}
+            disabled={isSwapUnavailable}
+            title={isSwapUnavailable ? tr('unavailable_badge') : 'Ouvrir le Mode Studio & Exporter le Code'}
           >
             <Code size={14} />
             <span>Studio</span>
@@ -211,77 +214,50 @@ export default function HoverCard({
       <div className="specimen-desc">{effect.description}</div>
 
       <div className={`specimen-canvas ${canvasThemeClass}`} style={canvasStyle}>
-        <button ref={btnRef} className={fullClassName} style={radiusStyle}>
-          {isSvgTrace && dimensions.width > 0 && (
-            <svg className="btn-svg-border" width="100%" height="100%">
-              <rect
-                className="btn-svg-rect"
-                x="0.75"
-                y="0.75"
-                width={Math.max(dimensions.width - 1.5, 10)}
-                height={Math.max(dimensions.height - 1.5, 10)}
-                rx={svgRx}
-                ry={svgRx}
-                pathLength="100"
-              />
-            </svg>
-          )}
+        {isSwapUnavailable ? (
+          <div className="swap-unavailable-badge">
+            <span className="swap-unavailable-tag">{tr('unavailable_badge')}</span>
+            <span className="swap-unavailable-reason">{tr('swap_requires_both')}</span>
+          </div>
+        ) : (
+          <button ref={btnRef} className={fullClassName} style={radiusStyle}>
+            {isSvgTrace && dimensions.width > 0 && (
+              <svg className="btn-svg-border" width="100%" height="100%">
+                <rect
+                  className="btn-svg-rect"
+                  x="0.75"
+                  y="0.75"
+                  width={Math.max(dimensions.width - 1.5, 10)}
+                  height={Math.max(dimensions.height - 1.5, 10)}
+                  rx={svgRx}
+                  ry={svgRx}
+                  pathLength="100"
+                />
+              </svg>
+            )}
 
-          {isSvgDualPulse && dimensions.width > 0 && (
-            <svg className="btn-svg-border" width="100%" height="100%">
-              <rect
-                className="btn-svg-rect-pulse-1"
-                x="0.75"
-                y="0.75"
-                width={Math.max(dimensions.width - 1.5, 10)}
-                height={Math.max(dimensions.height - 1.5, 10)}
-                rx={svgRx}
-                ry={svgRx}
-                pathLength="100"
-              />
-              <rect
-                className="btn-svg-rect-pulse-2"
-                x="0.75"
-                y="0.75"
-                width={Math.max(dimensions.width - 1.5, 10)}
-                height={Math.max(dimensions.height - 1.5, 10)}
-                rx={svgRx}
-                ry={svgRx}
-                pathLength="100"
-              />
-            </svg>
-          )}
+            {isStaggerLiquid && (
+              <>
+                <span className="btn-stagger-drop" style={{ '--delay': 1 }} />
+                <span className="btn-stagger-drop" style={{ '--delay': 2 }} />
+                <span className="btn-stagger-drop" style={{ '--delay': 3 }} />
+                <span className="btn-stagger-drop" style={{ '--delay': 4 }} />
+              </>
+            )}
 
-          {isSvgDrawGlow && dimensions.width > 0 && (
-            <svg className="btn-svg-border" width="100%" height="100%">
-              <rect
-                className="btn-svg-rect-draw"
-                x="0.75"
-                y="0.75"
-                width={Math.max(dimensions.width - 1.5, 10)}
-                height={Math.max(dimensions.height - 1.5, 10)}
-                rx={svgRx}
-                ry={svgRx}
-                pathLength="100"
-              />
-            </svg>
-          )}
-
-          {isStaggerLiquid && (
-            <>
-              <span className="btn-stagger-drop" style={{ '--delay': 1 }} />
-              <span className="btn-stagger-drop" style={{ '--delay': 2 }} />
-              <span className="btn-stagger-drop" style={{ '--delay': 3 }} />
-              <span className="btn-stagger-drop" style={{ '--delay': 4 }} />
-            </>
-          )}
-
-          {isSwapMorph ? (
-            <>
-              {iconElement('btn-icon-swap-left')}
-              <span className="btn-content-wrap">{config.buttonText || 'HoverLab'}</span>
-            </>
-          ) : isRollingEffect ? (
+            {isSwapMorph ? (
+              isIconRight ? (
+                <>
+                  <span className="btn-content-wrap">{config.buttonText || 'HoverLab'}</span>
+                  {iconElement('btn-icon-swap-right')}
+                </>
+              ) : (
+                <>
+                  {iconElement('btn-icon-swap-left')}
+                  <span className="btn-content-wrap">{config.buttonText || 'HoverLab'}</span>
+                </>
+              )
+            ) : isRollingEffect ? (
             <>
               {hasIcon && (isIconLeft || isIconOnly) && iconElement('btn-icon-left')}
               {!isIconOnly && renderRollingText(config.buttonText || 'HoverLab')}
@@ -321,6 +297,7 @@ export default function HoverCard({
             </>
           )}
         </button>
+        )}
       </div>
     </article>
   );

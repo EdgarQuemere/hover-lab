@@ -371,20 +371,20 @@ export default function FocusSandbox({ effect, config, onClose, onOpenCode, t })
     '--btn-color': studioButtonColor,
   };
 
-  const isIconOnly = config.iconPosition === 'only';
   const sizeClass = `btn-size-${config.buttonSize}`;
   const fontClass = config.fontFamily;
-  const fullClassName = `specimen-btn ${fontClass} ${sizeClass} ${isIconOnly ? 'btn-icon-only' : ''} ${currentEffect.className}`;
-
+  const isIconOnly = config.iconPosition === 'only';
   const isIconLeft = config.iconPosition === 'left';
   const isIconRight = config.iconPosition === 'right';
   const hasIcon = config.iconPosition !== 'none';
   const isSvgTrace = currentEffect.className.includes('btn-hover-outline-revolving');
-  const isSvgDualPulse = currentEffect.className.includes('btn-hover-outline-dual-pulse');
-  const isSvgDrawGlow = currentEffect.className.includes('btn-hover-outline-draw-glow');
   const isSwapMorph = currentEffect.className.includes('btn-hover-icon-swap-morph');
+  const isSwapUnavailable = isSwapMorph && (config.iconPosition === 'only' || config.iconPosition === 'none');
+  const swapClass = isSwapMorph && isIconRight ? 'swap-from-right' : '';
   const isStaggerLiquid = currentEffect.className.includes('btn-hover-stagger-liquid');
   const isRollingEffect = currentEffect.className.includes('btn-hover-rolling-magic');
+
+  const fullClassName = `specimen-btn ${fontClass} ${sizeClass} ${isIconOnly ? 'btn-icon-only' : ''} ${currentEffect.className} ${swapClass}`;
 
   const iconElement = (positionClass = '') => (
     <SelectedIconComp
@@ -739,83 +739,56 @@ export default function FocusSandbox({ effect, config, onClose, onOpenCode, t })
               }
             >
               <div className="sandbox-stage-center">
-                <button
-                  ref={btnRef}
-                  type="button"
-                  className={fullClassName}
-                  style={radiusStyle}
-                  onMouseEnter={() => setHoverCount((c) => c + 1)}
-                >
-                  {isSvgTrace && dimensions.width > 0 && (
-                    <svg className="btn-svg-border" width="100%" height="100%">
-                      <rect
-                        className="btn-svg-rect"
-                        x="0.75"
-                        y="0.75"
-                        width={Math.max(dimensions.width - 1.5, 10)}
-                        height={Math.max(dimensions.height - 1.5, 10)}
-                        rx={svgRx}
-                        ry={svgRx}
-                        pathLength="100"
-                      />
-                    </svg>
-                  )}
+                {isSwapUnavailable ? (
+                  <div className="swap-unavailable-badge">
+                    <span className="swap-unavailable-tag">{tr('unavailable_badge')}</span>
+                    <span className="swap-unavailable-reason">{tr('swap_requires_both')}</span>
+                  </div>
+                ) : (
+                  <button
+                    ref={btnRef}
+                    type="button"
+                    className={fullClassName}
+                    style={radiusStyle}
+                    onMouseEnter={() => setHoverCount((c) => c + 1)}
+                  >
+                    {isSvgTrace && dimensions.width > 0 && (
+                      <svg className="btn-svg-border" width="100%" height="100%">
+                        <rect
+                          className="btn-svg-rect"
+                          x="0.75"
+                          y="0.75"
+                          width={Math.max(dimensions.width - 1.5, 10)}
+                          height={Math.max(dimensions.height - 1.5, 10)}
+                          rx={svgRx}
+                          ry={svgRx}
+                          pathLength="100"
+                        />
+                      </svg>
+                    )}
 
-                  {isSvgDualPulse && dimensions.width > 0 && (
-                    <svg className="btn-svg-border" width="100%" height="100%">
-                      <rect
-                        className="btn-svg-rect-pulse-1"
-                        x="0.75"
-                        y="0.75"
-                        width={Math.max(dimensions.width - 1.5, 10)}
-                        height={Math.max(dimensions.height - 1.5, 10)}
-                        rx={svgRx}
-                        ry={svgRx}
-                        pathLength="100"
-                      />
-                      <rect
-                        className="btn-svg-rect-pulse-2"
-                        x="0.75"
-                        y="0.75"
-                        width={Math.max(dimensions.width - 1.5, 10)}
-                        height={Math.max(dimensions.height - 1.5, 10)}
-                        rx={svgRx}
-                        ry={svgRx}
-                        pathLength="100"
-                      />
-                    </svg>
-                  )}
+                    {isStaggerLiquid && (
+                      <>
+                        <span className="btn-stagger-drop" style={{ '--delay': 1 }} />
+                        <span className="btn-stagger-drop" style={{ '--delay': 2 }} />
+                        <span className="btn-stagger-drop" style={{ '--delay': 3 }} />
+                        <span className="btn-stagger-drop" style={{ '--delay': 4 }} />
+                      </>
+                    )}
 
-                  {isSvgDrawGlow && dimensions.width > 0 && (
-                    <svg className="btn-svg-border" width="100%" height="100%">
-                      <rect
-                        className="btn-svg-rect-draw"
-                        x="0.75"
-                        y="0.75"
-                        width={Math.max(dimensions.width - 1.5, 10)}
-                        height={Math.max(dimensions.height - 1.5, 10)}
-                        rx={svgRx}
-                        ry={svgRx}
-                        pathLength="100"
-                      />
-                    </svg>
-                  )}
-
-                  {isStaggerLiquid && (
-                    <>
-                      <span className="btn-stagger-drop" style={{ '--delay': 1 }} />
-                      <span className="btn-stagger-drop" style={{ '--delay': 2 }} />
-                      <span className="btn-stagger-drop" style={{ '--delay': 3 }} />
-                      <span className="btn-stagger-drop" style={{ '--delay': 4 }} />
-                    </>
-                  )}
-
-                  {isSwapMorph ? (
-                    <>
-                      {iconElement('btn-icon-swap-left')}
-                      <span className="btn-content-wrap">{customButtonText || 'HoverLab'}</span>
-                    </>
-                  ) : isRollingEffect ? (
+                    {isSwapMorph ? (
+                      isIconRight ? (
+                        <>
+                          <span className="btn-content-wrap">{customButtonText || 'HoverLab'}</span>
+                          {iconElement('btn-icon-swap-right')}
+                        </>
+                      ) : (
+                        <>
+                          {iconElement('btn-icon-swap-left')}
+                          <span className="btn-content-wrap">{customButtonText || 'HoverLab'}</span>
+                        </>
+                      )
+                    ) : isRollingEffect ? (
                     <>
                       {hasIcon && (isIconLeft || isIconOnly) && iconElement('btn-icon-left')}
                       {!isIconOnly && renderRollingText(customButtonText || 'HoverLab')}
@@ -853,8 +826,9 @@ export default function FocusSandbox({ effect, config, onClose, onOpenCode, t })
                       {!isIconOnly && <span>{customButtonText || 'HoverLab'}</span>}
                       {hasIcon && isIconRight && !isIconOnly && iconElement('btn-icon-right')}
                     </>
-                  )}
-                </button>
+                    )}
+                  </button>
+                )}
               </div>
 
               {/* Stage Metrics Info Bar */}
