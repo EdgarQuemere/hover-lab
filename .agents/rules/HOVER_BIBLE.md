@@ -16,7 +16,7 @@ src/
 │   └── effects/
 │       ├── effect-01-fill-sweep.css
 │       ├── effect-02-icon-push.css
-│       └── effect-XX-slug.css   # Un fichier CSS dédié par effet (actuellement 30 effets)
+│       └── effect-XX-slug.css   # Un fichier CSS dédié par effet (actuellement 40 effets)
 ├── components/
 │   ├── HoverCard.jsx            # Carte individuelle de la grille (rendu interactif, partage, deep-linking)
 │   ├── FocusSandbox.jsx         # Mode Studio Pro (preview isolée, réglages, éditeur CSS grand format, sauvegarde)
@@ -196,10 +196,15 @@ Chaque effet appartient rigoureusement à l'une de ces 4 catégories :
 
 | Catégorie FR | Catégorie EN | ID Système (`filterCategory`) | Total | Thématique & Mécanique |
 |---|---|---|---|---|
-| **Remplissages & Dégradés** | **Fills & Sweeps** | `fills` | 7 | Balayages de fond pleins, nappes de dégradés fluides, rideaux et volets. |
-| **Bordures & Contours** | **Borders & Outlines** | `borders` | 6 | Tracés laser SVG 360°, pointillés animés, surépaisseurs et crochets de cadrage. |
-| **Glissements & Mouvements** | **Slide & Motion** | `motion` | 9 | Translations d'icônes, permutations texte/picto, cascade 3D, rebonds et pivots. |
+| **Remplissages & Dégradés** | **Fills & Sweeps** | `fills` | 12 | Révélations losange, volets vénitiens, balayages pleins et expansions. |
+| **Bordures & Contours** | **Borders & Outlines** | `borders` | 8 | Tracés laser SVG 360°, soulignements nets, faisceaux orbitaux et pointillés. |
+| **Glissements & Mouvements** | **Slide & Motion** | `motion` | 12 | Translations croisées, boucles d'icônes, cadres décalés, cascade 3D, rebonds. |
 | **Effets Spéciaux** | **Special FX & Particles** | `fx` | 8 | Halos respirants, tubes néon, glitchs cyber RGB, confetti et balayages radar. |
+
+> [!IMPORTANT]
+> ### Règle Fondamentale d'Unicité Absolue
+> - **Chaque hover DOIT obligatoirement être unique et différent de tous les autres** : mécanique visuelle, cinématique, géométrie et concept doivent apporter une valeur ajoutée inédite au catalogue.
+> - Aucun doublon ou variante superficielle d'un effet existant n'est autorisé.
 
 > [!IMPORTANT]
 > ### Règle de Rédaction des Descriptions (Max 2 Lignes)

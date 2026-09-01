@@ -1599,5 +1599,560 @@ export const HOVER_EFFECTS = [
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
 }`
+  },
+  {
+    id: 31,
+    name: '31. Faisceau Orbital',
+    category: 'Bordures & Contours',
+    className: 'btn-hover-border-beam',
+    description: 'Un faisceau lumineux intense parcourt le contour du bouton en orbite continue avec halo.',
+    cssCode: `@keyframes borderBeamRotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.btn-hover-border-beam {
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+  transition: transform var(--anim-speed, 0.3s) cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow var(--anim-speed, 0.3s) ease,
+              background-color var(--anim-speed, 0.3s) ease;
+}
+
+.btn-hover-border-beam::before {
+  content: '';
+  position: absolute;
+  top: -150%;
+  left: -150%;
+  width: 400%;
+  height: 400%;
+  background: conic-gradient(
+    from 0deg,
+    transparent 0deg,
+    transparent 280deg,
+    var(--btn-color, #18181b) 340deg,
+    #ffffff 360deg
+  );
+  opacity: 0;
+  transform: rotate(0deg);
+  transition: opacity var(--anim-speed, 0.35s) ease;
+  pointer-events: none;
+  z-index: -2;
+}
+
+.btn-hover-border-beam::after {
+  content: '';
+  position: absolute;
+  inset: 1.5px;
+  border-radius: inherit;
+  background-color: var(--btn-bg, #ffffff);
+  z-index: -1;
+  transition: background-color var(--anim-speed, 0.3s) ease;
+}
+
+.btn-hover-border-beam:hover::before,
+.btn-hover-border-beam.is-auto-hovered::before {
+  opacity: 1;
+  animation: borderBeamRotate 2s linear infinite;
+}
+
+.btn-hover-border-beam:hover,
+.btn-hover-border-beam.is-auto-hovered {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px -4px #0000001f,
+              0 0 16px -2px var(--btn-color, #18181b4d);
+}
+
+.btn-hover-border-beam:active {
+  transform: translateY(0);
+}
+
+.btn-hover-border-beam .btn-icon {
+  transition: transform var(--anim-speed, 0.3s) cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.btn-hover-border-beam:hover .btn-icon,
+.btn-hover-border-beam.is-auto-hovered .btn-icon {
+  transform: scale(1.15);
+}`
+  },
+  {
+    id: 32,
+    name: '32. Vague Liquide Montante',
+    category: 'Remplissages & Dégradés',
+    className: 'btn-hover-liquid-wave',
+    description: 'Une onde liquide organique monte depuis le bas pour submerger le fond avec ondulation.',
+    cssCode: `@keyframes liquidWaveSpin {
+  0% {
+    transform: translate(-50%, 0) rotate(0deg);
+  }
+  100% {
+    transform: translate(-50%, 0) rotate(360deg);
+  }
+}
+
+.btn-hover-liquid-wave {
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+  transition: transform var(--anim-speed, 0.35s) cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow var(--anim-speed, 0.35s) ease,
+              color var(--anim-speed, 0.3s) ease;
+}
+
+.btn-hover-liquid-wave::before {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  width: 260%;
+  padding-bottom: 260%;
+  background-color: var(--btn-color, #18181b);
+  border-radius: 40% 45% 42% 38%;
+  transform: translate(-50%, 0) rotate(0deg);
+  transition: top var(--anim-speed, 0.65s) cubic-bezier(0.16, 1, 0.3, 1);
+  z-index: -1;
+  pointer-events: none;
+}
+
+.btn-hover-liquid-wave:hover::before,
+.btn-hover-liquid-wave.is-auto-hovered::before {
+  top: -80%;
+  animation: liquidWaveSpin 3.5s linear infinite;
+}
+
+.btn-hover-liquid-wave:hover,
+.btn-hover-liquid-wave.is-auto-hovered {
+  color: var(--btn-bg, #ffffff) !important;
+  transform: translateY(-2px);
+  box-shadow: 0 10px 24px -4px #00000029;
+}
+
+.btn-hover-liquid-wave:active {
+  transform: translateY(0);
+}
+
+.btn-hover-liquid-wave .btn-icon {
+  transition: transform var(--anim-speed, 0.35s) cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.btn-hover-liquid-wave:hover .btn-icon,
+.btn-hover-liquid-wave.is-auto-hovered .btn-icon {
+  transform: translateY(-2px) scale(1.1);
+}`
+  },
+  {
+    id: 33,
+    name: '33. Soulignement Minimal',
+    category: 'Bordures & Contours',
+    className: 'btn-hover-underline-slide',
+    description: 'Une fine barre de soulignement solide glisse et s’étire avec précision sous le texte.',
+    cssCode: `.btn-hover-underline-slide {
+  position: relative;
+  transition: transform var(--anim-speed, 0.25s) cubic-bezier(0.16, 1, 0.3, 1),
+              background-color var(--anim-speed, 0.25s) ease,
+              box-shadow var(--anim-speed, 0.25s) ease;
+}
+
+.btn-hover-underline-slide::before {
+  content: '';
+  position: absolute;
+  bottom: 6px;
+  left: 18px;
+  right: 18px;
+  height: 2px;
+  background-color: var(--btn-color, #18181b);
+  border-radius: 2px;
+  transform: scaleX(0);
+  transform-origin: right center;
+  transition: transform var(--anim-speed, 0.3s) cubic-bezier(0.16, 1, 0.3, 1);
+  pointer-events: none;
+}
+
+.btn-hover-underline-slide:hover::before,
+.btn-hover-underline-slide.is-auto-hovered::before {
+  transform: scaleX(1);
+  transform-origin: left center;
+}
+
+.btn-hover-underline-slide:hover,
+.btn-hover-underline-slide.is-auto-hovered {
+  transform: translateY(-2px);
+  background-color: #18181b0a;
+  box-shadow: 0 6px 18px -4px #00000014;
+}
+
+.btn-hover-underline-slide:active {
+  transform: translateY(0);
+}
+
+.btn-hover-underline-slide .btn-icon {
+  transition: transform var(--anim-speed, 0.25s) cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.btn-hover-underline-slide:hover .btn-icon,
+.btn-hover-underline-slide.is-auto-hovered .btn-icon {
+  transform: translateX(4px);
+}`
+  },
+  {
+    id: 34,
+    name: '34. Aplat Angulaire Diagonal',
+    category: 'Remplissages & Dégradés',
+    className: 'btn-hover-corner-sweep',
+    description: 'Un aplat monochrome solide se déploie depuis l’angle supérieur avec inversion contrastée.',
+    cssCode: `.btn-hover-corner-sweep {
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+  transition: transform var(--anim-speed, 0.28s) cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow var(--anim-speed, 0.28s) ease,
+              color var(--anim-speed, 0.25s) ease;
+}
+
+.btn-hover-corner-sweep::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  background-color: var(--btn-color, #18181b);
+  transform: translate(-100%, -100%);
+  transition: transform var(--anim-speed, 0.35s) cubic-bezier(0.16, 1, 0.3, 1);
+  z-index: -1;
+}
+
+.btn-hover-corner-sweep:hover::before,
+.btn-hover-corner-sweep.is-auto-hovered::before {
+  transform: translate(0, 0);
+}
+
+.btn-hover-corner-sweep:hover,
+.btn-hover-corner-sweep.is-auto-hovered {
+  color: var(--btn-bg, #ffffff) !important;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 22px -4px #00000024;
+}
+
+.btn-hover-corner-sweep:active {
+  transform: translateY(0);
+}
+
+.btn-hover-corner-sweep .btn-icon {
+  transition: transform var(--anim-speed, 0.28s) cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.btn-hover-corner-sweep:hover .btn-icon,
+.btn-hover-corner-sweep.is-auto-hovered .btn-icon {
+  transform: scale(1.12);
+}`
+  },
+  {
+    id: 35,
+    name: '35. Cadre Décalé Brutaliste',
+    category: 'Glissements & Mouvements',
+    className: 'btn-hover-offset-frame',
+    description: 'Le bouton s’élève et projette un cadre géométrique décalé en aplat monochrome net.',
+    cssCode: `.btn-hover-offset-frame {
+  position: relative;
+  transition: transform var(--anim-speed, 0.2s) cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow var(--anim-speed, 0.2s) cubic-bezier(0.16, 1, 0.3, 1),
+              background-color var(--anim-speed, 0.2s) ease;
+}
+
+.btn-hover-offset-frame:hover,
+.btn-hover-offset-frame.is-auto-hovered {
+  transform: translate(-3px, -3px);
+  background-color: var(--btn-bg, #ffffff);
+  box-shadow: 4px 4px 0px var(--btn-color, #18181b);
+}
+
+.btn-hover-offset-frame:active {
+  transform: translate(0, 0);
+  box-shadow: 0px 0px 0px var(--btn-color, #18181b);
+}
+
+.btn-hover-offset-frame .btn-icon {
+  transition: transform var(--anim-speed, 0.25s) cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.btn-hover-offset-frame:hover .btn-icon,
+.btn-hover-offset-frame.is-auto-hovered .btn-icon {
+  transform: translate(2px, -1px);
+}`
+  },
+  {
+    id: 36,
+    name: '36. Expansion Médiane',
+    category: 'Remplissages & Dégradés',
+    className: 'btn-hover-center-expand',
+    description: 'Une bande centrale solide s’ouvre verticalement depuis l’axe médian pour remplir le bouton.',
+    cssCode: `.btn-hover-center-expand {
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+  transition: transform var(--anim-speed, 0.25s) cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow var(--anim-speed, 0.25s) ease,
+              color var(--anim-speed, 0.25s) ease;
+}
+
+.btn-hover-center-expand::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  background-color: var(--btn-color, #18181b);
+  transform: scaleY(0);
+  transform-origin: center center;
+  transition: transform var(--anim-speed, 0.32s) cubic-bezier(0.16, 1, 0.3, 1);
+  z-index: -1;
+}
+
+.btn-hover-center-expand:hover::before,
+.btn-hover-center-expand.is-auto-hovered::before {
+  transform: scaleY(1);
+}
+
+.btn-hover-center-expand:hover,
+.btn-hover-center-expand.is-auto-hovered {
+  color: var(--btn-bg, #ffffff) !important;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px -4px #00000024;
+}
+
+.btn-hover-center-expand:active {
+  transform: translateY(0);
+}
+
+.btn-hover-center-expand .btn-icon {
+  transition: transform var(--anim-speed, 0.25s) cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.btn-hover-center-expand:hover .btn-icon,
+.btn-hover-center-expand.is-auto-hovered .btn-icon {
+  transform: scale(1.15);
+}`
+  },
+  {
+    id: 37,
+    name: '37. Glissement Boucle d’Icône',
+    category: 'Glissements & Mouvements',
+    className: 'btn-hover-icon-loop',
+    description: 'L’icône glisse hors du cadre vers la droite et réapparaît depuis la gauche en boucle fluide.',
+    cssCode: `@keyframes iconLoopGlide {
+  0% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  45% {
+    transform: translateX(18px);
+    opacity: 0;
+  }
+  55% {
+    transform: translateX(-18px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+.btn-hover-icon-loop {
+  position: relative;
+  transition: transform var(--anim-speed, 0.25s) cubic-bezier(0.16, 1, 0.3, 1),
+              background-color var(--anim-speed, 0.25s) ease,
+              box-shadow var(--anim-speed, 0.25s) ease;
+}
+
+.btn-hover-icon-loop:hover,
+.btn-hover-icon-loop.is-auto-hovered {
+  transform: translateY(-2px);
+  background-color: #18181b0a;
+  box-shadow: 0 6px 20px -4px #0000001a;
+}
+
+.btn-hover-icon-loop:active {
+  transform: translateY(0);
+}
+
+.btn-hover-icon-loop .btn-icon {
+  display: inline-block;
+}
+
+.btn-hover-icon-loop:hover .btn-icon,
+.btn-hover-icon-loop.is-auto-hovered .btn-icon {
+  animation: iconLoopGlide var(--anim-speed, 0.45s) cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}`
+  },
+  {
+    id: 38,
+    name: '38. Volets Vénitiens',
+    category: 'Remplissages & Dégradés',
+    className: 'btn-hover-venetian-shutter',
+    description: 'Quatre lamelles horizontales pleines s’ouvrent en cascade pour sceller le fond du bouton.',
+    cssCode: `.btn-hover-venetian-shutter {
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+  transition: transform var(--anim-speed, 0.28s) cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow var(--anim-speed, 0.28s) ease,
+              color var(--anim-speed, 0.25s) ease;
+}
+
+.btn-hover-venetian-shutter::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  background-image:
+    linear-gradient(var(--btn-color, #18181b), var(--btn-color, #18181b)),
+    linear-gradient(var(--btn-color, #18181b), var(--btn-color, #18181b)),
+    linear-gradient(var(--btn-color, #18181b), var(--btn-color, #18181b)),
+    linear-gradient(var(--btn-color, #18181b), var(--btn-color, #18181b));
+  background-position:
+    0 0%,
+    0 33.33%,
+    0 66.66%,
+    0 100%;
+  background-size: 100% 0%;
+  background-repeat: no-repeat;
+  transition: background-size var(--anim-speed, 0.35s) cubic-bezier(0.16, 1, 0.3, 1);
+  z-index: -1;
+}
+
+.btn-hover-venetian-shutter:hover::before,
+.btn-hover-venetian-shutter.is-auto-hovered::before {
+  background-size: 100% 26%;
+}
+
+.btn-hover-venetian-shutter:hover,
+.btn-hover-venetian-shutter.is-auto-hovered {
+  color: var(--btn-bg, #ffffff) !important;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px -4px #00000024;
+}
+
+.btn-hover-venetian-shutter:active {
+  transform: translateY(0);
+}
+
+.btn-hover-venetian-shutter .btn-icon {
+  transition: transform var(--anim-speed, 0.28s) cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.btn-hover-venetian-shutter:hover .btn-icon,
+.btn-hover-venetian-shutter.is-auto-hovered .btn-icon {
+  transform: scale(1.15);
+}`
+  },
+  {
+    id: 39,
+    name: '39. Translation Croisée Dynamique',
+    category: 'Glissements & Mouvements',
+    className: 'btn-hover-cross-glide',
+    description: 'Le texte et l’icône s’écartent en translation croisée fluide avec micro-élévation.',
+    cssCode: `.btn-hover-cross-glide {
+  position: relative;
+  transition: transform var(--anim-speed, 0.25s) cubic-bezier(0.16, 1, 0.3, 1),
+              background-color var(--anim-speed, 0.25s) ease,
+              box-shadow var(--anim-speed, 0.25s) ease;
+}
+
+.btn-hover-cross-glide span {
+  display: inline-block;
+  transition: transform var(--anim-speed, 0.25s) cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.btn-hover-cross-glide .btn-icon {
+  transition: transform var(--anim-speed, 0.28s) cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.btn-hover-cross-glide:hover,
+.btn-hover-cross-glide.is-auto-hovered {
+  transform: translateY(-2.5px);
+  background-color: #18181b0d;
+  box-shadow: 0 8px 24px -4px #0000001f;
+}
+
+.btn-hover-cross-glide:hover span,
+.btn-hover-cross-glide.is-auto-hovered span {
+  transform: translateX(-4px);
+}
+
+.btn-hover-cross-glide:hover .btn-icon,
+.btn-hover-cross-glide.is-auto-hovered .btn-icon,
+.btn-hover-cross-glide:hover .btn-icon-right,
+.btn-hover-cross-glide.is-auto-hovered .btn-icon-right {
+  transform: translateX(6px) scale(1.12);
+}
+
+.btn-hover-cross-glide:hover .btn-icon-left,
+.btn-hover-cross-glide.is-auto-hovered .btn-icon-left {
+  transform: translateX(-6px) scale(1.12);
+}
+
+.btn-hover-cross-glide:active {
+  transform: translateY(0);
+}`
+  },
+  {
+    id: 40,
+    name: '40. Révélation en Losange',
+    category: 'Remplissages & Dégradés',
+    className: 'btn-hover-diamond-reveal',
+    description: 'Un losange géométrique plein grandit depuis le centre pour sceller le fond en aplat pur.',
+    cssCode: `.btn-hover-diamond-reveal {
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+  transition: transform var(--anim-speed, 0.4s) cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow var(--anim-speed, 0.4s) ease,
+              color var(--anim-speed, 0.4s) ease;
+}
+
+.btn-hover-diamond-reveal::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 280px;
+  height: 280px;
+  background-color: var(--btn-color, #18181b);
+  transform: translate(-50%, -50%) rotate(45deg) scale(0);
+  transition: transform var(--anim-speed, 1s) cubic-bezier(0.16, 1, 0.3, 1);
+  z-index: -1;
+}
+
+.btn-hover-diamond-reveal:hover::before,
+.btn-hover-diamond-reveal.is-auto-hovered::before {
+  transform: translate(-50%, -50%) rotate(45deg) scale(1);
+}
+
+.btn-hover-diamond-reveal:hover,
+.btn-hover-diamond-reveal.is-auto-hovered {
+  color: var(--btn-bg, #ffffff) !important;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px -4px #00000024;
+}
+
+.btn-hover-diamond-reveal:active {
+  transform: translateY(0);
+}
+
+.btn-hover-diamond-reveal .btn-icon {
+  transition: transform var(--anim-speed, 0.5s) cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.btn-hover-diamond-reveal:hover .btn-icon,
+.btn-hover-diamond-reveal.is-auto-hovered .btn-icon {
+  transform: scale(1.15);
+}`
   }
 ];
+
+
+
+
+

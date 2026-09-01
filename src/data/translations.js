@@ -217,6 +217,46 @@ export const TRANSLATIONS = {
     effect_30_name: '30. Conic Radar Sweep',
     effect_30_desc: '360° rotating conic radar beam with full icon revolution and ambient aura.',
     effect_30_cat: 'Special FX & Particles',
+    // Effect 31
+    effect_31_name: '31. Orbital Border Beam',
+    effect_31_desc: 'A luminous beam races around the perimeter in a continuous glowing orbit.',
+    effect_31_cat: 'Borders & Outlines',
+    // Effect 32
+    effect_32_name: '32. Rising Liquid Wave',
+    effect_32_desc: 'An organic liquid wave rises from the bottom to submerge the button with fluid roll.',
+    effect_32_cat: 'Fills & Sweeps',
+    // Effect 33
+    effect_33_name: '33. Minimal Underline Slide',
+    effect_33_desc: 'A sharp solid underline bar glides and stretches with precision beneath the text.',
+    effect_33_cat: 'Borders & Outlines',
+    // Effect 34
+    effect_34_name: '34. Diagonal Corner Fill',
+    effect_34_desc: 'A solid monochrome fill expands smoothly from the top-left corner with color inversion.',
+    effect_34_cat: 'Fills & Sweeps',
+    // Effect 35
+    effect_35_name: '35. Brutalist Offset Frame',
+    effect_35_desc: 'The button shifts upward, casting a crisp offset geometric frame in solid monochrome.',
+    effect_35_cat: 'Slide & Motion',
+    // Effect 36
+    effect_36_name: '36. Center Axis Expand',
+    effect_36_desc: 'A solid central band expands vertically from the mid-axis to cleanly fill the button.',
+    effect_36_cat: 'Fills & Sweeps',
+    // Effect 37
+    effect_37_name: '37. Icon Velocity Loop',
+    effect_37_desc: 'The icon slides out to the right and seamlessly re-emerges from the left in a smooth loop.',
+    effect_37_cat: 'Slide & Motion',
+    // Effect 38
+    effect_38_name: '38. Venetian Strip Shutter',
+    effect_38_desc: 'Four solid horizontal slats expand in cascade to cleanly seal the button background.',
+    effect_38_cat: 'Fills & Sweeps',
+    // Effect 39
+    effect_39_name: '39. Cross-Glide Dynamics',
+    effect_39_desc: 'The text and icon glide apart in a smooth cross-translation with refined elevation.',
+    effect_39_cat: 'Slide & Motion',
+    // Effect 40
+    effect_40_name: '40. Diamond Iris Reveal',
+    effect_40_desc: 'A sharp geometric diamond expands from the center to cleanly fill the background.',
+    effect_40_cat: 'Fills & Sweeps',
   },
   fr: {
     page_meta_title: 'HoverLab — Galerie & Laboratoire d\'Effets de Survol Boutons CSS',
@@ -429,6 +469,46 @@ export const TRANSLATIONS = {
     effect_30_name: '30. Balayage Radar Conique',
     effect_30_desc: 'Faisceau radar conique rotatif à 360° avec révolution complète de l’icône.',
     effect_30_cat: 'Effets Spéciaux',
+    // Effect 31
+    effect_31_name: '31. Faisceau Orbital',
+    effect_31_desc: 'Un faisceau lumineux intense parcourt le contour du bouton en orbite continue avec halo.',
+    effect_31_cat: 'Bordures & Contours',
+    // Effect 32
+    effect_32_name: '32. Vague Liquide Montante',
+    effect_32_desc: 'Une onde liquide organique monte depuis le bas pour submerger le fond avec ondulation.',
+    effect_32_cat: 'Remplissages & Dégradés',
+    // Effect 33
+    effect_33_name: '33. Soulignement Minimal',
+    effect_33_desc: 'Une fine barre de soulignement solide glisse et s’étire avec précision sous le texte.',
+    effect_33_cat: 'Bordures & Contours',
+    // Effect 34
+    effect_34_name: '34. Aplat Angulaire Diagonal',
+    effect_34_desc: 'Un aplat monochrome solide se déploie depuis l’angle supérieur avec inversion contrastée.',
+    effect_34_cat: 'Remplissages & Dégradés',
+    // Effect 35
+    effect_35_name: '35. Cadre Décalé Brutaliste',
+    effect_35_desc: 'Le bouton s’élève et projette un cadre géométrique décalé en aplat monochrome net.',
+    effect_35_cat: 'Glissements & Mouvements',
+    // Effect 36
+    effect_36_name: '36. Expansion Médiane',
+    effect_36_desc: 'Une bande centrale solide s’ouvre verticalement depuis l’axe médian pour remplir le bouton.',
+    effect_36_cat: 'Remplissages & Dégradés',
+    // Effect 37
+    effect_37_name: '37. Glissement Boucle d’Icône',
+    effect_37_desc: 'L’icône glisse hors du cadre vers la droite et réapparaît depuis la gauche en boucle fluide.',
+    effect_37_cat: 'Glissements & Mouvements',
+    // Effect 38
+    effect_38_name: '38. Volets Vénitiens',
+    effect_38_desc: 'Quatre lamelles horizontales pleines s’ouvrent en cascade pour sceller le fond du bouton.',
+    effect_38_cat: 'Remplissages & Dégradés',
+    // Effect 39
+    effect_39_name: '39. Translation Croisée Dynamique',
+    effect_39_desc: 'Le texte et l’icône s’écartent en translation croisée fluide avec micro-élévation.',
+    effect_39_cat: 'Glissements & Mouvements',
+    // Effect 40
+    effect_40_name: '40. Révélation en Losange',
+    effect_40_desc: 'Un losange géométrique plein grandit depuis le centre pour sceller le fond en aplat pur.',
+    effect_40_cat: 'Remplissages & Dégradés',
   },
   es: {
     page_meta_title: 'HoverLab — Galería y Laboratorio de Efectos Hover CSS para Botones',
@@ -640,6 +720,46 @@ export const TRANSLATIONS = {
     effect_30_name: '30. Barrido Radar Cónico',
     effect_30_desc: 'Haz de radar cónico giratorio de 360° con revolución completa del icono.',
     effect_30_cat: 'Efectos Especiales',
+    // Effect 31
+    effect_31_name: '31. Haz Orbital',
+    effect_31_desc: 'Un haz de luz brillante recorre el perímetro en una órbita continua con halo.',
+    effect_31_cat: 'Bordes y Contornos',
+    // Effect 32
+    effect_32_name: '32. Ola Líquida Ascendente',
+    effect_32_desc: 'Una onda líquida orgánica asciende desde el fondo para sumergir el botón con fluidez.',
+    effect_32_cat: 'Rellenos y Barridos',
+    // Effect 33
+    effect_33_name: '33. Subrayado Mínimo',
+    effect_33_desc: 'Una barra sólida de subrayado se desliza con precisión debajo del texto.',
+    effect_33_cat: 'Bordes y Contornos',
+    // Effect 34
+    effect_34_name: '34. Relleno Angular Diagonal',
+    effect_34_desc: 'Un fondo monocromático sólido se despliega desde la esquina con inversión de color.',
+    effect_34_cat: 'Rellenos y Barridos',
+    // Effect 35
+    effect_35_name: '35. Marco Desplazado Brutalista',
+    effect_35_desc: 'El botón se eleva y proyecta un marco geométrico desplazado en color sólido y nítido.',
+    effect_35_cat: 'Deslizamiento y Movimiento',
+    // Effect 36
+    effect_36_name: '36. Expansión Mediana',
+    effect_36_desc: 'Una franja central sólida se expande verticalmente desde el eje para llenar el botón.',
+    effect_36_cat: 'Rellenos y Barridos',
+    // Effect 37
+    effect_37_name: '37. Bucle de Icono',
+    effect_37_desc: 'El icono se desliza hacia la derecha y reaparece desde la izquierda en un bucle continuo.',
+    effect_37_cat: 'Deslizamiento y Movimiento',
+    // Effect 38
+    effect_38_name: '38. Persianas Venecianas',
+    effect_38_desc: 'Cuatro lamas horizontales sólidas se despliegan en cascada para sellar el fondo.',
+    effect_38_cat: 'Rellenos y Barridos',
+    // Effect 39
+    effect_39_name: '39. Desplazamiento Cruzado Dinámico',
+    effect_39_desc: 'El texto y el icono se separan en un desplazamiento cruzado fluido con elevación.',
+    effect_39_cat: 'Deslizamiento y Movimiento',
+    // Effect 40
+    effect_40_name: '40. Revelación en Rombo',
+    effect_40_desc: 'Un rombo geométrico sólido se expande desde el centro para cubrir el fondo con nitidez.',
+    effect_40_cat: 'Rellenos y Barridos',
   },
   de: {
     page_meta_title: 'HoverLab — Interaktive CSS Button Hover-Effekte Galerie & Labor',
@@ -851,6 +971,46 @@ export const TRANSLATIONS = {
     effect_30_name: '30. Konischer Radar-Sweep',
     effect_30_desc: '360° rotierender Radarstrahl mit voller Icon-Umdrehung und Aura.',
     effect_30_cat: 'Spezialeffekte',
+    // Effect 31
+    effect_31_name: '31. Orbitaler Rahmenstrahl',
+    effect_31_desc: 'Ein leuchtender Lichtstrahl umkreist den Rand in einer kontinuierlichen Umlaufbahn.',
+    effect_31_cat: 'Rahmen & Konturen',
+    // Effect 32
+    effect_32_name: '32. Steigende Flüssigkeitswelle',
+    effect_32_desc: 'Eine organische Flüssigkeitswelle steigt von unten auf und überflutet den Hintergrund.',
+    effect_32_cat: 'Füllungen & Verläufe',
+    // Effect 33
+    effect_33_name: '33. Minimaler Unterstrich',
+    effect_33_desc: 'Ein präziser solider Unterstrich gleitet und spannt sich unter den Text.',
+    effect_33_cat: 'Rahmen & Konturen',
+    // Effect 34
+    effect_34_name: '34. Diagonale Eckfüllung',
+    effect_34_desc: 'Eine solide monochrome Füllung breitet sich aus der oberen Ecke mit Farbumkehr aus.',
+    effect_34_cat: 'Füllungen & Verläufe',
+    // Effect 35
+    effect_35_name: '35. Brutalistischer Versatzrahmen',
+    effect_35_desc: 'Der Button hebt sich ab und wirft einen versetzten geometrischen Rahmen in Vollfarbe.',
+    effect_35_cat: 'Gleiten & Bewegung',
+    // Effect 36
+    effect_36_name: '36. Mediane Achsenerweiterung',
+    effect_36_desc: 'Ein solides zentrales Band dehnt sich vertikal aus der Mittelachse aus und füllt den Button.',
+    effect_36_cat: 'Füllungen & Verläufe',
+    // Effect 37
+    effect_37_name: '37. Icon-Schleifen-Gleiten',
+    effect_37_desc: 'Das Icon gleitet nach rechts hinaus und taucht nahtlos von links in einer Schleife auf.',
+    effect_37_cat: 'Gleiten & Bewegung',
+    // Effect 38
+    effect_38_name: '38. Jalousie-Lamellen-Blende',
+    effect_38_desc: 'Vier solide horizontale Lamellen öffnen sich kaskadierend und füllen den Hintergrund.',
+    effect_38_cat: 'Füllungen & Verläufe',
+    // Effect 39
+    effect_39_name: '39. Dynamisches Kreuz-Gleiten',
+    effect_39_desc: 'Text und Icon gleiten in sanfter Kreuztranslation auseinander mit feiner Abhebung.',
+    effect_39_cat: 'Gleiten & Bewegung',
+    // Effect 40
+    effect_40_name: '40. Diamant-Iris-Entfaltung',
+    effect_40_desc: 'Ein geometrischer Diamant wächst aus der Mitte und füllt den Hintergrund in Vollfarbe.',
+    effect_40_cat: 'Füllungen & Verläufe',
   }
 };
 
