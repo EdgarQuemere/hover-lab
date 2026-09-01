@@ -16,7 +16,7 @@ src/
 │   └── effects/
 │       ├── effect-01-fill-sweep.css
 │       ├── effect-02-icon-push.css
-│       └── effect-XX-slug.css   # Un fichier CSS dédié par effet (actuellement 40 effets)
+│       └── effect-XX-slug.css   # Un fichier CSS dédié par effet (actuellement 44 effets)
 ├── components/
 │   ├── HoverCard.jsx            # Carte individuelle de la grille (rendu interactif, partage, deep-linking)
 │   ├── FocusSandbox.jsx         # Mode Studio Pro (preview isolée, réglages, éditeur CSS grand format, sauvegarde)
@@ -196,10 +196,11 @@ Chaque effet appartient rigoureusement à l'une de ces 4 catégories :
 
 | Catégorie FR | Catégorie EN | ID Système (`filterCategory`) | Total | Thématique & Mécanique |
 |---|---|---|---|---|
-| **Remplissages & Dégradés** | **Fills & Sweeps** | `fills` | 12 | Révélations losange, volets vénitiens, balayages pleins et expansions. |
-| **Bordures & Contours** | **Borders & Outlines** | `borders` | 8 | Tracés laser SVG 360°, soulignements nets, faisceaux orbitaux et pointillés. |
+| **Remplissages & Dégradés** | **Fills & Sweeps** | `fills` | 14 | Triangles doubles, lames obliques, révélations losange, volets vénitiens. |
+| **Bordures & Contours** | **Borders & Outlines** | `borders` | 10 | Tremblements de vague, cadres rétractables, tracés laser SVG, soulignements. |
 | **Glissements & Mouvements** | **Slide & Motion** | `motion` | 12 | Translations croisées, boucles d'icônes, cadres décalés, cascade 3D, rebonds. |
 | **Effets Spéciaux** | **Special FX & Particles** | `fx` | 8 | Halos respirants, tubes néon, glitchs cyber RGB, confetti et balayages radar. |
+
 
 > [!IMPORTANT]
 > ### Règle Fondamentale d'Unicité Absolue
@@ -245,6 +246,7 @@ Si un effet nécessite une structure HTML interne spécifique, celle-ci doit êt
 
 - [ ] **1. Créer / Valider le fichier CSS modulaire** : `src/styles/effects/effect-XX-slug.css`
   * Utiliser `var(--btn-color, #18181b)`, `var(--btn-bg, #ffffff)` et `var(--anim-speed, 0.35s)`.
+  * **Toute durée d'animation (`animation:`) et de transition (`transition:`) DOIT utiliser `var(--anim-speed, Xs)`** pour être pilotée par le slider du Mode Studio. Ne jamais coder une durée en dur (ex: `0.5s`) sans passer par la variable.
   * Dupliquer chaque règle `:hover` avec `.is-auto-hovered`.
   * Easing signature : `cubic-bezier(0.16, 1, 0.3, 1)`.
   * Absence de trous / artefacts aux 4 coins (règle de clipping respectée).

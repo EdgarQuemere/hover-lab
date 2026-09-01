@@ -250,13 +250,29 @@ export const TRANSLATIONS = {
     effect_38_desc: 'Four solid horizontal slats expand in cascade to cleanly seal the button background.',
     effect_38_cat: 'Fills & Sweeps',
     // Effect 39
-    effect_39_name: '39. Cross-Glide Dynamics',
-    effect_39_desc: 'The text and icon glide apart in a smooth cross-translation with refined elevation.',
+    effect_39_name: '39. Gentle Pendulum',
+    effect_39_desc: 'The button gently pivots like a suspended pendulum with a shifted shadow.',
     effect_39_cat: 'Slide & Motion',
     // Effect 40
     effect_40_name: '40. Diamond Iris Reveal',
     effect_40_desc: 'A sharp geometric diamond expands from the center to cleanly fill the background.',
     effect_40_cat: 'Fills & Sweeps',
+    // Effect 41
+    effect_41_name: '41. Diagonal Blade Sweep',
+    effect_41_desc: 'A sharp solid blade skewed at 25° sweeps across the button to cleanly fill the background.',
+    effect_41_cat: 'Fills & Sweeps',
+    // Effect 42
+    effect_42_name: '42. Dual Diagonal Triangles',
+    effect_42_desc: 'Two solid opposite triangles slide diagonally and merge to cleanly seal the background.',
+    effect_42_cat: 'Fills & Sweeps',
+    // Effect 43
+    effect_43_name: '43. Wave Tremor Outline',
+    effect_43_desc: 'The outline jitters and ripples in fluid organic wave tremors without rotation.',
+    effect_43_cat: 'Borders & Outlines',
+    // Effect 44
+    effect_44_name: '44. Segmented Magnetic Pulse',
+    effect_44_desc: 'Four border segments pulse outward independently in a magnetic breathing rhythm.',
+    effect_44_cat: 'Borders & Outlines',
   },
   fr: {
     page_meta_title: 'HoverLab — Galerie & Laboratoire d\'Effets de Survol Boutons CSS',
@@ -502,13 +518,29 @@ export const TRANSLATIONS = {
     effect_38_desc: 'Quatre lamelles horizontales pleines s’ouvrent en cascade pour sceller le fond du bouton.',
     effect_38_cat: 'Remplissages & Dégradés',
     // Effect 39
-    effect_39_name: '39. Translation Croisée Dynamique',
-    effect_39_desc: 'Le texte et l’icône s’écartent en translation croisée fluide avec micro-élévation.',
+    effect_39_name: '39. Pendule Doux',
+    effect_39_desc: 'Le bouton pivote doucement comme un pendule suspendu avec ombre projetée.',
     effect_39_cat: 'Glissements & Mouvements',
     // Effect 40
     effect_40_name: '40. Révélation en Losange',
     effect_40_desc: 'Un losange géométrique plein grandit depuis le centre pour sceller le fond en aplat pur.',
     effect_40_cat: 'Remplissages & Dégradés',
+    // Effect 41
+    effect_41_name: '41. Lame Oblique Diagonale',
+    effect_41_desc: 'Une lame oblique solide inclinée à 25° balaie le bouton pour sceller le fond en aplat net.',
+    effect_41_cat: 'Remplissages & Dégradés',
+    // Effect 42
+    effect_42_name: '42. Aplat Double Triangle Oblique',
+    effect_42_desc: 'Deux triangles solides opposés glissent en diagonale et fusionnent pour sceller le fond.',
+    effect_42_cat: 'Remplissages & Dégradés',
+    // Effect 43
+    effect_43_name: '43. Ondulation & Tremblement de Bordure',
+    effect_43_desc: 'Le contour frémit et ondule en vagues liquides organiques sans rotation.',
+    effect_43_cat: 'Bordures & Contours',
+    // Effect 44
+    effect_44_name: '44. Pouls Magnétique Segmenté',
+    effect_44_desc: 'Quatre segments de bordure pulsent vers l\'extérieur en respiration magnétique.',
+    effect_44_cat: 'Bordures & Contours',
   },
   es: {
     page_meta_title: 'HoverLab — Galería y Laboratorio de Efectos Hover CSS para Botones',
@@ -753,13 +785,29 @@ export const TRANSLATIONS = {
     effect_38_desc: 'Cuatro lamas horizontales sólidas se despliegan en cascada para sellar el fondo.',
     effect_38_cat: 'Rellenos y Barridos',
     // Effect 39
-    effect_39_name: '39. Desplazamiento Cruzado Dinámico',
-    effect_39_desc: 'El texto y el icono se separan en un desplazamiento cruzado fluido con elevación.',
+    effect_39_name: '39. Péndulo Suave',
+    effect_39_desc: 'El botón pivota suavemente como un péndulo suspendido con sombra proyectada.',
     effect_39_cat: 'Deslizamiento y Movimiento',
     // Effect 40
     effect_40_name: '40. Revelación en Rombo',
     effect_40_desc: 'Un rombo geométrico sólido se expande desde el centro para cubrir el fondo con nitidez.',
     effect_40_cat: 'Rellenos y Barridos',
+    // Effect 41
+    effect_41_name: '41. Cuchilla Oblicua Diagonal',
+    effect_41_desc: 'Una cuchilla oblicua sólida inclinada a 25° barre el botón para sellar el fondo con nitidez.',
+    effect_41_cat: 'Rellenos y Barridos',
+    // Effect 42
+    effect_42_name: '42. Triángulos Diagonales Dobles',
+    effect_42_desc: 'Dos triángulos sólidos opuestos se deslizan en diagonal y se unen para sellar el fondo.',
+    effect_42_cat: 'Rellenos y Barridos',
+    // Effect 43
+    effect_43_name: '43. Ondulación y Temblor de Borde',
+    effect_43_desc: 'El contorno tiembla y ondea en olas líquidas orgánicas sin rotación.',
+    effect_43_cat: 'Bordes y Contornos',
+    // Effect 44
+    effect_44_name: '44. Pulso Magnético Segmentado',
+    effect_44_desc: 'Cuatro segmentos del borde pulsan hacia afuera en un ritmo de respiración magnética.',
+    effect_44_cat: 'Bordes y Contornos',
   },
   de: {
     page_meta_title: 'HoverLab — Interaktive CSS Button Hover-Effekte Galerie & Labor',
@@ -1004,13 +1052,29 @@ export const TRANSLATIONS = {
     effect_38_desc: 'Vier solide horizontale Lamellen öffnen sich kaskadierend und füllen den Hintergrund.',
     effect_38_cat: 'Füllungen & Verläufe',
     // Effect 39
-    effect_39_name: '39. Dynamisches Kreuz-Gleiten',
-    effect_39_desc: 'Text und Icon gleiten in sanfter Kreuztranslation auseinander mit feiner Abhebung.',
+    effect_39_name: '39. Sanftes Pendel',
+    effect_39_desc: 'Der Button schwingt sanft wie ein aufgehängtes Pendel mit versetztem Schatten.',
     effect_39_cat: 'Gleiten & Bewegung',
     // Effect 40
     effect_40_name: '40. Diamant-Iris-Entfaltung',
     effect_40_desc: 'Ein geometrischer Diamant wächst aus der Mitte und füllt den Hintergrund in Vollfarbe.',
     effect_40_cat: 'Füllungen & Verläufe',
+    // Effect 41
+    effect_41_name: '41. Diagonale Schrägklinge',
+    effect_41_desc: 'Eine solide schräge Klinge mit 25°-Neigung fegt über den Button und füllt den Hintergrund.',
+    effect_41_cat: 'Füllungen & Verläufe',
+    // Effect 42
+    effect_42_name: '42. Diagonale Doppeldreiecke',
+    effect_42_desc: 'Zwei solide gegenüberliegende Dreiecke gleiten diagonal und verschmelzen im Hintergrund.',
+    effect_42_cat: 'Füllungen & Verläufe',
+    // Effect 43
+    effect_43_name: '43. Wellen-Zittern der Kontur',
+    effect_43_desc: 'Die Kontur zittert und wogt in organischen Flüssigwellen ohne Rotation.',
+    effect_43_cat: 'Rahmen & Konturen',
+    // Effect 44
+    effect_44_name: '44. Segmentierter Magnetpuls',
+    effect_44_desc: 'Vier Rahmensegmente pulsieren nach außen in einem magnetischen Atemrhythmus.',
+    effect_44_cat: 'Rahmen & Konturen',
   }
 };
 

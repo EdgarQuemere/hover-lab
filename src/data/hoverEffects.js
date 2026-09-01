@@ -2049,52 +2049,36 @@ export const HOVER_EFFECTS = [
   },
   {
     id: 39,
-    name: '39. Translation Croisée Dynamique',
+    name: '39. Pendule Doux',
     category: 'Glissements & Mouvements',
     className: 'btn-hover-cross-glide',
-    description: 'Le texte et l’icône s’écartent en translation croisée fluide avec micro-élévation.',
+    description: 'Le bouton pivote doucement comme un pendule suspendu avec ombre projetée.',
     cssCode: `.btn-hover-cross-glide {
   position: relative;
-  transition: transform var(--anim-speed, 0.25s) cubic-bezier(0.16, 1, 0.3, 1),
-              background-color var(--anim-speed, 0.25s) ease,
-              box-shadow var(--anim-speed, 0.25s) ease;
-}
-
-.btn-hover-cross-glide span {
-  display: inline-block;
-  transition: transform var(--anim-speed, 0.25s) cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.btn-hover-cross-glide .btn-icon {
-  transition: transform var(--anim-speed, 0.28s) cubic-bezier(0.34, 1.56, 0.64, 1);
+  transform-origin: center top;
+  transition: transform var(--anim-speed, 0.4s) cubic-bezier(0.34, 1.56, 0.64, 1),
+              box-shadow var(--anim-speed, 0.4s) ease,
+              background-color var(--anim-speed, 0.3s) ease;
 }
 
 .btn-hover-cross-glide:hover,
 .btn-hover-cross-glide.is-auto-hovered {
-  transform: translateY(-2.5px);
-  background-color: #18181b0d;
-  box-shadow: 0 8px 24px -4px #0000001f;
-}
-
-.btn-hover-cross-glide:hover span,
-.btn-hover-cross-glide.is-auto-hovered span {
-  transform: translateX(-4px);
-}
-
-.btn-hover-cross-glide:hover .btn-icon,
-.btn-hover-cross-glide.is-auto-hovered .btn-icon,
-.btn-hover-cross-glide:hover .btn-icon-right,
-.btn-hover-cross-glide.is-auto-hovered .btn-icon-right {
-  transform: translateX(6px) scale(1.12);
-}
-
-.btn-hover-cross-glide:hover .btn-icon-left,
-.btn-hover-cross-glide.is-auto-hovered .btn-icon-left {
-  transform: translateX(-6px) scale(1.12);
+  transform: rotate(-3deg) translateY(-2px);
+  background-color: #18181b08;
+  box-shadow: 4px 6px 20px -4px #00000020;
 }
 
 .btn-hover-cross-glide:active {
-  transform: translateY(0);
+  transform: rotate(0deg) translateY(0);
+}
+
+.btn-hover-cross-glide .btn-icon {
+  transition: transform var(--anim-speed, 0.4s) cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.btn-hover-cross-glide:hover .btn-icon,
+.btn-hover-cross-glide.is-auto-hovered .btn-icon {
+  transform: translateX(4px) rotate(3deg);
 }`
   },
   {
@@ -2149,6 +2133,378 @@ export const HOVER_EFFECTS = [
 .btn-hover-diamond-reveal.is-auto-hovered .btn-icon {
   transform: scale(1.15);
 }`
+  },
+  {
+    id: 41,
+    name: '41. Lame Oblique Diagonale',
+    category: 'Remplissages & Dégradés',
+    className: 'btn-hover-blade-sweep',
+    description: 'Une lame oblique solide inclinée à 25° balaie le bouton pour sceller le fond en aplat net.',
+    cssCode: `.btn-hover-blade-sweep {
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+  transition: transform var(--anim-speed, 0.45s) cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow var(--anim-speed, 0.45s) ease,
+              color var(--anim-speed, 0.35s) ease,
+              border-color var(--anim-speed, 0.35s) ease;
+}
+
+.btn-hover-blade-sweep::before {
+  content: '';
+  position: absolute;
+  top: -20%;
+  left: -40%;
+  width: 180%;
+  height: 140%;
+  background-color: var(--btn-color, #18181b);
+  transform: skewX(-25deg) translateX(-105%);
+  transition: transform var(--anim-speed, 0.65s) cubic-bezier(0.16, 1, 0.3, 1);
+  z-index: -1;
+}
+
+.btn-hover-blade-sweep:hover::before,
+.btn-hover-blade-sweep.is-auto-hovered::before {
+  transform: skewX(-25deg) translateX(0);
+}
+
+.btn-hover-blade-sweep:hover,
+.btn-hover-blade-sweep.is-auto-hovered {
+  color: var(--btn-bg, #ffffff) !important;
+  border-color: var(--btn-color, #18181b) !important;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px -4px #00000024;
+}
+
+.btn-hover-blade-sweep:active {
+  transform: translateY(0);
+}
+
+.btn-hover-blade-sweep .btn-icon {
+  transition: transform var(--anim-speed, 0.45s) cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.btn-hover-blade-sweep:hover .btn-icon,
+.btn-hover-blade-sweep.is-auto-hovered .btn-icon {
+  transform: translateX(4px) scale(1.12);
+}`
+  },
+  {
+    id: 42,
+    name: '42. Aplat Double Triangle Oblique',
+    category: 'Remplissages & Dégradés',
+    className: 'btn-hover-dual-triangles',
+    description: 'Deux triangles solides opposés glissent en diagonale et fusionnent pour sceller le fond.',
+    cssCode: `.btn-hover-dual-triangles {
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+  transition: transform var(--anim-speed, 0.28s) cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow var(--anim-speed, 0.28s) ease,
+              color var(--anim-speed, 0.25s) ease,
+              border-color var(--anim-speed, 0.25s) ease;
+}
+
+.btn-hover-dual-triangles::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  background-color: var(--btn-color, #18181b);
+  clip-path: polygon(0 0, 100% 0, 0 100%);
+  transform: translate(-102%, -102%);
+  transition: transform var(--anim-speed, 0.32s) cubic-bezier(0.16, 1, 0.3, 1);
+  z-index: -1;
+}
+
+.btn-hover-dual-triangles::after {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  background-color: var(--btn-color, #18181b);
+  clip-path: polygon(100% 100%, 0 100%, 100% 0);
+  transform: translate(102%, 102%);
+  transition: transform var(--anim-speed, 0.32s) cubic-bezier(0.16, 1, 0.3, 1);
+  z-index: -1;
+}
+
+.btn-hover-dual-triangles:hover::before,
+.btn-hover-dual-triangles.is-auto-hovered::before,
+.btn-hover-dual-triangles:hover::after,
+.btn-hover-dual-triangles.is-auto-hovered::after {
+  transform: translate(0, 0);
+}
+
+.btn-hover-dual-triangles:hover,
+.btn-hover-dual-triangles.is-auto-hovered {
+  color: var(--btn-bg, #ffffff) !important;
+  border-color: var(--btn-color, #18181b) !important;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px -4px #00000024;
+}
+
+.btn-hover-dual-triangles:active {
+  transform: translateY(0);
+}
+
+.btn-hover-dual-triangles .btn-icon {
+  transition: transform var(--anim-speed, 0.28s) cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.btn-hover-dual-triangles:hover .btn-icon,
+.btn-hover-dual-triangles.is-auto-hovered .btn-icon {
+  transform: scale(1.15);
+}`
+  },
+  {
+    id: 43,
+    name: '43. Ondulation & Tremblement de Bordure',
+    category: 'Bordures & Contours',
+    className: 'btn-hover-wave-morph',
+    description: 'Le contour frémit et ondule en vagues liquides organiques sans rotation.',
+    cssCode: `@keyframes outlineTremorMorph {
+  0% {
+    border-radius: inherit;
+    transform: translate(0, 0);
+  }
+  6% {
+    border-radius: 14px 8px 18px 10px / 10px 18px 8px 14px;
+    transform: translate(-1px, 0.5px);
+  }
+  12% {
+    border-radius: 10px 16px 8px 18px / 18px 8px 16px 10px;
+    transform: translate(1.5px, -1px);
+  }
+  18% {
+    border-radius: 18px 10px 14px 8px / 8px 14px 10px 18px;
+    transform: translate(-0.5px, -1.5px);
+  }
+  25% {
+    border-radius: 8px 18px 10px 16px / 16px 10px 18px 8px;
+    transform: translate(1px, 1px);
+  }
+  31% {
+    border-radius: 16px 8px 14px 12px / 12px 16px 8px 14px;
+    transform: translate(-1.5px, 0.5px);
+  }
+  37% {
+    border-radius: 10px 14px 18px 8px / 8px 18px 14px 10px;
+    transform: translate(0.5px, -1px);
+  }
+  44% {
+    border-radius: 18px 10px 8px 16px / 16px 8px 10px 18px;
+    transform: translate(-1px, 1.5px);
+  }
+  50% {
+    border-radius: 8px 16px 14px 10px / 10px 14px 16px 8px;
+    transform: translate(1.5px, -0.5px);
+  }
+  56% {
+    border-radius: 14px 8px 10px 18px / 18px 10px 8px 14px;
+    transform: translate(-0.5px, 1px);
+  }
+  62% {
+    border-radius: 10px 18px 16px 8px / 8px 16px 18px 10px;
+    transform: translate(1px, -1.5px);
+  }
+  69% {
+    border-radius: 18px 12px 8px 14px / 14px 8px 12px 18px;
+    transform: translate(-1.5px, -0.5px);
+  }
+  75% {
+    border-radius: 8px 14px 18px 10px / 10px 18px 14px 8px;
+    transform: translate(0.5px, 1.5px);
+  }
+  81% {
+    border-radius: 16px 8px 10px 18px / 18px 10px 8px 16px;
+    transform: translate(-1px, -1px);
+  }
+  87% {
+    border-radius: 10px 18px 14px 8px / 8px 14px 18px 10px;
+    transform: translate(1.5px, 0.5px);
+  }
+  94% {
+    border-radius: 14px 10px 18px 12px / 12px 18px 10px 14px;
+    transform: translate(-0.5px, -0.5px);
+  }
+  100% {
+    border-radius: inherit;
+    transform: translate(0, 0);
+  }
+}
+
+.btn-hover-wave-morph {
+  position: relative;
+  transition: transform var(--anim-speed, 0.28s) cubic-bezier(0.16, 1, 0.3, 1),
+              background-color var(--anim-speed, 0.25s) ease,
+              border-color var(--anim-speed, 0.25s) ease,
+              box-shadow var(--anim-speed, 0.28s) ease;
+}
+
+.btn-hover-wave-morph::before {
+  content: '';
+  position: absolute;
+  inset: -4px;
+  border: 1.5px solid var(--btn-color, #18181b);
+  border-radius: inherit;
+  opacity: 0;
+  pointer-events: none;
+  z-index: -1;
+  transition: opacity var(--anim-speed, 0.2s) ease;
+}
+
+.btn-hover-wave-morph:hover::before,
+.btn-hover-wave-morph.is-auto-hovered::before {
+  opacity: 0.9;
+  animation: outlineTremorMorph var(--anim-speed, 0.55s) infinite linear;
+}
+
+.btn-hover-wave-morph:hover,
+.btn-hover-wave-morph.is-auto-hovered {
+  transform: translateY(-2px);
+  border-color: transparent;
+  background-color: #18181b0a;
+  box-shadow: 0 8px 24px -4px #0000001f;
+}
+
+.btn-hover-wave-morph:active {
+  transform: translateY(0);
+}
+
+.btn-hover-wave-morph .btn-icon {
+  transition: transform var(--anim-speed, 0.28s) cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.btn-hover-wave-morph:hover .btn-icon,
+.btn-hover-wave-morph.is-auto-hovered .btn-icon {
+  transform: translateX(4px) scale(1.12);
+}`
+  }
+,
+  {
+    id: 44,
+    name: '44. Pouls Magnétique Segmenté',
+    category: 'Bordures & Contours',
+    className: 'btn-hover-snap-frame',
+    description: 'Quatre segments de bordure pulsent vers l\u0027extérieur en respiration magnétique.',
+    cssCode: `@keyframes segmentPulseTop {
+  0%, 100% {
+    transform: translateY(0) scaleX(1);
+  }
+  50% {
+    transform: translateY(-4px) scaleX(1.06);
+  }
+}
+
+@keyframes segmentPulseRight {
+  0%, 100% {
+    transform: translateX(0) scaleY(1);
+  }
+  50% {
+    transform: translateX(4px) scaleY(1.06);
+  }
+}
+
+@keyframes segmentPulseBottom {
+  0%, 100% {
+    transform: translateY(0) scaleX(1);
+  }
+  50% {
+    transform: translateY(4px) scaleX(1.06);
+  }
+}
+
+@keyframes segmentPulseLeft {
+  0%, 100% {
+    transform: translateX(0) scaleY(1);
+  }
+  50% {
+    transform: translateX(-4px) scaleY(1.06);
+  }
+}
+
+.btn-hover-snap-frame {
+  position: relative;
+  transition: transform var(--anim-speed, 0.28s) cubic-bezier(0.16, 1, 0.3, 1),
+              background-color var(--anim-speed, 0.25s) ease,
+              box-shadow var(--anim-speed, 0.28s) ease;
+}
+
+/* Top segment */
+.btn-hover-snap-frame::before {
+  content: '';
+  position: absolute;
+  top: -4px;
+  left: 15%;
+  right: 15%;
+  height: 1.5px;
+  background-color: var(--btn-color, #18181b);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--anim-speed, 0.2s) ease;
+}
+
+/* Bottom segment */
+.btn-hover-snap-frame::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 15%;
+  right: 15%;
+  height: 1.5px;
+  background-color: var(--btn-color, #18181b);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--anim-speed, 0.2s) ease;
+}
+
+.btn-hover-snap-frame:hover::before,
+.btn-hover-snap-frame.is-auto-hovered::before {
+  opacity: 1;
+  animation: segmentPulseTop var(--anim-speed, 0.8s) cubic-bezier(0.16, 1, 0.3, 1) infinite;
+}
+
+.btn-hover-snap-frame:hover::after,
+.btn-hover-snap-frame.is-auto-hovered::after {
+  opacity: 1;
+  animation: segmentPulseBottom var(--anim-speed, 0.8s) cubic-bezier(0.16, 1, 0.3, 1) infinite;
+  animation-delay: 0.1s;
+}
+
+.btn-hover-snap-frame:hover,
+.btn-hover-snap-frame.is-auto-hovered {
+  transform: translateY(-2px);
+  background-color: #18181b0a;
+  box-shadow: 0 8px 24px -4px #0000001f,
+              4px 0 0 0 var(--btn-color, #18181b),
+              -4px 0 0 0 var(--btn-color, #18181b);
+  animation: segmentSidePulse var(--anim-speed, 0.8s) cubic-bezier(0.16, 1, 0.3, 1) infinite;
+}
+
+@keyframes segmentSidePulse {
+  0%, 100% {
+    box-shadow: 0 8px 24px -4px #0000001f,
+                4px 0 0 0 var(--btn-color, #18181b),
+                -4px 0 0 0 var(--btn-color, #18181b);
+  }
+  50% {
+    box-shadow: 0 8px 24px -4px #0000001f,
+                8px 0 0 0 var(--btn-color, #18181b),
+                -8px 0 0 0 var(--btn-color, #18181b);
+  }
+}
+
+.btn-hover-snap-frame:active {
+  transform: translateY(0);
+}
+
+.btn-hover-snap-frame .btn-icon {
+  transition: transform var(--anim-speed, 0.28s) cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.btn-hover-snap-frame:hover .btn-icon,
+.btn-hover-snap-frame.is-auto-hovered .btn-icon {
+  transform: translateX(4px) scale(1.12);
+}`
   }
 ];
 
@@ -2193,4 +2549,14 @@ export const EFFECT_CATEGORY_MAP = {
   38: 'fills',
   39: 'motion',
   40: 'fills',
+  41: 'fills',
+  42: 'fills',
+  43: 'borders',
+  44: 'borders',
 };
+
+
+
+
+
+
