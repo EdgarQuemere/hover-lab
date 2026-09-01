@@ -5,7 +5,7 @@ import ControlsBar from './components/ControlsBar';
 import HoverCard from './components/HoverCard';
 import CodeModal from './components/CodeModal';
 import FocusSandbox from './components/FocusSandbox';
-import { HOVER_EFFECTS } from './data/hoverEffects';
+import { HOVER_EFFECTS, EFFECT_CATEGORY_MAP } from './data/hoverEffects';
 import { getTranslation, getTranslatedEffect } from './data/translations';
 import './styles/hovers.css';
 import './App.css';
@@ -24,39 +24,6 @@ const DEFAULT_CONFIG = {
   filterCategory: 'all',
   buttonColor: '#e6332a',
   cardBgColor: '#eeeeee',
-};
-
-const EFFECT_CATEGORY_MAP = {
-  1: 'fills',
-  2: 'motion',
-  3: 'fx',
-  4: 'motion',
-  5: 'borders',
-  6: 'fx',
-  7: 'fills',
-  8: 'motion',
-  9: 'motion',
-  10: 'fills',
-  11: 'motion',
-  12: 'fx',
-  13: 'borders',
-  14: 'borders',
-  15: 'borders',
-  16: 'borders',
-  17: 'borders',
-  18: 'fx',
-  19: 'motion',
-  20: 'fills',
-  21: 'motion',
-  22: 'fx',
-  23: 'fx',
-  24: 'fills',
-  25: 'fx',
-  26: 'motion',
-  27: 'fills',
-  28: 'motion',
-  29: 'fills',
-  30: 'fx',
 };
 
 export default function App() {

@@ -249,9 +249,12 @@ Si un effet nécessite une structure HTML interne spécifique, celle-ci doit êt
   * Easing signature : `cubic-bezier(0.16, 1, 0.3, 1)`.
   * Absence de trous / artefacts aux 4 coins (règle de clipping respectée).
 - [ ] **2. Importer dans l'agrégateur** : `@import './effects/effect-XX-slug.css';` dans `src/styles/hovers.css`.
-- [ ] **3. Déclarer dans le catalogue** : Synchroniser `src/data/hoverEffects.js`.
-- [ ] **4. Valider l'export Plug & Play** : Vérifier que le snippet HTML et le CSS autonome générés dans `exportUtils.js` fonctionnent sans dépendance externe.
-- [ ] **5. Vérifier le build** : Exécuter `npm run build` pour valider l'absence d'erreurs.
+- [ ] **3. Déclarer dans le catalogue & attribuer aux filtres** : 
+  * Inscrire l'effet dans `HOVER_EFFECTS` (`src/data/hoverEffects.js`).
+  * **Attribuer obligatoirement l'effet à sa catégorie dans `EFFECT_CATEGORY_MAP`** (`fills`, `borders`, `motion` ou `fx` dans `src/data/hoverEffects.js`).
+- [ ] **4. Synchroniser les traductions** : Renseigner le nom, la description (70-110 caractères max) et la catégorie dans les 4 langues (`EN`, `FR`, `ES`, `DE`) dans `src/data/translations.js`.
+- [ ] **5. Valider l'export Plug & Play** : Vérifier que le snippet HTML et le CSS autonome générés dans `exportUtils.js` fonctionnent sans dépendance externe.
+- [ ] **6. Vérifier le build** : Exécuter `npm run build` pour valider l'absence d'erreurs.
 
 ---
 
@@ -267,6 +270,7 @@ Si un effet nécessite une structure HTML interne spécifique, celle-ci doit êt
 
 | ❌ Erreur | ✅ Bon réflexe |
 |---|---|
+| Oublier d'attribuer un effet au filtre de catégorie | Toujours enregistrer l'ID dans `EFFECT_CATEGORY_MAP` (`hoverEffects.js`) |
 | Écrire une couleur hex en dur dans le CSS de base | Toujours utiliser `var(--btn-color, #18181b)` avec fallback |
 | Oublier `.is-auto-hovered` | Toujours lier `:hover` et `.is-auto-hovered` |
 | `border-radius: inherit` à l'intérieur d'un bouton `overflow: hidden` | Utiliser `inset: -1px` sans rayon sur le pseudo-élément pour éviter les trous aux 4 coins |
@@ -274,6 +278,7 @@ Si un effet nécessite une structure HTML interne spécifique, celle-ci doit êt
 | Exporter du CSS incomplet sans le bouton de base | Fournir le code HTML + CSS complet et autonome prêt à l'emploi |
 | Oublier les traductions dans les 4 langues | Toujours renseigner FR, EN, ES, DE dans `translations.js` |
 | Rédiger une description de plus de 2 lignes | Limiter à 70-110 caractères max (2 lignes max) pour un affichage épuré |
+| Compteurs de filtres désynchronisés | Utiliser le calcul dynamique `categoryCounts` basé sur `EFFECT_CATEGORY_MAP` |
 | Markup custom présent dans `HoverCard` mais pas dans `FocusSandbox` ou l'export | Toujours garder les composants et le générateur de code synchronisés |
 
 ---

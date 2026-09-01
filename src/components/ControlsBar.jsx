@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import CustomColorPicker from './CustomColorPicker';
 import CustomIconPicker from './CustomIconPicker';
 import CustomCategoryPicker from './CustomCategoryPicker';
+import { HOVER_EFFECTS, EFFECT_CATEGORY_MAP } from '../data/hoverEffects';
 import {
   TextT,
   CirclesThreePlus,
@@ -109,12 +110,20 @@ export default function ControlsBar({
     { id: 'Cursor', label: tr('icon_cursor'), Icon: Cursor },
   ];
 
+  const categoryCounts = useMemo(() => {
+    const counts = { all: HOVER_EFFECTS.length, fills: 0, borders: 0, motion: 0, fx: 0 };
+    Object.values(EFFECT_CATEGORY_MAP).forEach((cat) => {
+      if (counts[cat] !== undefined) counts[cat]++;
+    });
+    return counts;
+  }, []);
+
   const translatedCategories = [
-    { id: 'all', label: tr('cat_all'), count: 30, Icon: SquaresFour },
-    { id: 'fills', label: tr('cat_fills'), count: 7, Icon: Palette },
-    { id: 'borders', label: tr('cat_borders'), count: 6, Icon: BoundingBox },
-    { id: 'motion', label: tr('cat_motion'), count: 9, Icon: NavigationArrow },
-    { id: 'fx', label: tr('cat_fx'), count: 8, Icon: Sparkle },
+    { id: 'all', label: tr('cat_all'), count: categoryCounts.all, Icon: SquaresFour },
+    { id: 'fills', label: tr('cat_fills'), count: categoryCounts.fills, Icon: Palette },
+    { id: 'borders', label: tr('cat_borders'), count: categoryCounts.borders, Icon: BoundingBox },
+    { id: 'motion', label: tr('cat_motion'), count: categoryCounts.motion, Icon: NavigationArrow },
+    { id: 'fx', label: tr('cat_fx'), count: categoryCounts.fx, Icon: Sparkle },
   ];
 
   return (
