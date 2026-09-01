@@ -60,11 +60,12 @@ export default function App() {
     setLang(newLang);
   };
 
-  // Measure dynamic dimensions for header and controls bar
+  // Measure dynamic dimensions for header and controls bar with high subpixel accuracy
   useEffect(() => {
     const updateDimensions = () => {
       if (headerRef.current) {
-        setHeaderHeight(headerRef.current.offsetHeight);
+        const rect = headerRef.current.getBoundingClientRect();
+        setHeaderHeight(Math.round(rect.height));
       }
       if (controlsBarAnchorRef.current) {
         const height = controlsBarAnchorRef.current.offsetHeight;
@@ -74,8 +75,18 @@ export default function App() {
       }
     };
     updateDimensions();
+
+    let observer;
+    if (window.ResizeObserver && headerRef.current) {
+      observer = new ResizeObserver(updateDimensions);
+      observer.observe(headerRef.current);
+    }
+
     window.addEventListener('resize', updateDimensions);
-    return () => window.removeEventListener('resize', updateDimensions);
+    return () => {
+      if (observer) observer.disconnect();
+      window.removeEventListener('resize', updateDimensions);
+    };
   }, []);
 
   // Smart scroll detection: slide ControlsBar in under Header when scrolling UP past the fold (Desktop & Tablet only)
@@ -314,7 +325,7 @@ export default function App() {
           isFloating={isStickyFloating}
           isFloatingVisible={isStickyVisible}
           isFloatingAnimating={isFloatingAnimating}
-          style={isStickyFloating ? { top: `${headerHeight}px` } : undefined}
+          style={isStickyFloating ? { top: `${Math.max(0, headerHeight - 1)}px` } : undefined}
         />
       </div>
 

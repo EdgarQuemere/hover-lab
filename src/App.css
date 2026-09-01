@@ -221,15 +221,13 @@
 /* Floating ControlsBar (instantly hidden offscreen with ZERO transition when entering floating mode) */
 .controls-bar.is-floating {
   position: fixed;
-  top: 75px;
+  top: 74px;
   left: 0;
   right: 0;
   width: 100%;
   z-index: 45;
   padding: 12px 32px;
   background-color: var(--bg-panel);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
   border-bottom: 1px solid var(--border-subtle);
   box-shadow: 0 16px 32px -4px rgba(0, 0, 0, 0.14), 0 2px 6px rgba(0, 0, 0, 0.04);
   transform: translateY(-120%);
@@ -259,12 +257,12 @@
 }
 
 .theme-dark .controls-bar.is-floating {
-  background-color: rgba(20, 20, 23, 0.92);
+  background-color: #141417;
   box-shadow: 0 16px 32px -4px rgba(0, 0, 0, 0.5), 0 2px 6px rgba(0, 0, 0, 0.3);
 }
 
 .theme-light .controls-bar.is-floating {
-  background-color: rgba(250, 249, 245, 0.92);
+  background-color: #FAF9F5;
 }
 
 .controls-group {
